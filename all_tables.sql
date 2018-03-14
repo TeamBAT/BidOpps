@@ -1,10 +1,10 @@
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `bidopps_db` DEFAULT CHARACTER SET utf8 ;
+USE `bidopps_db` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`users`
+-- Table `bidopps_db`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`users` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(255) NOT NULL,
   `password` VARCHAR(32) NOT NULL,
@@ -15,38 +15,36 @@ CREATE TABLE IF NOT EXISTS `mydb`.`users` (
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`bidders`
+-- Table `bidopps_db`.`bidders`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`bidders` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`bidders` (
   `user_id` INT NOT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `user_id`
+  CONSTRAINT `bidder_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`id`)
+    REFERENCES `bidopps_db`.`users` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`administrators`
+-- Table `bidopps_db`.`administrators`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`administrators` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`administrators` (
   `user_id` INT NOT NULL,
   `permissions` ENUM('Admin', 'Author', 'Reviewer', 'Approver', 'Screener', 'Evaluator', 'Finalizer') NOT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `user_id`
+  CONSTRAINT `admin_id`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mydb`.`users` (`id`)
+    REFERENCES `bidopps_db`.`users` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`opportunities`
+-- Table `bidopps_db`.`opportunities`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`opportunities` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `id` INT NOT NULL,
   `final_filing_date` DATETIME NOT NULL,
   `type` VARCHAR(45) NOT NULL,
@@ -55,20 +53,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`opportunities` (
   `description` TEXT NOT NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
+  `validated` INT DEFAULT 0,
+  `approved` INT DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
-  CONSTRAINT `admin_id`
+  CONSTRAINT `created_by`
     FOREIGN KEY (`created_by`)
-    REFERENCES `mydb`.`administrators` (`user_id`)
+    REFERENCES `bidopps_db`.`administrators` (`user_id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`opportunity_docs`
+-- Table `bidopps_db`.`opportunity_docs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`opportunity_docs` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
@@ -79,32 +78,30 @@ CREATE TABLE IF NOT EXISTS `mydb`.`opportunity_docs` (
   INDEX `opportunity_id_idx` (`opportunity_id` ASC),
   CONSTRAINT `opportunity_id`
     FOREIGN KEY (`opportunity_id`)
-    REFERENCES `mydb`.`opportunities` (`id`)
+    REFERENCES `bidopps_db`.`opportunities` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`submissions`
+-- Table `bidopps_db`.`submissions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`submissions` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `bidder_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `bidder_id_idx` (`bidder_id` ASC),
-  CONSTRAINT `bidder_id`
+  CONSTRAINT `bidder_submission`
     FOREIGN KEY (`bidder_id`)
-    REFERENCES `mydb`.`bidders` (`user_id`)
+    REFERENCES `bidopps_db`.`bidders` (`user_id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`submission_docs`
+-- Table `bidopps_db`.`submission_docs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`submission_docs` (
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
@@ -115,12 +112,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`submission_docs` (
   INDEX `submission_id_idx` (`submission_id` ASC),
   CONSTRAINT `submission_id`
     FOREIGN KEY (`submission_id`)
-    REFERENCES `mydb`.`submissions` (`id`)
+    REFERENCES `bidopps_db`.`submissions` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+    ON UPDATE CASCADE);
