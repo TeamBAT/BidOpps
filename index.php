@@ -89,15 +89,15 @@ include_once 'connect.php';
                 
                <div class="col-12 loginButton" style="display: none" id="showLogin">
                 
-               <form>
+               <form action="action.php" method="post">
                  
 				   <div class="form-group">
 						<label for="usernameLogin">USERNAME</label>
-						<input type="text" class="form-control" id="usernameLogin" placeholder="Username">
+						<input type="text" name="username" class="form-control" id="usernameLogin" placeholder="Username">
 					</div>
 					<div class="form-group">
 						<label for="passwordLogin">PASSWORD</label>
-						<input type="password" class="form-control" id="passwordLogin" placeholder="Password">
+						<input type="password" name="password" class="form-control" id="passwordLogin" placeholder="Password">
 					</div>
 						
 					<button type="submit" class="btn btn-primary" href="#"> SUBMIT </button>
