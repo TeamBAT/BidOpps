@@ -41,7 +41,7 @@
        <h2>Solicitation</h2>
        </div>
        <div class="col pt-2" > 
-       <button type="button" class="btn btn-success float-right" >Add Solicitation</button>
+       <a href="propose.php" class="btn btn-success float-right" >Add Solicitation</a>
        </div>
       </div>
     </div>

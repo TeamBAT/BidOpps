@@ -18,21 +18,21 @@
 <script src="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/src/js/bootstrap-datetimepicker.js"></script>
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-
 <link href="http://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/a549aa8780dbda16f6cff545aeabc3d71073911e/build/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
     
   </head>
 
   <body style="background: #8a8a5c">
-
+  <?php   session_start(); ?>
     <nav class="navbar navbar-dark bg-primary fixed-top">
-      <h3 style="color:#ffff">Bid Opportunities Admin</h3>
-      <h4>Create Opportunity</h4>
+	
+	     <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+     
     </nav>
 
     <main role="main" class="container">
 
-    <div class="container">
+    
     <form class="needs-validation" action="action/submitOpportunity.php" method="POST">
         <div class='col-sm-6'>
 			<div class="form-group">
@@ -87,7 +87,7 @@
 		</div>
         
     </form>
-	</div>
+	
     
     </main><!-- /.container -->
 
