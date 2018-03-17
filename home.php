@@ -19,7 +19,7 @@
 
   <body style="background: #8a8a5c">
        <?php   session_start();    ?>
-      <nav class="navbar navbar-dark bg-primary fixed-top">
+        <nav class="navbar navbar-dark bg-primary fixed-top">
          <h3 class="navbar-brand">Bid Opportunities Admin</h3>
          <div class="dropdown pr-5">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -30,7 +30,7 @@
              <li><a href="action/adminLogout.php">Logout</a></li>
              </ul>
           </div>  
-       </nav>
+        </nav>
 
     <main role="main" class="container">
 

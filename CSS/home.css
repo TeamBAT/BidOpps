@@ -6,3 +6,6 @@ body {
     text-align: center;
     background:#ffff;
   }
+  .input-group-btn:not(:first-child):not(:last-child) > .btn {
+    border-radius: 0;
+  }
