@@ -8,11 +8,17 @@
 	<title>Solicitation</title>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="JS/bootstrap-datetimepicker.js"></script>
-    <link href="CSS/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/js/froala_editor.min.js'></script>
+	<script src="JS/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
 	<link href="CSS/bootstrap.min.css" rel="stylesheet">
+	<link href="CSS/bootstrap-datetimepicker.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.7.6/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
     
@@ -94,7 +100,7 @@
 		    <div class="col-sm-7">
 			<div class="form-group">
 				<label for="description">Description</label>
-				<textarea class="form-control" name="description" id="description" rows="10" required></textarea>
+				<textarea class="form-control" name="description" id="description" required></textarea>
 			</div>
 			</div>
 
@@ -113,9 +119,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
 	<script>
     $( document ).ready(function() {
-		$(function () {
+		
                 $('#datetimepicker').datetimepicker();
-            });
+			    $('textarea').froalaEditor({
+                    height: 200
+                 });
    });
      
     </script>
