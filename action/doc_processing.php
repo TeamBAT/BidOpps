@@ -1,21 +1,19 @@
 <?php
  
 // DB table to use
-$table = 'current_solicitation';
+$table = 'opportunity_docs';
  
 // Table's primary key
-$primaryKey = 'id';
+$primaryKey = 'document_id';
  
 // Array of database columns which should be read and sent back to DataTables.
 // The `db` parameter represents the column name in the database, while the `dt`
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'number', 'dt' => 0 ),
-    array( 'db' => 'title',  'dt' => 1 ),
-    array( 'db' => 'status', 'dt' => 2 ),
-    array( 'db' => 'final_filing-date',  'dt' => 3 ),
-    array( 'db' =>  'last_updated', 'dt' => 4)
+    array( 'db' => 'filename', 'dt' => 0 ),
+    array( 'db' => 'filetype',  'dt' => 1 ),
+    array( 'db' => 'filesize', 'dt' => 2 )
 );
  
 // SQL server connection information

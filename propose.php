@@ -65,7 +65,7 @@
 			   <div class="form-group">
 			   <label for="datetimepicker">Final Filing Date</label>
 			   <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker"/>
+                    <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker"/>
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>

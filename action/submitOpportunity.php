@@ -12,7 +12,7 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 	$title = $_POST["title"];
 	$description = $_POST["description"];
 	
-	$query = "INSERT INTO opportunities(id, final_filing_date, type, category, title, description, created_by)
+	$query = "INSERT INTO `opportunities` (`id`, `final_filing_date`, `type`, `category`, `title`, `description`, `created_by`)
 			VALUES('".$id."', '".$date."', '".$type."', '".$category."', '".$title."', '".$description."', 1)";
 	
 	$result = mysqli_query($bd, $query);
@@ -20,7 +20,7 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 		echo mysqli_error($bd);
 	}
 	else{
-		header("Location: ../home.php");
+		header("Location: ../addDocs.php");
 	}
 	
 }

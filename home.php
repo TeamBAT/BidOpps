@@ -38,9 +38,9 @@
 
       <div class="row" style="background:#ffff">
        <div class="col pt-1">
-       <h2>Solicitation</h2>
+          <span class="form-inline"><img src="public/billete.png"><h2>Solicitation</h2></span>
        </div>
-       <div class="col pt-2" > 
+       <div class="col pt-3" > 
        <a href="propose.php" class="btn btn-success float-right" >Add Solicitation</a>
        </div>
       </div>
