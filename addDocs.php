@@ -14,6 +14,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
   </head>
@@ -34,7 +37,7 @@
         </nav>
 
     <main role="main" class="container">
-
+            
     
 
       <div class="row border-bottom" style="background:#d6d6c2">
@@ -86,7 +89,6 @@
             </tr>
         </tfoot>
     </table>
-        
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
       Nulla est ullamco ut irure incididunt nulla Lorem Lorem minim irure officia enim reprehenderit. Magna duis labore cillum sint adipisicing exercitation ipsum. Nostrud ut anim non exercitation velit laboris fugiat cupidatat. Commodo esse dolore fugiat sint velit ullamco magna consequat voluptate minim amet aliquip ipsum aute laboris nisi. Labore labore veniam irure irure ipsum pariatur mollit magna in cupidatat dolore magna irure esse tempor ad mollit. Dolore commodo nulla minim amet ipsum officia consectetur amet ullamco voluptate nisi commodo ea sit eu.
@@ -94,7 +96,66 @@
     </div>
 </div>
 
-
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit File</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+                <form>
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Filename</label>
+                          <input type="email" class="form-control" id="fileName" aria-describedby="emailHelp" placeholder="Enter email" disabled>
+                          
+                        </div>
+                        <div class="form-group">
+                                <label for="exampleInputEmail1">Subheading</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                
+                        </div>
+                        <div class="form-group">
+                                    <label for="exampleInputEmail1">Document Title</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    
+                        </div>
+                        <div class="form-group">
+                                <label for="datetimepicker1">Final Filing Date</label>
+                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                     <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                     </div>
+                                 </div>
+                 
+                                </div>
+                        <div class="form-group">
+                                <label for="datetimepicker2">Final Filing Date</label>
+                                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                                     <input type="text" name="dueDate" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                                     <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                     </div>
+                                 </div>
+                 
+                                </div>
+                       
+                      
+                        </div>
+                        <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-secondary mr-auto " data-dismiss="modal">Cancel</button>
+                    
+                    <button type="button" class="btn btn-danger "><i class="fa fa-trash"></i> Delete</button>
+                </form>
+        </div>
+      </div>
+    </div>
+  </div>
     
     
     </main><!-- /.container -->
@@ -103,14 +164,20 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.js"></script>
     <script>
         $(document).ready(function (e) {
-        
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker2').datetimepicker();
+        var events = $('#events');
         $("#uploadimage").on('submit',(function(e) {
         e.preventDefault();
         $("#message").empty();
@@ -146,12 +213,32 @@
            });
         }));
 
-        $('#example').DataTable( {
+       var table= $('#example').DataTable( {
         "processing": true,
         "serverSide": true,
-        "ajax": "action/doc_processing.php"
+        "paging":   false,
+        "select": true, 
+        "ajax": "action/doc_processing.php",
+         
        } );
-        })
+       $('#example tbody').on( 'click', 'tr', function () {
+          
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            var rowData = table.row( this ).data();
+            $('#exampleModal').modal('toggle');
+            var ta = document.getElementById('fileName');
+            ta.value=rowData[0];
+        }
+           
+        });
+        
+        });
+       
     </script>
   </body>
 </html>
