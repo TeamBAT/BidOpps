@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Solicitation</title>
+    <title>Opportunity</title>
 
     <!-- Bootstrap core CSS -->
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
@@ -19,19 +19,38 @@
   <body style="background: #8a8a5c">
   
   <?php   session_start();    ?>
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-         <h3 class="navbar-brand">Bid Opportunities Admin</h3>
-         <div class="dropdown pr-5">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-               <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>
-             <span class="caret"></span>
-             </button>
-             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-             <li><a href="action/adminLogout.php">Logout</a></li>
-             </ul>
-          </div>  
-        </nav>
+	<nav class="navbar navbar-dark bg-primary fixed-top">
+	 <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+	 <div class="dropdown pr-5">
+		  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		   <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>
+		 <span class="caret"></span>
+		 </button>
+		 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		 <li><a href="action/adminLogout.php">Logout</a></li>
+		 </ul>
+	  </div>  
+	</nav>
+	
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header">Bid Opportunity Review</div>
+			<div class="card-body">
+				Solicitation Number: <br>
+				Name: <br>
+				Type: <br>
+				Description: <br>
+				Status: <br>
+				<br>
+				Documents:
+				<!--Document Display Bar goes here-->
+				
+			</div>
+			<div class="card-footer">
+				<button type="button" class="btn btn-danger">Back</button>
+			</div>
+		</div>
 		
+	</div>
 		
-		
-	</body>
+  </body>
