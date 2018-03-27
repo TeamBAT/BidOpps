@@ -14,6 +14,9 @@
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </head>
 
   <body style="background: #8a8a5c">
@@ -29,7 +32,7 @@
 		 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 		 <li><a href="action/adminLogout.php">Logout</a></li>
 		 </ul>
-	  </div>  
+	  </div>
 	</nav>
 	
 	<div class="container-fluid">
@@ -43,12 +46,33 @@
 				Status: <br>
 				<br>
 				Documents:
-				<!--Document Display Bar goes here-->
+				<!--Document Display Module goes here-->
 				
 			</div>
 			<div class="card-footer">
 				<button type="button" class="btn btn-danger">Back</button>
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal">Submit Review</button>
 			</div>
+		</div>
+		
+		<!--Reviewer Modal-->
+		<div id="reviewModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Review Submission</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					Modal Body Here
+					<div class="textbox"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success">Submit</button>
+				</div>
+			</div>
+		</div>
 		</div>
 		
 	</div>
