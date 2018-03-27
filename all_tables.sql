@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `filetype` VARCHAR(45) NOT NULL,
   `filesize` VARCHAR(255) NOT NULL,
   `directory` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `description` TEXT NULL,
   `submission_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `submission_id_idx` (`submission_id` ASC),
