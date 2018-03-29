@@ -20,6 +20,7 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 		echo mysqli_error($bd);
 	}
 	else{
+		$_SESSION["opportunity_id"] = $id;
 		header("Location: ../addDocs.php");
 	}
 	

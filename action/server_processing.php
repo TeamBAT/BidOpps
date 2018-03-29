@@ -1,7 +1,7 @@
 <?php
  
 // DB table to use
-$table = 'current_solicitation';
+$table = 'opportunities';
  
 // Table's primary key
 $primaryKey = 'id';
@@ -11,10 +11,10 @@ $primaryKey = 'id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'number', 'dt' => 0 ),
+    array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'title',  'dt' => 1 ),
     array( 'db' => 'status', 'dt' => 2 ),
-    array( 'db' => 'final_filing-date',  'dt' => 3 ),
+    array( 'db' => 'final_filing_date',  'dt' => 3 ),
     array( 'db' =>  'last_updated', 'dt' => 4)
 );
  

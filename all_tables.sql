@@ -54,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `validated_date` DATETIME NULL,
   `approved_date` DATETIME NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
-  `validated` INT DEFAULT 0,
-  `approved` INT DEFAULT 0,
+  `status` ENUM('Submitted', 'Reviewed', 'Approved', 'Posted') DEFAULT 'Submitted',
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`
