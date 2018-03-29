@@ -50,9 +50,32 @@
 				
 			</div>
 			<div class="card-footer">
-				<button type="button" class="btn btn-danger">Back</button>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal">Submit Review</button>
+				<a class="btn btn-danger" href="home.php" role="button">Back</a>
+				
+				<!-- Requires PHP logic to determine who is logged in for which buttons to display -->
+				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal">Remove</button>
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal">Review</button>
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approveModal">Approve</button>
+				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#postModal">Post</button>
 			</div>
+		</div>
+		
+		<!-- Cancel Opportunity -->
+		<div id="cancelModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title text-center">Are you sure you want to cancel this opportunity?</h4>
+				</div>
+				<div class="modal-body">
+					This opportunity will be removed from the submission process.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-warning">Remove</button>
+				</div>
+			</div>
+		</div>
 		</div>
 		
 		<!--Reviewer Modal-->
@@ -69,7 +92,42 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Submit</button>
+					<button type="button" class="btn btn-success">Submit for Approval</button>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		<!-- Approver Modal -->
+		<div id="approveModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Approve Submission</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					Modal Body Here
+					<div class="textbox"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success">Approve for Publish</button>
+				</div>
+			</div>
+		</div>
+		</div>
+		
+		<!-- Author Post Modal -->
+		<div id="postModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Are you sure you want to post this bid?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-success">Post</button>
 				</div>
 			</div>
 		</div>
