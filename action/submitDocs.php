@@ -25,7 +25,7 @@ if($_FILES)
         if (move_uploaded_file($tmp_name, $path.$name)) {
         $i++;
         $query = "INSERT INTO `opportunity_docs` (`filename`, `filetype`, `filesize`, `opportunity_id`)
-			VALUES('".$name."', '".$type."', '".$size."', 20182326)";
+			VALUES('".$name."', '".$type."', '".$size."', '".$_SESSION['id']."')";
 	
 	       $result = mysqli_query($bd, $query);
 	        if(!$result){
