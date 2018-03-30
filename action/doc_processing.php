@@ -1,8 +1,8 @@
 <?php
- 
+$a = 20191234; 
 // DB table to use
 $table = 'opportunity_docs';
- 
+session_start(); 
 // Table's primary key
 $primaryKey = 'document_id';
  
@@ -26,9 +26,10 @@ $sql_details = array(
 
  
 require( 'ssp.class.php' );
- 
+//here put query as variable then add it at the end of simple inputs
+$where = "`opportunity_id`=".$_SESSION['id'];
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );
 
 ?>
