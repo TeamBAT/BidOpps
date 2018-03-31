@@ -110,17 +110,17 @@
                 <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Filename</label>
-                          <input type="email" class="form-control" id="fileName" aria-describedby="emailHelp" placeholder="Enter email" disabled>
+                          <input type="email" class="form-control" id="fileName" aria-describedby="emailHelp" disabled>
                           
                         </div>
                         <div class="form-group">
                                 <label for="exampleInputEmail1">Subheading</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subheading">
                                 
                         </div>
                         <div class="form-group">
                                     <label for="exampleInputEmail1">Document Title</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Document Title">
                                     
                         </div>
                         <div class="form-group">
@@ -188,15 +188,23 @@
         var i = 0; 
         var arr = [ "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf" ];
         var formData = new FormData();
+        var File_Ex_Error = 0;
         while ( i < fl) {
         // localize file var in the loop
         var file = files[i];
         fileExtension=(file.name).split('.').pop();
         if(jQuery.inArray( fileExtension, arr )!=-1)
-        {alert("correct file EX")}
+         {
+             alert(file.size);
+             alert("correct file EX");
+         }
+        else{
+            File_Ex_Error++;
+        }
         formData.append('file[]', file);
         i++;
-        }    
+        } 
+        if(File_Ex_Error==0){   
         $.ajax({
         url: "action/submitDocs.php", // Url to which the request is send
         type: "POST",    
@@ -211,8 +219,10 @@
            $('#example').DataTable().ajax.reload();
            }
            });
+           }
+           else{alert("you chose file with not acceptable extension")}
         }));
-
+        
        var table= $('#example').DataTable( {
         "processing": true,
         "serverSide": true,
