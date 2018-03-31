@@ -1,5 +1,5 @@
 <?php
-$a = 20191234; 
+
 // DB table to use
 $table = 'opportunity_docs';
 session_start(); 
