@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`administrators` (
 -- Table `bidopps_db`.`opportunities`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` VARCHAR(9) NOT NULL UNIQUE,
   `final_filing_date` DATETIME NOT NULL,
   `type` VARCHAR(45) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
@@ -55,8 +56,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `approved_date` DATETIME NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
-  `validated` INT DEFAULT 0,
-  `approved` INT DEFAULT 0,
+  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted'),
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`

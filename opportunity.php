@@ -21,7 +21,24 @@
 
   <body style="background: #8a8a5c">
   
-  <?php   session_start();    ?>
+<?php
+	include_once('action/connection.php');
+	include_once('action/checkLogin.php');
+	
+	if(isset($_GET['id'])){
+	
+	$opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+	$query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
+	
+	$result = mysqli_query($bd, $query);
+	if(!$result) echo "Database could not be reached.";
+	else{
+		$opportunity = mysqli_fetch_assoc($result);
+		mysqli_free_result($result);
+	}
+}
+	
+?>
 	<nav class="navbar navbar-dark bg-primary fixed-top">
 	 <h3 class="navbar-brand">Bid Opportunities Admin</h3>
 	 <div class="dropdown pr-5">
@@ -39,11 +56,11 @@
 		<div class="card">
 			<div class="card-header">Bid Opportunity Review</div>
 			<div class="card-body">
-				Solicitation Number: <br>
-				Name: <br>
-				Type: <br>
-				Description: <br>
-				Status: <br>
+				Solicitation Number: <?=$opportunity['number']; ?><br>
+				Title: <?=$opportunity['title']; ?><br>
+				Type: <?=$opportunity['type']; ?><br>
+				Description: <?=$opportunity['description']; ?><br>
+				Status: <?=$opportunity['status']; ?><br>
 				<br>
 				Documents:
 				<!--Document Display Module goes here-->
