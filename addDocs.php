@@ -78,6 +78,7 @@
                 <th>File Name</th>
                 <th>File Type</th>
                 <th>File Size</th>
+                <th>Id</th>
             </tr>
         </thead>
         
@@ -86,6 +87,7 @@
                 <th>File Name</th>
                 <th>File Type</th>
                 <th>File Size</th>
+                <th>Id</th>
             </tr>
         </tfoot>
     </table>
@@ -110,17 +112,17 @@
                 <form>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Filename</label>
-                          <input type="email" class="form-control" id="fileName" aria-describedby="emailHelp" disabled>
+                          <input type="text" class="form-control" id="fileName" aria-describedby="emailHelp" disabled>
                           
                         </div>
                         <div class="form-group">
                                 <label for="exampleInputEmail1">Subheading</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subheading">
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subheading">
                                 
                         </div>
                         <div class="form-group">
                                     <label for="exampleInputEmail1">Document Title</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Document Title">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Document Title">
                                     
                         </div>
                         <div class="form-group">
@@ -150,7 +152,7 @@
                     <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                     <button type="button" class="btn btn-secondary mr-auto " data-dismiss="modal">Cancel</button>
                     
-                    <button type="button" class="btn btn-danger "><i class="fa fa-trash"></i> Delete</button>
+                    <button type="button" class="btn btn-danger" id="DeleteDoc"><i class="fa fa-trash"></i> Delete</button>
                 </form>
         </div>
       </div>
@@ -175,6 +177,7 @@
     <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.js"></script>
     <script>
         $(document).ready(function (e) {
+            var SelectedRw;
             $('#datetimepicker1').datetimepicker();
             $('#datetimepicker2').datetimepicker();
         var events = $('#events');
@@ -229,7 +232,13 @@
         "paging":   false,
         "select": true, 
         "ajax": "action/doc_processing.php",
-         
+        "columnDefs": [
+            {
+                "targets": [ 3 ],
+                "visible": false,
+                "searchable": false
+            }
+        ]
        } );
        $('#example tbody').on( 'click', 'tr', function () {
           
@@ -242,12 +251,31 @@
             var rowData = table.row( this ).data();
             $('#exampleModal').modal('toggle');
             var ta = document.getElementById('fileName');
+            
             ta.value=rowData[0];
+            SelectedRw=rowData[0];
         }
-           
-        });
         
         });
+         $("#DeleteDoc").click(function(e) {
+           e.preventDefault();
+           $.ajax({
+              type: "POST",
+              url: "action/adminFileMofication.php",
+              data: ({ 
+              id: SelectedRw
+              }),
+             success: function(result) {
+             alert(result);
+             $('#exampleModal').modal('hide');
+             $('#example').DataTable().ajax.reload();
+             },
+             error: function(result) {
+              alert(result);
+              }
+            });
+          });
+         });
        
     </script>
   </body>

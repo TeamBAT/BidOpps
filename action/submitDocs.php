@@ -20,12 +20,12 @@ if($_FILES)
         if (isset($name)) {
         
         $path= '../Uploads/';
-        
+        $filesPath= "Uploads/$name";
         if (!empty($name)){
         if (move_uploaded_file($tmp_name, $path.$name)) {
         $i++;
-        $query = "INSERT INTO `opportunity_docs` (`filename`, `filetype`, `filesize`, `opportunity_id`)
-			VALUES('".$name."', '".$type."', '".$size."', '".$_SESSION['id']."')";
+        $query = "INSERT INTO `opportunity_docs` (`filename`,`filepath`, `filetype`, `filesize`, `opportunity_id`)
+			VALUES('".$name."', '".$filesPath."'  ,'".$type."', '".$size."', '".$_SESSION['id']."')";
 	
 	       $result = mysqli_query($bd, $query);
 	        if(!$result){
