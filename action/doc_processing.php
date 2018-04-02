@@ -13,7 +13,8 @@ $primaryKey = 'document_id';
 $columns = array(
     array( 'db' => 'filename', 'dt' => 0 ),
     array( 'db' => 'filetype',  'dt' => 1 ),
-    array( 'db' => 'filesize', 'dt' => 2 )
+    array( 'db' => 'filesize', 'dt' => 2 ),
+    array( 'db' => 'document_id', 'dt' => 3 )
 );
  
 // SQL server connection information
