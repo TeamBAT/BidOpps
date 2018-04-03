@@ -75,21 +75,13 @@
           <table id="example" class="table table-striped table-bordered pt-3" style="width:100%">
         <thead>
             <tr>
-                <th>File Name</th>
-                <th>File Type</th>
-                <th>File Size</th>
+                <th>Subheading</th>
+                <th>Document Title</th>
+                <th>Posted Date</th>
                 <th>Id</th>
+                <th>File Name</th>
             </tr>
         </thead>
-        
-        <tfoot>
-            <tr>
-                <th>File Name</th>
-                <th>File Type</th>
-                <th>File Size</th>
-                <th>Id</th>
-            </tr>
-        </tfoot>
     </table>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -109,26 +101,28 @@
           </button>
         </div>
         <div class="modal-body">
-                <form>
+                <form id="UpdateDocsInfo" action="">
                         <div class="form-group">
-                          <label for="exampleInputEmail1">Filename</label>
-                          <input type="text" class="form-control" id="fileName" aria-describedby="emailHelp" disabled>
+                          <label for="fileName">Filename</label>
+                          <input type="text" class="form-control" id="fileName" disabled>
                           
                         </div>
-                        <div class="form-group">
-                                <label for="exampleInputEmail1">Subheading</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subheading">
+                        <div class="form-group required">
+                                <label for="subheading" class="control-label">Subheading</label>
+                                <select class="form-control" id="subheading">
+                                 <option value="1">Solicitation Documents</option>
+                                </select>
                                 
                         </div>
-                        <div class="form-group">
-                                    <label for="exampleInputEmail1">Document Title</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Document Title">
+                        <div class="form-group required">
+                                    <label for="docTitle" class="control-label">Document Title</label>
+                                    <input type="text" class="form-control" id="docTitle" placeholder="Document Title">
                                     
                         </div>
-                        <div class="form-group">
-                                <label for="datetimepicker1">Final Filing Date</label>
+                        <div class="form-group required">
+                                <label for="datetimepicker1" class="control-label">Posted Date</label>
                                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                     <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                     <input type="text" name="Pdate" id="PostedDate" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                                      <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                      </div>
@@ -136,9 +130,9 @@
                  
                                 </div>
                         <div class="form-group">
-                                <label for="datetimepicker2">Final Filing Date</label>
+                                <label for="datetimepicker2">Due Date</label>
                                 <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                                     <input type="text" name="dueDate" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                                     <input type="text" name="dueDate" id="dueDate" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
                                      <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                      </div>
@@ -149,7 +143,7 @@
                       
                         </div>
                         <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-primary" id="saveDoc"><i class="fa fa-save"></i> Save</button>
                     <button type="button" class="btn btn-secondary mr-auto " data-dismiss="modal">Cancel</button>
                     
                     <button type="button" class="btn btn-danger" id="DeleteDoc"><i class="fa fa-trash"></i> Delete</button>
@@ -178,6 +172,7 @@
     <script>
         $(document).ready(function (e) {
             var SelectedRw;
+            var updateRw;
             $('#datetimepicker1').datetimepicker();
             $('#datetimepicker2').datetimepicker();
         var events = $('#events');
@@ -251,9 +246,13 @@
             var rowData = table.row( this ).data();
             $('#exampleModal').modal('toggle');
             var ta = document.getElementById('fileName');
-            
-            ta.value=rowData[0];
-            SelectedRw=rowData[0];
+            $("#subheading select").val(rowData[0]);
+            $("#docTitle").val(rowData[1]);
+            $("#PostedDate").val(rowData[2]);
+            $("#dueDate").val("");
+            ta.value=rowData[4];
+            updateRw=rowData[3];
+            SelectedRw=rowData[4];
         }
         
         });
@@ -261,7 +260,7 @@
            e.preventDefault();
            $.ajax({
               type: "POST",
-              url: "action/adminFileMofication.php",
+              url: "action/adminFileDelete.php",
               data: ({ 
               id: SelectedRw
               }),
@@ -275,6 +274,33 @@
               }
             });
           });
+          $("#saveDoc").click(function(e) {
+             e.preventDefault();
+             var id = updateRw;
+             var subheading = $( "#subheading option:selected" ).text();
+             var docTitle = $("#docTitle").val();
+             var Pdate = $("#PostedDate").val();
+             var dueDate = $("#dueDate").val();
+             // Returns successful data submission message when the entered information is stored in database.
+            var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
+          
+              // AJAX Code To Submit Form.
+              $.ajax({
+                
+              type: "POST",
+              url: "action/adminFileUpdate.php",
+              data: dataString,
+              cache: false,
+              success: function(result){
+              alert(result);
+              $('#exampleModal').modal('hide');
+              $('#example').DataTable().ajax.reload();
+              
+              }
+            });
+
+          });  
+         
          });
        
     </script>

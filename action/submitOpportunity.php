@@ -23,7 +23,7 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 	else{
 		header("Location: ../addDocs.php");
 	}
-	
+	 
 }
 else{
 	header("Location: ../propose.php");

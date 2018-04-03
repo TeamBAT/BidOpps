@@ -9,3 +9,8 @@ body {
   .input-group-btn:not(:first-child):not(:last-child) > .btn {
     border-radius: 0;
   }
+  .form-group.required .control-label:after {
+    content:" (required)";
+    color:red;
+  }
+  
