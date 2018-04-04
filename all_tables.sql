@@ -45,16 +45,18 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`administrators` (
 -- Table `bidopps_db`.`opportunities`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `number` VARCHAR(9) NOT NULL UNIQUE,
   `final_filing_date` DATETIME NOT NULL,
   `type` VARCHAR(45) NOT NULL,
   `category` VARCHAR(45) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `description` TEXT NOT NULL,
+  `validated_date` DATETIME NULL,
+  `approved_date` DATETIME NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
-  `validated` INT DEFAULT 0,
-  `approved` INT DEFAULT 0,
+  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted'),
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`
@@ -89,6 +91,10 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `bidder_id` INT NOT NULL,
+  `time_submitted` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_screened` DATETIME NULL,
+  `time_reviewed` DATETIME NULL,
+  `time_finalized` DATETIME NULL,
   PRIMARY KEY (`id`),
   INDEX `bidder_id_idx` (`bidder_id` ASC),
   CONSTRAINT `bidder_submission`
@@ -105,8 +111,9 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
-  `filesize` VARCHAR(45) NOT NULL,
-  `data` LONGBLOB NULL,
+  `filesize` VARCHAR(255) NOT NULL,
+  `directory` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) NULL,
   `submission_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `submission_id_idx` (`submission_id` ASC),
