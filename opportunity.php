@@ -14,6 +14,7 @@
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -26,17 +27,24 @@
 	include_once('action/checkLogin.php');
 	
 	if(isset($_GET['id'])){
-	
-	$opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
-	$query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
-	
-	$result = mysqli_query($bd, $query);
-	if(!$result) echo "Database could not be reached.";
-	else{
-		$opportunity = mysqli_fetch_assoc($result);
-		mysqli_free_result($result);
-	}
-}
+            
+            //Fetch Opportunity
+            $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+            $query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
+            
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Database could not be reached.";
+            else{
+                    $opportunity = mysqli_fetch_assoc($result);
+            }
+            mysqli_free_result($result);
+            
+            //Fetch Documents
+            
+        }
+        else{
+            
+        }
 	
 ?>
 	<nav class="navbar navbar-dark bg-primary fixed-top">
@@ -56,14 +64,24 @@
 		<div class="card">
 			<div class="card-header">Bid Opportunity Review</div>
 			<div class="card-body">
-				Solicitation Number: <?=$opportunity['number']; ?><br>
-				Title: <?=$opportunity['title']; ?><br>
-				Type: <?=$opportunity['type']; ?><br>
-				Description: <?=$opportunity['description']; ?><br>
-				Status: <?=$opportunity['status']; ?><br>
-				<br>
-				Documents:
+                            Solicitation Number: <?=$opportunity['number']; ?><br><hr>
+                            Title: <?=$opportunity['title']; ?><br><hr>
+                            Type: <?=$opportunity['type']; ?><br><hr>
+                            Description: <?=$opportunity['description']; ?><br><hr>
+                            Status: <?=$opportunity['status']; ?><br><hr>
+                            <br><hr>
+                                Documents: <br>
 				<!--Document Display Module goes here-->
+                                <table id="documents" class="table table-striped table-bordered pt-3" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    <td></td>
+                                    <td></td>
+                                </table>
 				
 			</div>
 			<div class="card-footer">
@@ -151,5 +169,5 @@
 		</div>
 		
 	</div>
-		
+            
   </body>
