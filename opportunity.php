@@ -40,10 +40,13 @@
             mysqli_free_result($result);
             
             //Fetch Documents
+            $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id."";
             
+            $documents = mysqli_query($bd, $query);
+            if(!$documents) echo "Database could not be reached.";
         }
         else{
-            
+            header("home.php");
         }
 	
 ?>
@@ -62,14 +65,14 @@
 	
 	<div class="container-fluid">
 		<div class="card">
-			<div class="card-header">Bid Opportunity Review</div>
+                    <div class="card-header">Bid Opportunity Review</div>
 			<div class="card-body">
                             Solicitation Number: <?=$opportunity['number']; ?><br><hr>
                             Title: <?=$opportunity['title']; ?><br><hr>
                             Type: <?=$opportunity['type']; ?><br><hr>
                             Description: <?=$opportunity['description']; ?><br><hr>
-                            Status: <?=$opportunity['status']; ?><br><hr>
-                            <br><hr>
+                            Status: <?=$opportunity['status']; ?><br>
+                            <hr>
                                 Documents: <br>
 				<!--Document Display Module goes here-->
                                 <table id="documents" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -79,16 +82,22 @@
                                             <th>Posted Date</th>
                                         </tr>
                                     </thead>
-                                    <td></td>
-                                    <td></td>
+                                    
+                                    <?php
+                                    // Fetches rows from the $documents mysqli result to populate table
+                                    if( !$documents || mysqli_num_rows($documents) > 0 ):
+                                    while($document = mysqli_fetch_assoc($documents)): ?>
+                                    <td><a href="<?php echo $document['filepath']; ?>"><?php echo $document['filename']; ?></a></td>
+                                    <td><?php echo $document['posted_date']; ?></td>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    //End fetch rows
+                                    ?>
                                 </table>
 				
 			</div>
 			<div class="card-footer">
-				<a class="btn btn-danger" href="home.php" role="button">Back</a>
-				
 				<!-- Requires PHP logic to determine who is logged in for which buttons to display -->
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal">Remove</button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal">Remove</button>
 				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal">Review</button>
 				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approveModal">Approve</button>
 				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#postModal">Post</button>
@@ -107,7 +116,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-warning">Remove</button>
+                                        <button type="submit" class="btn btn-warning" name="remove" value="remove">Remove</button>
 				</div>
 			</div>
 		</div>
@@ -127,7 +136,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Submit for Approval</button>
+					<button type="submit" class="btn btn-success" name="review" value="review">Submit for Approval</button>
 				</div>
 			</div>
 		</div>
@@ -147,7 +156,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Approve for Publish</button>
+                                        <button type="submit" class="btn btn-success" name="approve" value="approve">Approve for Publish</button>
 				</div>
 			</div>
 		</div>
@@ -162,12 +171,29 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Post</button>
+					<button type="submit" class="btn btn-success" name="post" value="post">Post</button>
 				</div>
 			</div>
 		</div>
 		</div>
 		
 	</div>
+      
+      <script>
+        $(document).ready(function(){
+             $(':submit').click(function(){
+                 var clickBtnValue = $(this).val();
+                 var ajaxurl = 'action/opportunity_process.php',
+                 data =  {'action': clickBtnValue,
+                          'id': "<?=$opportunity_id?>"
+                };
+                 $.post(ajaxurl, data, function (response) {
+                     location.reload();
+                     alert(response);
+                 });
+             });
+         });
+      </script>
             
   </body>
+</html>
