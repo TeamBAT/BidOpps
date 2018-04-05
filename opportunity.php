@@ -14,9 +14,10 @@
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   </head>
 
   <body style="background: #8a8a5c">
@@ -26,17 +27,39 @@
 	include_once('action/checkLogin.php');
 	
 	if(isset($_GET['id'])){
-	
-	$opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
-	$query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
-	
-	$result = mysqli_query($bd, $query);
-	if(!$result) echo "Database could not be reached.";
-	else{
-		$opportunity = mysqli_fetch_assoc($result);
-		mysqli_free_result($result);
-	}
-}
+            
+            //Fetch Opportunity
+            $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+            $query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
+            
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Opportunity could not be fetched.";
+            else if (mysqli_num_rows($result) == 0 ) $noResult = true;
+            else{
+                    $opportunity = mysqli_fetch_assoc($result);
+            }
+            mysqli_free_result($result);
+            
+            //Fetch Documents
+            $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id."";
+            
+            $documents = mysqli_query($bd, $query);
+            if(!$documents) echo "Documents couldn not be fetched.";
+            
+            //Check Permissions
+            $query = "SELECT * FROM permissions WHERE user_id = ".$_SESSION['SESS_MEMBER_ID']."";
+  
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Permissions could not be checked.";
+            else{
+                $permissions = mysqli_fetch_assoc($result);
+                mysqli_free_result($result);
+            }
+            
+        }
+        else{
+            header("Location: home.php");
+        }
 	
 ?>
 	<nav class="navbar navbar-dark bg-primary fixed-top">
@@ -54,30 +77,54 @@
 	
 	<div class="container-fluid">
 		<div class="card">
-			<div class="card-header">Bid Opportunity Review</div>
+                    <div class="card-header">Bid Opportunity Review</div>
 			<div class="card-body">
-				Solicitation Number: <?=$opportunity['number']; ?><br>
-				Title: <?=$opportunity['title']; ?><br>
-				Type: <?=$opportunity['type']; ?><br>
-				Description: <?=$opportunity['description']; ?><br>
-				Status: <?=$opportunity['status']; ?><br>
-				<br>
-				Documents:
+                            <?php if(isset($noResult)): echo "Opportunity 'id = ".$opportunity_id."' does not exist."; else: ?>
+                            <h5>Solicitation Number</h5> <?=$opportunity['number']; ?><br><hr>
+                            <h5>Title</h5> <?=$opportunity['title']; ?><br><hr>
+                            <h5>Type</h5> <?=$opportunity['type']; ?><br><hr>
+                            <h5>Description</h5> <?=$opportunity['description']; ?><br><hr>
+                            <h5>Status</h5> <?=$opportunity['status']; ?><br>
+                            <hr>
+                            <h5>Documents</h5>
 				<!--Document Display Module goes here-->
+                                <table id="documents" class="table table-striped table-bordered pt-3" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <?php
+                                    // Fetches rows from the $documents mysqli result to populate table
+                                    if( !$documents || mysqli_num_rows($documents) > 0 ):
+                                    while($document = mysqli_fetch_assoc($documents)): ?>
+                                    <td><a href="<?php echo $document['filepath']; ?>"><?php echo $document['filename']; ?></a></td>
+                                    <td><?php echo $document['posted_date']; ?></td>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    //End fetch rows
+                                    ?>
+                                </table>
 				
 			</div>
 			<div class="card-footer">
-				<a class="btn btn-danger" href="home.php" role="button">Back</a>
-				
-				<!-- Requires PHP logic to determine who is logged in for which buttons to display -->
-				<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#cancelModal">Remove</button>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal">Review</button>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approveModal">Approve</button>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#postModal">Post</button>
+                            <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+				<!-- Options to display based on user and status -->
+                                <?php if($opportunity['status'] != 'Posted' && ($permissions['administrate'] || $permissions['author'])): ?>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
+                                <?php endif; if($opportunity['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
+                                <?php elseif($opportunity['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
+				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#postModal"><i class="far fa-paper-plane"></i> Post</button>
+                                <?php endif; ?>
 			</div>
+                    <?php endif; ?>
 		</div>
 		
-		<!-- Cancel Opportunity -->
+		<!-- Cancel Opportunity Modal -->
 		<div id="cancelModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -85,11 +132,11 @@
 					<h4 class="modal-title text-center">Are you sure you want to cancel this opportunity?</h4>
 				</div>
 				<div class="modal-body">
-					This opportunity will be removed from the submission process.
+					This opportunity will be removed from the submission process and archived.
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-warning">Remove</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Remove</button>
 				</div>
 			</div>
 		</div>
@@ -104,12 +151,12 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body Here
+					Modal Body To Be Made
 					<div class="textbox"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Submit for Approval</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="submit" class="btn btn-success" name="review" value="review"><i class="far fa-paper-plane"></i> Submit for Approval</button>
 				</div>
 			</div>
 		</div>
@@ -124,12 +171,12 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body Here
+					Modal Body To Be Made
 					<div class="textbox"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Approve for Publish</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="approve" value="approve"><i class="far fa-paper-plane"></i> Approve for Publish</button>
 				</div>
 			</div>
 		</div>
@@ -143,13 +190,30 @@
 					<h4 class="modal-title">Are you sure you want to post this bid?</h4>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-success">Post</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="submit" class="btn btn-success" name="post" value="post"><i class="far fa-paper-plane"></i> Post</button>
 				</div>
 			</div>
 		</div>
 		</div>
 		
 	</div>
-		
+      
+      <script>
+        $(document).ready(function(){
+             $(':submit').click(function(){
+                 var clickBtnValue = $(this).val();
+                 var ajaxurl = 'action/opportunity_process.php',
+                 data =  {'action': clickBtnValue,
+                          'id': "<?=$opportunity_id?>"
+                };
+                 $.post(ajaxurl, data, function (response) {
+                     location.reload();
+                     alert(response);
+                 });
+             });
+         });
+      </script>
+            
   </body>
+</html>

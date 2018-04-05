@@ -6,7 +6,7 @@ USE `bidopps_db` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL UNIQUE,
   `password` VARCHAR(32) NOT NULL,
   `join_date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `firstname` VARCHAR(45) NULL,
@@ -32,13 +32,31 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`bidders` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`administrators` (
   `user_id` INT NOT NULL,
-  `permissions` ENUM('Admin', 'Author', 'Reviewer', 'Approver', 'Screener', 'Evaluator', 'Finalizer') NOT NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `admin_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `bidopps_db`.`users` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
+	
+-- -----------------------------------------------------
+-- Table `bidopps_db`.`permissions`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `bidopps_db`.`permissions` (
+	`user_id` INT NOT NULL,
+	`administrate` BIT(1) DEFAULT 0,
+	`author` BIT(1) DEFAULT 0,
+	`review` BIT(1) DEFAULT 0,
+	`approve` BIT(1) DEFAULT 0,
+	`screen` BIT(1) DEFAULT 0,
+	`evaluate` BIT(1) DEFAULT 0,
+	`finalize` BIT(1) DEFAULT 0,
+	`bid` BIT(1) DEFAULT 0,
+	CONSTRAINT `permission_id`
+		FOREIGN KEY(`user_id`)
+		REFERENCES `bidopps_db`.`administrators` (`user_id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -53,10 +71,11 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `title` VARCHAR(45) NOT NULL,
   `description` TEXT NOT NULL,
   `validated_date` DATETIME NULL,
-  `approved_date` DATETIME NULL,
-  `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `reviewed_date` DATETIME NULL,
+  `posted_date` DATETIME NULL,
+  `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
-  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted'),
+  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted', 'Archived'),
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`
@@ -74,7 +93,9 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
   `filesize` VARCHAR(45) NOT NULL,
-  `data` LONGBLOB NULL,
+  `directory` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(255) NULL,
+  `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `opportunity_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `opportunity_id_idx` (`opportunity_id` ASC),
@@ -95,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `time_screened` DATETIME NULL,
   `time_reviewed` DATETIME NULL,
   `time_finalized` DATETIME NULL,
+  `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `bidder_id_idx` (`bidder_id` ASC),
   CONSTRAINT `bidder_submission`
@@ -114,6 +136,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `filesize` VARCHAR(255) NOT NULL,
   `directory` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NULL,
+  `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `submission_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `submission_id_idx` (`submission_id` ASC),
