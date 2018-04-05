@@ -109,21 +109,22 @@
 				
 			</div>
 			<div class="card-footer">
+                            <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
 				<!-- Options to display based on user and status -->
                                 <?php if($opportunity['status'] != 'Posted' && ($permissions['administrate'] || $permissions['author'])): ?>
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Remove</button>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
                                 <?php endif; if($opportunity['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
                                 <?php elseif($opportunity['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
 				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
-                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#postModal"><i class="far fa-paper-plane"></i> Post</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#postModal"><i class="far fa-paper-plane"></i> Post</button>
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
 		</div>
 		
-		<!-- Cancel Opportunity -->
+		<!-- Cancel Opportunity Modal -->
 		<div id="cancelModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -134,8 +135,8 @@
 					This opportunity will be removed from the submission process and archived.
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Deny</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Remove</button>
 				</div>
 			</div>
 		</div>
@@ -150,11 +151,11 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body Here
+					Modal Body To Be Made
 					<div class="textbox"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="review" value="review"><i class="far fa-paper-plane"></i> Submit for Approval</button>
 				</div>
 			</div>
@@ -170,11 +171,11 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body Here
+					Modal Body To Be Made
 					<div class="textbox"></div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
                                         <button type="submit" class="btn btn-success" name="approve" value="approve"><i class="far fa-paper-plane"></i> Approve for Publish</button>
 				</div>
 			</div>
@@ -189,7 +190,7 @@
 					<h4 class="modal-title">Are you sure you want to post this bid?</h4>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="post" value="post"><i class="far fa-paper-plane"></i> Post</button>
 				</div>
 			</div>
