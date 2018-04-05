@@ -26,9 +26,9 @@ $sql_details = array(
     'host' => 'localhost'
 );
 
- 
 require( 'ssp.class.php' );
-$where = "`status`<>".'"drafted"'.'AND'."`status`<>".'"canceled"';
+//here put query as variable then add it at the end of simple inputs
+$where = "`status`=".'"drafted"';
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );
