@@ -277,7 +277,6 @@
             var rowData = table.row( this ).data();
             $('#exampleModal').modal('toggle');
             var ta = document.getElementById('fileName');
-            var ta1 = document.getElementById('PostedDate');
             $("#subheading select").val(rowData[0]);
             $("#docTitle").val(rowData[1]);
             $("#PostedDate").val(rowData[2]);
