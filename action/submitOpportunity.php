@@ -12,7 +12,7 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 	$category = $_POST["category"];
 	$title = $_POST["title"];
 	$description = $_POST["description"];
-	$createdBy=1;
+	$createdBy = 1;
 	$query = "INSERT INTO `opportunities` (`id`, `final_filing_date`, `type`, `category`, `title`, `description`, `created_by`)
 			VALUES('".$id."', '".$date."', '".$type."', '".$category."', '".$title."', '".$description."', '".$createdBy."')";
 	
