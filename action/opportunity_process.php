@@ -9,16 +9,19 @@ if (isset($_POST['action'])) {
             break;
         case 'review':
             $status = 'Reviewed';
+            $timestamp = "`reviewed_date` = CURRENT_TIMESTAMP, ";
             break;
         case 'approve':
             $status = 'Validated';
+            $timestamp = "`validated_date` = CURRENT_TIMESTAMP, ";
             break;
         case 'post':
             $status = 'Posted';
+            $timestamp = "`posted_date` = CURRENT_TIMESTAMP, ";
             break;
     }
     //Update databse to reflect new status
-    $query = "UPDATE `opportunities` SET `status` = '".$status."' WHERE `opportunities`.`id` = ".$id."";
+    $query = "UPDATE `opportunities` SET ".$timestamp."`last_updated` = CURRENT_TIMESTAMP, `status` = '".$status."' WHERE `opportunities`.`id` = ".$id."";
   
     $result = mysqli_query($bd, $query);
     if($result){
