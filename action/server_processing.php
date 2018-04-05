@@ -15,7 +15,8 @@ $columns = array(
     array( 'db' => 'title',  'dt' => 1 ),
     array( 'db' => 'status', 'dt' => 2 ),
     array( 'db' => 'final_filing_date',  'dt' => 3 ),
-    array( 'db' =>  'posted_date', 'dt' => 4)
+    array( 'db' =>  'posted_date', 'dt' => 4),
+    array( 'db' => 'id', 'dt' => 5)
 );
  
 // SQL server connection information
