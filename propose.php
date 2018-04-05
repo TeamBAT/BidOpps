@@ -15,7 +15,9 @@
     <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 	<link href="CSS/bootstrap.min.css" rel="stylesheet">
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -104,7 +106,7 @@
 		    <div class="col-sm-7">
 			<div class="form-group">
 				<label for="description">Description</label>
-				<textarea class="form-control" name="description" id="description" required></textarea>
+				<textarea class="input-block-level" id="summernote" name="description"></textarea>
 			</div>
 			</div>
 
@@ -125,9 +127,13 @@
     $( document ).ready(function() {
 		
                 $('#datetimepicker').datetimepicker();
-			    $('textarea').froalaEditor({
-                    height: 200
-                 });
+				 $('#summernote').summernote({
+                    placeholder: 'Description',
+					tabsize: 2,
+					disableResizeEditor: true,
+                    height: 250
+      });
+    
    });
      
     </script>

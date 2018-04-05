@@ -85,7 +85,16 @@
     </table>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-      Nulla est ullamco ut irure incididunt nulla Lorem Lorem minim irure officia enim reprehenderit. Magna duis labore cillum sint adipisicing exercitation ipsum. Nostrud ut anim non exercitation velit laboris fugiat cupidatat. Commodo esse dolore fugiat sint velit ullamco magna consequat voluptate minim amet aliquip ipsum aute laboris nisi. Labore labore veniam irure irure ipsum pariatur mollit magna in cupidatat dolore magna irure esse tempor ad mollit. Dolore commodo nulla minim amet ipsum officia consectetur amet ullamco voluptate nisi commodo ea sit eu.
+          <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
+            <thead>
+              <tr>
+                <th>Subheading</th>
+                <th>Document Title</th>
+                <th>Posted Date</th>
+                <th>File View</th>
+              </tr>
+            </thead>
+          </table>
      </div>
     </div>
 </div>
@@ -170,6 +179,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.js"></script>
     <script>
+        
         $(document).ready(function (e) {
             var SelectedRw;
             var updateRw;
@@ -215,6 +225,7 @@
            $("#message").html(data);
            $("#file").val('');
            $('#example').DataTable().ajax.reload();
+           $('#example1').DataTable().ajax.reload();
            }
            });
            }
@@ -222,19 +233,38 @@
         }));
         
        var table= $('#example').DataTable( {
-        "processing": true,
-        "serverSide": true,
-        "paging":   false,
-        "select": true, 
-        "ajax": "action/doc_processing.php",
-        "columnDefs": [
-            {
+            "processing": true,
+            "serverSide": true,
+            "paging":   false,
+            "select": true, 
+            "ajax": "action/doc_processing.php",
+            "columnDefs": [
+              {
                 "targets": [ 3 ],
                 "visible": false,
                 "searchable": false
+              }
+           ]
+       } );
+       var table1= $('#example1').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "paging":   false,
+        "ajax": "action/docView.php",
+        "columnDefs": [
+            {
+                "targets": [ 3 ],
+                "date":"filepath",
+                "render": function(data, type, row, meta){
+                    if(type === 'display'){
+                    data = '<a href="' + data + '">' + data + '</a>';
+                    }
+            
+                    return data;
+                    }
             }
         ]
-       } );
+       });
        $('#example tbody').on( 'click', 'tr', function () {
           
         if ( $(this).hasClass('selected') ) {
@@ -268,6 +298,7 @@
              alert(result);
              $('#exampleModal').modal('hide');
              $('#example').DataTable().ajax.reload();
+             $('#example1').DataTable().ajax.reload();
              },
              error: function(result) {
               alert(result);
@@ -281,6 +312,7 @@
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
              var dueDate = $("#dueDate").val();
+             alert (dueDate);
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
           
@@ -295,7 +327,7 @@
               alert(result);
               $('#exampleModal').modal('hide');
               $('#example').DataTable().ajax.reload();
-              
+              $('#example1').DataTable().ajax.reload();
               }
             });
 
