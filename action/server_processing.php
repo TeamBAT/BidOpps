@@ -13,7 +13,7 @@ $primaryKey = 'id';
 $columns = array(
     array( 'db' => 'id', 'dt' => 0 ),
     array( 'db' => 'title',  'dt' => 1 ),
-    array( 'db' => 'category', 'dt' => 2 ),
+    array( 'db' => 'status', 'dt' => 2 ),
     array( 'db' => 'final_filing_date',  'dt' => 3 ),
     array( 'db' =>  'posted_date', 'dt' => 4)
 );

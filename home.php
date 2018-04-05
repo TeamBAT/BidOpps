@@ -65,8 +65,8 @@
 
 <div class="row pt-4" style="background:#ffff">
   <div class="tab-content" id="myTabContent">
-   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-   <table id="example" class="table table-striped table-bordered" style="width:100%">
+   <div class="tab-pane fade show active justify-content-center" id="home" role="tabpanel" aria-labelledby="home-tab">
+   <table id="example" class="table justify-content-center table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>#</th>

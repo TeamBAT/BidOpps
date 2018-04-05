@@ -83,6 +83,7 @@
             </tr>
         </thead>
     </table>
+    <a class="btn btn-primary mb-2 float-right" href="submitBidToReview.php" role="button">Next  <i class="fa fa-angle-double-right"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -276,6 +277,7 @@
             var rowData = table.row( this ).data();
             $('#exampleModal').modal('toggle');
             var ta = document.getElementById('fileName');
+            var ta1 = document.getElementById('PostedDate');
             $("#subheading select").val(rowData[0]);
             $("#docTitle").val(rowData[1]);
             $("#PostedDate").val(rowData[2]);
@@ -312,7 +314,7 @@
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
              var dueDate = $("#dueDate").val();
-             alert (dueDate);
+             alert (Pdate);
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
           

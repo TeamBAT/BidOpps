@@ -12,20 +12,21 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 	$category = $_POST["category"];
 	$title = $_POST["title"];
 	$description = $_POST["description"];
-	$createdBy=1;
-	$query = "INSERT INTO `opportunities` (`id`, `final_filing_date`, `type`, `category`, `title`, `description`, `created_by`)
-			VALUES('".$id."', '".$date."', '".$type."', '".$category."', '".$title."', '".$description."', '".$createdBy."')";
+	
+	$query = "UPDATE `opportunities` SET `final_filing_date`='$date', `type`='$type', `category`='$category', `title`='$title', `description`='$description', `status` = 'In Review'
+			   WHERE `id` = '$id'";
 	
 	$result = mysqli_query($bd, $query);
 	if(!$result){
-		echo mysqli_error($bd);
+		echo mysqli_error($bd); 
 	}
 	else{
-		header("Location: ../addDocs.php");
+        header("Location: ../home.php");
+        unset($_SESSION['id']);
 	}
 	 
 }
 else{
-	header("Location: ../propose.php");
+	header("Location: ../submitBidToReview.php");
 }
 ?>
