@@ -11,7 +11,7 @@ $primaryKey = 'document_id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'description', 'dt' => 0 ),
+    array( 'db' => 'subheading', 'dt' => 0 ),
     array( 'db' => 'filetype',  'dt' => 1 ),
     array( 'db' => 'posted_date', 'dt' => 2 ),
     array( 'db' => 'document_id', 'dt' => 3 ),
@@ -29,7 +29,7 @@ $sql_details = array(
  
 require( 'ssp.class.php' );
 //here put query as variable then add it at the end of simple inputs
-$where = "`opportunity_id`=".$_SESSION['id'];
+$where = "`opportunity_id`=".$_SESSION['opportunity_id'];
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );

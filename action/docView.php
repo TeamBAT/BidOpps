@@ -12,9 +12,9 @@ $primaryKey = 'document_id';
 // indexes
 $columns = array(
     array( 'db' => 'subheading', 'dt' => 0 ),
-    array( 'db' => 'documentTitle',  'dt' => 1 ),
-    array( 'db' => 'postedDate', 'dt' => 2 ),
-    array( 'db' => 'filepath', 'dt' => 3 )
+    array( 'db' => 'title',  'dt' => 1 ),
+    array( 'db' => 'posted_date', 'dt' => 2 ),
+    array( 'db' => 'directory', 'dt' => 3 )
 );
  
 // SQL server connection information
@@ -28,7 +28,7 @@ $sql_details = array(
  
 require( 'ssp.class.php' );
 //here put query as variable then add it at the end of simple inputs
-$where = "`opportunity_id`=".$_SESSION['id'];
+$where = "`opportunity_id`=".$_SESSION['opportunity_id'];
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );

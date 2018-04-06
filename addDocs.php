@@ -223,7 +223,7 @@
         processData:false, 
         success: function(data)   // A function to be called if request succeeds
            {
-           $("#message").html(data);
+           alert(data);
            $("#file").val('');
            $('#example').DataTable().ajax.reload();
            $('#example1').DataTable().ajax.reload();
