@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -38,86 +39,85 @@
             </div>  
         </nav>
 
-<main role="main" class="container">
-    <div class="card">
-        <div class="card-header">Create Opportunity</div>
-        <div class="card-body">
-            <form class="needs-validation" action="action/submitOpportunity.php" method="POST">
+        <main role="main" class="container">
+            <div class="card">
+                <div class="card-header">Create Opportunity</div>
+                <div class="card-body">
+                    <form class="needs-validation" action="action/submitOpportunity.php" method="POST">
 
-            <div class="form-row">
-                        <div class="form-group col-sm-5">
-                            <label for="id-number">Number <font color="red">(required)</font></label>
-                                    <input type="text" class="form-control" placeholder="2018-5555" maxlength="9" name="id-number" id="id-number" required>
+                        <div class="form-row">
+                            <div class="form-group col-sm-5">
+                                <label for="id-number">Number <font color="red">(required)</font></label>
+                                <input type="text" class="form-control" placeholder="2018-5555" maxlength="9" name="id-number" id="id-number" required>
                             </div>
-                <div class="form-group col-sm-7">
-                                    <label for="title">Title <font color="red">(required)</font></label>
-                                    <input type="text" class="form-control" placeholder="Bid Opportunity Solicitation" name="title" id="title" required>
+                            <div class="form-group col-sm-7">
+                                <label for="title">Title <font color="red">(required)</font></label>
+                                <input type="text" class="form-control" placeholder="Bid Opportunity Solicitation" name="title" id="title" required>
                             </div>
-                </div>
-            <div class="form-row">
-
-                        <div class="col-sm-5">
-
-                               <div class="form-group">
-                               <label for="datetimepicker">Final Filing Date <font color="red">(required)</font></label>
-                               <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                    </div>
+                        <div class="form-row">
 
-                               </div>
+                            <div class="col-sm-5">
 
-                                    <div class="form-group">
+                                <div class="form-group">
+                                    <label for="datetimepicker1">Final Filing Date <font color="red">(required)</font></label>
+                                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label for="type">Opportunity Type <font color="red">(required)</font></label>
                                     <select class="form-control" name="type" id="type" required>
-                                            <option>Solicitation</option>
+                                        <option>Solicitation</option>
                                     </select>
-                             </div>
+                                </div>
 
-                                    <div class="form-group">
+                                <div class="form-group">
                                     <label for="category">Category <font color="red">(required)</font></label>
                                     <select class="form-control" name="category" id="category">
-                                            <option>Actuarial Services</option>
-                                            <option>Architecture & Engineering</option>
-                                            <option>Construction</option>
-                                            <option>Consulting</option>
-                                            <option>Health</option>
-                                            <option>Information Technology</option>
-                                            <option>Investments (Non-Manager)</option>
-                                            <option>Legal Services - Outside Counsel</option>
-                                            <option>Mailing</option>
-                                            <option>Miscellaneous</option>
-                                            <option>Photography/Video Services</option>
-                                            <option>Printing/Reproduction/Graphic Design</option>
+                                        <option>Actuarial Services</option>
+                                        <option>Architecture & Engineering</option>
+                                        <option>Construction</option>
+                                        <option>Consulting</option>
+                                        <option>Health</option>
+                                        <option>Information Technology</option>
+                                        <option>Investments (Non-Manager)</option>
+                                        <option>Legal Services - Outside Counsel</option>
+                                        <option>Mailing</option>
+                                        <option>Miscellaneous</option>
+                                        <option>Photography/Video Services</option>
+                                        <option>Printing/Reproduction/Graphic Design</option>
                                     </select>
-                              </div>
+                                </div>
 
-                </div>
-                        <div class="col-sm-7">
-                            <div class="form-group">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="form-group">
                                     <label for="description">Description <font color="red">(required)</font></label>
                                     <textarea class="input-block-level" name="description" id="summernote" required></textarea>
-                            </div>
+                                </div>
                             </div>
 
-                    </div>
-                    <div class="form-row" >
-                    <button type="submit" class="btn btn-primary pl-6">Save</button>
-                    <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>   
-                    </div>
-        </form>
-        </div>
-        </div>
-    
-    </main><!-- /.container -->
+                        </div>
+                        <div class="form-row" >
+                            <button type="submit" class="btn btn-primary pl-6">Save</button>
+                            <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>   
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </main><!-- /.container -->
 
         <!-- Bootstrap core JavaScript -->
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             $(document).ready(function () {
-                
+
                 //Settings for datetimepicker and summernote editor
                 $('#datetimepicker1').datetimepicker({
                     defaultDate: moment().startOf('day').add(15, 'hours')

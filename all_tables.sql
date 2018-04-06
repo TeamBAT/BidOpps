@@ -90,6 +90,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
+  `priority` INT NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
@@ -133,6 +134,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
+  `priority` INT NOT NULL,
   `title` VARCHAR(45) NOT NULL,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
