@@ -6,6 +6,7 @@ if (isset($_POST['action'])) {
     switch ($_POST['action']) {
         case 'remove':
             $status = 'Archived';
+            $timestamp = '';
             break;
         case 'review':
             $status = 'Reviewed';

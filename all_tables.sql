@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `posted_date` DATETIME NULL,
   `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` INT NOT NULL,
-  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted', 'Archived'),
+  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted', 'Archived') NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`
@@ -90,12 +90,14 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
   `filesize` VARCHAR(45) NOT NULL,
   `directory` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `subheading` VARCHAR(255) NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `due_date` DATETIME NULL,
   `opportunity_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `opportunity_id_idx` (`opportunity_id` ASC),
@@ -131,12 +133,14 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`submission_docs` (
   `document_id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NOT NULL,
   `filename` VARCHAR(45) NOT NULL,
   `filetype` VARCHAR(45) NOT NULL,
   `filesize` VARCHAR(255) NOT NULL,
   `directory` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) NULL,
+  `subheading` VARCHAR(255) NULL,
   `posted_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `due_date` DATETIME NULL,
   `submission_id` INT NOT NULL,
   PRIMARY KEY (`document_id`),
   INDEX `submission_id_idx` (`submission_id` ASC),

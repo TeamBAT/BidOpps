@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
     <head>
@@ -21,8 +20,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
-
-
 
     </head>
 
@@ -64,7 +61,7 @@
                                <div class="form-group">
                                <label for="datetimepicker">Final Filing Date <font color="red">(required)</font></label>
                                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker"/>
+                        <input type="text" name="date" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                         <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -72,14 +69,12 @@
 
                                </div>
 
-
                                     <div class="form-group">
                                     <label for="type">Opportunity Type <font color="red">(required)</font></label>
                                     <select class="form-control" name="type" id="type" required>
                                             <option>Solicitation</option>
                                     </select>
                              </div>
-
 
                                     <div class="form-group">
                                     <label for="category">Category <font color="red">(required)</font></label>
@@ -107,7 +102,6 @@
                             </div>
                             </div>
 
-
                     </div>
                     <div class="form-row" >
                     <button type="submit" class="btn btn-primary pl-6">Save</button>
@@ -123,7 +117,12 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             $(document).ready(function () {
-                $('#datetimepicker').datetimepicker();
+                
+                //Settings for datetimepicker and summernote editor
+                $('#datetimepicker1').datetimepicker({
+                    defaultDate: moment().startOf('day').add(15, 'hours')
+                });
+
                 $('#summernote').summernote({
                     placeholder: 'Description',
                     tabsize: 2,
@@ -131,7 +130,7 @@
                     height: 250
                 });
             });
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            // JavaScript for disabling form submissions if there are invalid fields
             (function () {
                 'use strict';
                 window.addEventListener('load', function () {

@@ -11,9 +11,9 @@ $primaryKey = 'document_id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'subheading', 'dt' => 0 ),
-    array( 'db' => 'documentTitle',  'dt' => 1 ),
-    array( 'db' => 'postedDate', 'dt' => 2 ),
+    array( 'db' => 'description', 'dt' => 0 ),
+    array( 'db' => 'filetype',  'dt' => 1 ),
+    array( 'db' => 'posted_date', 'dt' => 2 ),
     array( 'db' => 'document_id', 'dt' => 3 ),
     array( 'db' => 'filename', 'dt' => 4 )
 );
