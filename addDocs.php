@@ -15,7 +15,7 @@
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
@@ -96,6 +96,8 @@
               </tr>
             </thead>
           </table>
+          </iframe>
+
      </div>
     </div>
 </div>
@@ -121,6 +123,9 @@
                                 <label for="subheading" class="control-label">Subheading</label>
                                 <select class="form-control" id="subheading">
                                  <option value="1">Solicitation Documents</option>
+                                 <option value="2">Addenda</option>
+                                 <option value="3">Required</option>
+                                 <option value="4">Exhibits</option>
                                 </select>
                                 
                         </div>
@@ -255,7 +260,7 @@
         "columnDefs": [
             {
                 "targets": [ 3 ],
-                "date":"filepath",
+                "date":"directory",
                 "render": function(data, type, row, meta){
                     if(type === 'display'){
                     data = '<a href="' + data + '">' + data + '</a>';
@@ -279,7 +284,7 @@
             var ta = document.getElementById('fileName');
             $("#subheading select").val(rowData[0]);
             $("#docTitle").val(rowData[1]);
-            $("#PostedDate").val(rowData[2]);
+            //$("#PostedDate").val(rowData[2]);
             $("#dueDate").val("");
             ta.value=rowData[4];
             updateRw=rowData[3];
@@ -313,12 +318,11 @@
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
              var dueDate = $("#dueDate").val();
-             alert (Pdate);
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
           
               // AJAX Code To Submit Form.
-              $.ajax({
+              $.ajax({ 
                 
               type: "POST",
               url: "action/adminFileUpdate.php",
