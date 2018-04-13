@@ -79,6 +79,7 @@
                                 <div class="form-group">
                                     <label for="category">Category <font color="red">(required)</font></label>
                                     <select class="form-control" name="category" id="category">
+                                        <option disabled selected value> -- Select an Option -- </option>
                                         <option>Actuarial Services</option>
                                         <option>Architecture & Engineering</option>
                                         <option>Construction</option>
@@ -105,7 +106,7 @@
                         </div>
                         <div class="form-row" >
                             <button type="submit" class="btn btn-primary pl-6">Save</button>
-                            <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>   
+                            <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -151,6 +152,5 @@
 
         </script>
     </body>
-
 
 </html>
