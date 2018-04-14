@@ -43,7 +43,7 @@
             <div class="card">
                 <div class="card-header">Create Opportunity</div>
                 <div class="card-body">
-                    <form class="needs-validation" action="action/submitOpportunity.php" method="POST">
+                    <form class="needs-validation" id="proposeForm" action="action/submitOpportunity.php" method="POST">
 
                         <div class="form-row">
                             <div class="form-group col-sm-5">
@@ -104,7 +104,7 @@
 
                         </div>
                         <div class="form-row" >
-                            <button type="submit" class="btn btn-primary pl-6">Save</button>
+                            <button type="button" class="btn btn-primary pl-6" id="saveB">Save</button>
                             <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>   
                         </div>
                     </form>
@@ -129,6 +129,30 @@
                     disableResizeEditor: true,
                     height: 250
                 });
+            $("#saveB").click(function(e) {
+               
+            var number= $("#id-number").val();
+             // Returns successful data submission message when the entered information is stored in database.
+            var dataString = 'id='+ number;
+              // AJAX Code To Submit Form.
+              $.ajax({ 
+                
+              type: "POST",
+              url: "action/checkSolicitationId.php",
+              data: dataString,
+              cache: false,
+              success: function(result){
+                if(result == "OK"){
+                    alert("This number already exists");
+                }
+                else{
+                    $("#proposeForm").submit()
+               }
+               
+             
+              }
+            });
+            });
             });
             // JavaScript for disabling form submissions if there are invalid fields
             (function () {
