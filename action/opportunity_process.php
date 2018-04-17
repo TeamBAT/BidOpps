@@ -20,6 +20,10 @@ if (isset($_POST['action'])) {
             $status = 'Posted';
             $timestamp = "`posted_date` = CURRENT_TIMESTAMP, ";
             break;
+        case 'send':
+            $status = 'Submitted';
+            $timestamp = '';
+            break;
     }
     //Update databse to reflect new status
     $query = "UPDATE `opportunities` SET ".$timestamp."`last_updated` = CURRENT_TIMESTAMP, `status` = '".$status."' WHERE `opportunities`.`id` = ".$id."";
@@ -32,6 +36,6 @@ if (isset($_POST['action'])) {
         echo "Query failed.";
     }
 } else{
-    echo "Post variable not set";
+    echo "Post not set.";
 }
 ?>
