@@ -19,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`users` (
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`bidders` (
   `user_id` INT NOT NULL,
+  `business` VARCHAR(45) NULL,
+  `interests` TEXT NULL,
   PRIMARY KEY (`user_id`),
   CONSTRAINT `bidder_id`
     FOREIGN KEY (`user_id`)
@@ -54,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`permissions` (
 	`bid` BIT(1) DEFAULT 0,
 	CONSTRAINT `permission_id`
 		FOREIGN KEY(`user_id`)
-		REFERENCES `bidopps_db`.`administrators` (`user_id`)
+		REFERENCES `bidopps_db`.`users` (`id`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE);
 
@@ -73,9 +75,10 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunities` (
   `validated_date` DATETIME NULL,
   `reviewed_date` DATETIME NULL,
   `posted_date` DATETIME NULL,
-  `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_updated` DATETIME ON UPDATE CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `message` TEXT NULL,
   `created_by` INT NOT NULL,
-  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted', 'Archived') NOT NULL,
+  `status` ENUM('Drafted', 'Submitted', 'Reviewed', 'Validated', 'Posted', 'Archived', 'Awarded') NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `admin_id_idx` (`created_by` ASC),
   CONSTRAINT `created_by`
@@ -115,16 +118,24 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`opportunity_docs` (
 CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `bidder_id` INT NOT NULL,
+  `opportunity_id` INT NOT NULL,
+  `status` ENUM('Submitted', 'Screened', 'Evaluated', 'Awarded', 'Denied') NOT NULL DEFAULT 'Submitted',
   `time_submitted` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `time_screened` DATETIME NULL,
   `time_reviewed` DATETIME NULL,
   `time_finalized` DATETIME NULL,
-  `last_updated` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `message` TEXT NULL,
+  `last_updated` DATETIME ON UPDATE CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   INDEX `bidder_id_idx` (`bidder_id` ASC),
   CONSTRAINT `bidder_submission`
     FOREIGN KEY (`bidder_id`)
     REFERENCES `bidopps_db`.`bidders` (`user_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `submission_opportunity`
+    FOREIGN KEY (`opportunity_id`)
+    REFERENCES `bidopps_db`.`opportunities` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
 

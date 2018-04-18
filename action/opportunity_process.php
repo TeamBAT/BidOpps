@@ -20,18 +20,22 @@ if (isset($_POST['action'])) {
             $status = 'Posted';
             $timestamp = "`posted_date` = CURRENT_TIMESTAMP, ";
             break;
+        case 'send':
+            $status = 'Submitted';
+            $timestamp = '';
+            break;
     }
     //Update databse to reflect new status
     $query = "UPDATE `opportunities` SET ".$timestamp."`last_updated` = CURRENT_TIMESTAMP, `status` = '".$status."' WHERE `opportunities`.`id` = ".$id."";
   
     $result = mysqli_query($bd, $query);
     if($result){
-        echo "Success! Opportunity is now ready for the next step.";
+        echo "Success! Opportunity is now ".$status.".";
     }
     else{
         echo "Query failed.";
     }
 } else{
-    echo "Post variable not set";
+    echo "Post not set.";
 }
 ?>
