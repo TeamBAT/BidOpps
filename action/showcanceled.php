@@ -11,11 +11,12 @@ $primaryKey = 'id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-    array( 'db' => 'id', 'dt' => 0 ),
+    array( 'db' => 'number', 'dt' => 0 ),
     array( 'db' => 'title',  'dt' => 1 ),
     array( 'db' => 'status', 'dt' => 2 ),
     array( 'db' => 'final_filing_date',  'dt' => 3 ),
-    array( 'db' =>  'posted_date', 'dt' => 4)
+    array( 'db' =>  'posted_date', 'dt' => 4),
+    array( 'db' => 'id', 'dt' => 5)
 );
  
 // SQL server connection information
@@ -28,7 +29,7 @@ $sql_details = array(
 
 require( 'ssp.class.php' );
 //here put query as variable then add it at the end of simple inputs
-$where = "`status`=".'"canceled"';
+$where = "`status`=".'"drafted"';
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );

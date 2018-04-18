@@ -86,9 +86,12 @@
                             <h5>Description</h5> <?= html_entity_decode($opportunity['description']); ?><hr>
                             <h5>Status</h5> <?=$opportunity['status']; ?><br>
                             <hr>
-                            <h5>Documents</h5>
-				<!--Document Display Module goes here-->
-                                <table id="documents" class="table table-striped table-bordered pt-3" style="width:100%">
+                            <h5 style="color:#5f6266">Download The Documents</h5>
+							<p>You can download and view documents individually by selecting each link, or you can download all of the files in a .zip format below</p>
+                            <a href="action/bidderDownloadFile.php?id=<?=$opportunity_id?>" >Download all files</a><span>(Zip)</span>
+				                <!--Document Display Module goes here-->  
+								<h5 style="color:#5f6266" class="mt-3">Solicitation Documents</h5>
+                                <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>File Name</th>
@@ -97,11 +100,87 @@
                                     </thead>
                                     
                                     <?php
-                                    // Fetches rows from the $documents mysqli result to populate table
-                                    if( !$documents || mysqli_num_rows($documents) > 0 ):
-                                    while($document = mysqli_fetch_assoc($documents)): ?>
-                                    <td><a href="<?php echo $document['filepath']; ?>"><?php echo $document['filename']; ?></a></td>
-                                    <td><?php echo $document['posted_date']; ?></td>
+									// Fetches rows from the $documents mysqli result to populate table
+									$query1 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Solicitation Documents'";
+                                    $SolicitationDocuments = mysqli_query($bd, $query1);
+                                    if(mysqli_num_rows($SolicitationDocuments) > 0):
+                                    while($SolicitationDocument = mysqli_fetch_assoc($SolicitationDocuments)): ?>
+									<tr>
+                                    <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
+                                    <td><?php echo $SolicitationDocument['posted_date']; ?></td>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    //End fetch rows
+                                    ?>
+									</tr>
+                                </table>
+								<h5 style="color:#5f6266" class="mt-3">Addenda</h5>
+                                <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+									// Fetches rows from the $documents mysqli result to populate table
+									$query2 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Addenda'";
+                                    $Addenda = mysqli_query($bd, $query2);
+                                    if(mysqli_num_rows($Addenda) > 0 ):
+                                    while($Addendas = mysqli_fetch_assoc($Addenda)): ?>
+									<tr>
+                                    <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
+                                    <td><?php echo $Addendas['posted_date']; ?></td>
+                                    </tr>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    //End fetch rows
+                                    ?>
+									</tr>
+									</tbody>
+                                </table>
+								<h5 style="color:#5f6266" class="mt-3">Required Attachments</h5>
+                                <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <?php
+									// Fetches rows from the $documents mysqli result to populate table
+									$query3 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Required'";
+                                    $requiredAttachments = mysqli_query($bd, $query3);
+                                    if( mysqli_num_rows($requiredAttachments) > 0 ):
+                                    while($requiredAttachment = mysqli_fetch_assoc($requiredAttachments)): ?>
+									<tr>
+                                    <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
+                                    <td><?php echo $requiredAttachment['posted_date']; ?></td>
+									</tr>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    //End fetch rows
+                                    ?>
+									
+                                </table>
+								<h5 style="color:#5f6266" class="mt-3">Exhibits</h5>
+                                <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>File Name</th>
+                                            <th>Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <?php
+									// Fetches rows from the $documents mysqli result to populate table
+									$query4 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Exhibits'";
+                                    $exhibits = mysqli_query($bd, $query4);
+                                    if(mysqli_num_rows($exhibits) > 0 ):
+                                    while($exhibit = mysqli_fetch_assoc($exhibits)): ?>
+									<tr>
+                                    <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
+                                    <td><?php echo $exhibit['posted_date']; ?></td>
+									</tr>
                                     <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
                                     //End fetch rows
                                     ?>
