@@ -22,7 +22,24 @@
   </head>
 
   <body style="background: #8a8a5c">
-       <?php   session_start();    ?>
+       <?php
+          include_once("action/connection.php");
+          $opportunity_id = mysqli_escape_string($bd, $_GET['id']);
+          $_SESSION['opportunity_id'] = $opportunity_id;
+          $query = "SELECT status FROM opportunities WHERE id = ".$opportunity_id;
+          $result = mysqli_query($bd, $query);
+          if($result){
+            $row = mysqli_fetch_assoc($result);
+            $status = $row['status'];
+            if($status != 'Drafted'){
+              echo "About to go home.";
+              header("location: home.php");
+            }
+          }
+          else{
+            echo "Could not contact database.";
+          }
+       ?>
         <nav class="navbar navbar-dark bg-primary fixed-top">
          <h3 class="navbar-brand">Bid Opportunities Admin</h3>
          <div class="dropdown pr-5">
@@ -218,6 +235,7 @@
         formData.append('file[]', file);
         i++;
         } 
+        formData.append('id', <?=$opportunity_id?>);
         if(File_Ex_Error==0){   
         $.ajax({
         url: "action/submitDocs.php", // Url to which the request is send

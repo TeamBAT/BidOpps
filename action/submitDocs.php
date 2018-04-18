@@ -2,6 +2,7 @@
 require_once('connection.php');
 if($_FILES)
   { 
+    $opportunity_id = $_POST['id'];
     $count = count($_FILES['file']['name']);
     $i= 0;
     while ($i<$count)
@@ -25,7 +26,7 @@ if($_FILES)
         if (move_uploaded_file($tmp_name, $path.$name)) {
         $i++;
         $query = "INSERT INTO `opportunity_docs` (`filename`,`directory`, `filetype`, `filesize`, `opportunity_id`)
-			VALUES('".$name."', '".$filesPath."'  ,'".$type."', '".$size."', '".$_SESSION['opportunity_id']."')";
+			VALUES('".$name."', '".$filesPath."'  ,'".$type."', '".$size."', '".$opportunity_id."')";
 	
 	        $result = mysqli_query($bd, $query);
 	        if(!$result){
