@@ -17,11 +17,16 @@ if(isset($_POST["id-number"]) && isset($_POST["date"]) && isset($_POST["type"]) 
 	
 	$result = mysqli_query($bd, $query);
 	if(!$result){
-		echo mysqli_error($bd);
-	}
+            $message = "Could not contact database. Please try again.\nReason: ".mysqli_error($bd);
+            $error = true;
+            $return[] = array('message' => $message, 'error' => $error, 'id' => null);
+            echo json_encode($return);
+        }
 	else{
-            $_SESSION['opportunity_id'] = mysqli_insert_id($bd);
-            header("Location: ../addDocs.php");
+            $message = "Opportunity saved! Please review files and preview before sending to an approver.";
+            $error = false;
+            $return[] = array('message' => $message, 'error' => $error, 'id' => mysqli_insert_id($bd));
+            echo json_encode($return);
 	}
 	 
 }

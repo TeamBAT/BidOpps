@@ -1,4 +1,10 @@
-
+<?php
+    if(isset($_GET['id'])){
+        $editMode = true;
+        $opportunity_id = mysqli_real_escape_string($_GET['id']);
+    }
+    else $editMode = false;
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -16,6 +22,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
+        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
@@ -43,7 +51,7 @@
             <div class="card">
                 <div class="card-header">Create Opportunity</div>
                 <div class="card-body">
-                    <form class="needs-validation" action="action/submitOpportunity.php" method="POST">
+                    <form class="container" novalidate action="action/submitOpportunity.php" method="POST" id="submitForm">
 
                         <div class="form-row">
                             <div class="form-group col-sm-5">
@@ -78,7 +86,8 @@
 
                                 <div class="form-group">
                                     <label for="category">Category <font color="red">(required)</font></label>
-                                    <select class="form-control" name="category" id="category">
+                                    <select class="form-control" name="category" id="category" required>
+                                        <option disabled selected value> -- Select an Option -- </option>
                                         <option>Actuarial Services</option>
                                         <option>Architecture & Engineering</option>
                                         <option>Construction</option>
@@ -99,13 +108,17 @@
                                 <div class="form-group">
                                     <label for="description">Description <font color="red">(required)</font></label>
                                     <textarea class="input-block-level" name="description" id="summernote" required></textarea>
+                                    <div class="invalid-feedback">
+                                        Please enter a description.
+                                    </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="form-row" >
-                            <button type="submit" class="btn btn-primary pl-6">Save</button>
-                            <a class="btn btn-danger pl-6" href="home.php" role="button">Cancel</a>   
+                            <a class="btn btn-danger pl-6" href="home.php" role="button"><i class="fas fa-ban"></i> Cancel</a>
+                            <button type="submit" id="toDocs" class="btn btn-primary pl-6"><i class="far fa-save"></i> Save and Continue</button>
+                            <button type="submit" id="toPreview" class="btn btn-success pl-6"><i class="fas fa-eye"></i> Save and Preview</button>
                         </div>
                     </form>
                 </div>
@@ -117,40 +130,87 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             $(document).ready(function () {
-
                 //Settings for datetimepicker and summernote editor
                 $('#datetimepicker1').datetimepicker({
                     defaultDate: moment().startOf('day').add(15, 'hours')
                 });
 
                 $('#summernote').summernote({
+                    toolbar: [
+                        ['style', ['bold', 'italic', 'underline', 'clear']],
+                        ['font', ['strikethrough', 'superscript', 'subscript']],
+                        ['fontsize', ['fontsize']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph']],
+                        ['height', ['height']]
+                    ],
                     placeholder: 'Description',
                     tabsize: 2,
                     disableResizeEditor: true,
                     height: 250
                 });
-            });
-            // JavaScript for disabling form submissions if there are invalid fields
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('submit', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
+                
+                //JavaScript for disabling form submissions if there are invalid fields
+                $("#toDocs").click(function(event) {
+                    event.preventDefault();
+
+                    // Fetch form to apply custom Bootstrap validation
+                    var form = $("#submitForm");
+
+                    if (form[0].checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }else{
+                        var url = form.attr('action');
+                        var data = form.serialize();
+                        $.ajax({
+                            type: "POST",
+                            dataType: "JSON",
+                            url: url,
+                            data: data,
+                            success: function(response){
+                                alert(response[0].message);
+                                if(!response[0].error){
+                                    window.location = "/addDocs.php?id="+response[0].id;
+                                }
                             }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
+                        });
+                    }
+                    form.addClass('was-validated');
+                });
+                
+                $("#toPreview").click(function(event) {
+                    event.preventDefault();
+
+                    // Fetch form to apply custom Bootstrap validation
+                    var form = $("#submitForm");
+
+                    if (form[0].checkValidity() === false) {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }else{
+                        var url = form.attr('action');
+                        var data = form.serialize();
+                        $.ajax({
+                            type: "POST",
+                            dataType: "JSON",
+                            url: url,
+                            data: data,
+                            success: function(response){
+                                alert(response[0].message);
+                                if(!response[0].error){
+                                    window.location = "/opportunity.php?id="+response[0].id;
+                                }
+                            }
+                        });
+                    }
+                    form.addClass('was-validated');
+                });
+                
+            });
+           
 
         </script>
     </body>
-
 
 </html>

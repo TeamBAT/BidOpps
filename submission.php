@@ -28,8 +28,20 @@
 	
 	if(isset($_GET['id'])){
             
+            //Fetch submission
+            $submission_id = mysqli_real_escape_string($bd, $_GET['id']);
+            $query = "SELECT * FROM submissions WHERE id = '".$submission_id."'";
+            
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Submission could not be fetched.";
+            else if (mysqli_num_rows($result) == 0 ) $noResult = true;
+            else{
+                    $submission = mysqli_fetch_assoc($result);
+            }
+            mysqli_free_result($result);
+            
             //Fetch Opportunity
-            $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+            $opportunity_id = $submission['opportunity_id'];
             $query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
             
             $result = mysqli_query($bd, $query);
@@ -43,8 +55,22 @@
             //Fetch Documents
             $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id."";
             
-            $documents = mysqli_query($bd, $query);
-            if(!$documents) echo "Documents couldn not be fetched.";
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Documents could not be fetched.";
+            else{
+                $documents = mysqli_fetch_assoc($result);
+            }
+            mysqli_free_result($result);
+            
+            //Fetch Bidder
+            $query = "SELECT * FROM users JOIN bidders WHERE id = ".$submission['bidder_id'];
+            
+            $result = mysqli_query($bd, $query);
+            if(!$result) echo "Bidder could not be found.";
+            else{
+                $bidder = mysqli_fetch_assoc($result);
+            }
+            mysqli_free_result($result);
             
             //Check Permissions
             $query = "SELECT * FROM permissions WHERE user_id = ".$_SESSION['SESS_MEMBER_ID']."";
@@ -53,8 +79,8 @@
             if(!$result) echo "Permissions could not be checked.";
             else{
                 $permissions = mysqli_fetch_assoc($result);
-                mysqli_free_result($result);
             }
+            mysqli_free_result($result);
             
         }
         else{
@@ -63,7 +89,7 @@
 	
 ?>
 	<nav class="navbar navbar-dark bg-primary fixed-top">
-	 <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+	 <h3 class="navbar-brand">Bid Opportunities</h3>
 	 <div class="dropdown pr-5">
 		  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		   <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>
@@ -77,84 +103,46 @@
 	
 	<div class="container-fluid">
 		<div class="card">
-                    <div class="card-header">Bid Opportunity Review</div>
+                    <div class="card-header">Bid Submission Review</div>
 			<div class="card-body">
-                            <?php if(isset($noResult)): echo "Opportunity 'id = ".$opportunity_id."' does not exist."; else: ?>
-                            <h5>Solicitation Number</h5> <?=$opportunity['number']; ?><br><hr>
+                            <?php if(isset($noResult)): echo "Submission 'id = ".$submission_id."' does not exist."; else: ?>
+                            <h5>Opportunity Number</h5> <?=$opportunity['number']; ?><br><hr>
                             <h5>Title</h5> <?=$opportunity['title']; ?><br><hr>
                             <h5>Type</h5> <?=$opportunity['type']; ?><br><hr>
-                            <h5>Description</h5> <?= html_entity_decode($opportunity['description']); ?><hr>
-                            <h5>Status</h5> <?=$opportunity['status']; ?><br>
+                            <h5>Bidder Information</h5> 
+                            <h6>Name:</h6><?=$bidder['firstname']." ".$bidder['lastname']; ?><br>
+                            <br><h6>Business:</h6><?=$bidder['business'];?><hr>
+                            <h5>Status</h5> <?=$submission['status']; ?><br>
                             <hr>
                             <h5>Documents</h5>
 				<!--Document Display Module goes here-->
-                                <table id="documents" class="table table-striped table-bordered pt-3" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>File Name</th>
-                                            <th>Posted Date</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <?php
-                                    // Fetches rows from the $documents mysqli result to populate table
-                                    if( !$documents || mysqli_num_rows($documents) > 0 ):
-                                    while($document = mysqli_fetch_assoc($documents)): ?>
-                                    <td><a href="<?php echo $document['filepath']; ?>"><?php echo $document['filename']; ?></a></td>
-                                    <td><?php echo $document['posted_date']; ?></td>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
-                                    //End fetch rows
-                                    ?>
-                                </table>
 				
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
 				<!-- Options to display based on user and status -->
-                                <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
+                                <?php if($submission['status'] != 'Finalized' && ($permissions['administrate'] || $permissions['screen']) || $permissions['evaluate'] || $permissions['finalize']): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
                                 <?php endif; if($opportunity['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
                                 <?php elseif($opportunity['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
 				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#postModal"><i class="far fa-paper-plane"></i> Post</button>
-                                <?php elseif($opportunity['status'] == 'Drafted' && ($permissions['administrate']|| $permisssions['author'])): ?>
-                                <a class="btn btn-info" href="addDocs.php?id=<?=$opportunity_id?>"><i class="fas fa-file-alt"></i> Add Documents</a>
-                                <a class="btn btn-info" href="propose.php?id=<?=$opportunity_id?>"><i class="fas fa-edit"></i> Edit Information</a>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sendModal"><i class="far fa-paper-plane"></i> Send to Approver</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="far fa-paper-plane"></i> Post</button>
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
 		</div>
-            
-                <!-- Send to Approver Modal -->
-		<div id="sendModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title text-center">Are you sure you are ready to submit this opportunity for review?</h4>
-				</div>
-				<div class="modal-body">
-					You cannot make any changes after you submit this opportunity for approval
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="send" value="send"><i class="far fa-paper-plane"></i> Submit</button>
-				</div>
-			</div>
-		</div>
-		</div>
 		
-		<!-- Cancel Opportunity Modal -->
+		<!-- Cancel Submission Modal -->
 		<div id="cancelModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title text-center">Are you sure you want to cancel this opportunity?</h4>
+					<h4 class="modal-title text-center">Are you sure you want to deny this submission?</h4>
 				</div>
 				<div class="modal-body">
-					This opportunity will be removed from the submission process and archived.
+					This submission will be removed from the submission process and archived.
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
@@ -164,7 +152,7 @@
 		</div>
 		</div>
 		
-		<!--Reviewer Modal-->
+		<!--Screener Modal-->
 		<div id="reviewModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -184,7 +172,7 @@
 		</div>
 		</div>
 		
-		<!-- Approver Modal -->
+		<!-- Evaluator Modal -->
 		<div id="approveModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -204,8 +192,8 @@
 		</div>
 		</div>
 		
-		<!-- Author Post Modal -->
-		<div id="postModal" class="modal fade" role="dialog">
+		<!-- Finalizer Modal -->
+		<div id="awardModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -225,17 +213,17 @@
         $(document).ready(function(){
              $(':submit').click(function(){
                  var clickBtnValue = $(this).val();
-                 var ajaxurl = 'action/opportunity_process.php',
+                 var ajaxurl = 'action/submission_process.php',
                  data =  {'action': clickBtnValue,
-                          'id': "<?=$opportunity_id?>"
+                          'id': "<?=$submission_id?>"
                 };
                  $.post(ajaxurl, data, function (response) {
-                     alert(response);
                      location.reload();
+                     alert(response);
                  });
              });
          });
       </script>
-            
+
   </body>
 </html>
