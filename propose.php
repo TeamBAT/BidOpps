@@ -1,9 +1,24 @@
 <?php
+    include_once 'action/connection.php';
+    
     if(isset($_GET['id'])){
         $editMode = true;
-        $opportunity_id = mysqli_real_escape_string($_GET['id']);
+        $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+        
+        $query = "SELECT * FROM opportunities WHERE id=".$opportunity_id;
+        
+        $result = mysqli_query($bd, $query);
+        if($result){
+            $opportunity = mysqli_fetch_assoc($result);
+            mysqli_free_result($result);
+            if($opportunity['status'] != 'Drafted') header("Location: /home.php");
+        }else{ 
+            header("Location: /home.php");
+        }
     }
-    else $editMode = false;
+    else {
+        $editMode = false;
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,6 +38,7 @@
         
         <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.3.3/cleave.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script>
         
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
@@ -35,7 +51,6 @@
     </head>
 
     <body style="background: #8a8a5c">
-        <?php session_start(); ?>
         <nav class="navbar navbar-dark bg-primary fixed-top">
             <h3 class="navbar-brand">Bid Opportunities Admin</h3>
             <div class="dropdown pr-5">
@@ -58,11 +73,11 @@
                         <div class="form-row">
                             <div class="form-group col-sm-5">
                                 <label for="id-number">Number <font color="red">(required)</font></label>
-                                <input type="text" class="form-control" placeholder="2018-5555" maxlength="9" name="id-number" id="id-number" required>
+                                <input type="text" class="form-control id-number" <?php if($editMode):?>value="<?=$opportunity['number']?>"<?php else:?> placeholder="2018-5555"<?php endif;?> maxlength="9" name="id-number" id="id-number" required>
                             </div>
                             <div class="form-group col-sm-7">
                                 <label for="title">Title <font color="red">(required)</font></label>
-                                <input type="text" class="form-control" placeholder="Bid Opportunity Solicitation" name="title" id="title" required>
+                                <input type="text" class="form-control" <?php if($editMode):?>value="<?=$opportunity['title']; endif;?>" placeholder="Bid Opportunity Solicitation" name="title" id="title" required>
                             </div>
                         </div>
                         <div class="form-row">
@@ -90,18 +105,18 @@
                                     <label for="category">Category <font color="red">(required)</font></label>
                                     <select class="form-control" name="category" id="category" required>
                                         <option disabled selected value> -- Select an Option -- </option>
-                                        <option>Actuarial Services</option>
-                                        <option>Architecture & Engineering</option>
-                                        <option>Construction</option>
-                                        <option>Consulting</option>
-                                        <option>Health</option>
-                                        <option>Information Technology</option>
-                                        <option>Investments (Non-Manager)</option>
-                                        <option>Legal Services - Outside Counsel</option>
-                                        <option>Mailing</option>
-                                        <option>Miscellaneous</option>
-                                        <option>Photography/Video Services</option>
-                                        <option>Printing/Reproduction/Graphic Design</option>
+                                        <option <?=($opportunity['category'] == "Actuarial Services")? "selected" : ""?>>Actuarial Services</option>
+                                        <option <?=($opportunity['category'] == "Architecture & Engineering")? "selected" : ""?>>Architecture & Engineering</option>
+                                        <option <?=($opportunity['category'] == "Construction")? "selected" : ""?>>Construction</option>
+                                        <option <?=($opportunity['category'] == "Consulting")? "selected" : ""?>>Consulting</option>
+                                        <option <?=($opportunity['category'] == "Health")? "selected" : ""?>>Health</option>
+                                        <option <?=($opportunity['category'] == "Information Technology")? "selected" : ""?>>Information Technology</option>
+                                        <option <?=($opportunity['category'] == "Investments (Non-Manager)")? "selected" : ""?>>Investments (Non-Manager)</option>
+                                        <option <?=($opportunity['category'] == "Legal Services - Outside Counsel")? "selected" : ""?>>Legal Services - Outside Counsel</option>
+                                        <option <?=($opportunity['category'] == "Mailing")? "selected" : ""?>>Mailing</option>
+                                        <option <?=($opportunity['category'] == "Miscellaneous")? "selected" : ""?>>Miscellaneous</option>
+                                        <option <?=($opportunity['category'] == "Photography/Video Services")? "selected" : ""?>>Photography/Video Services</option>
+                                        <option <?=($opportunity['category'] == "Printing/Reproduction/Graphic Design")? "selected" : ""?>>Printing/Reproduction/Graphic Design</option>
                                     </select>
                                 </div>
 
@@ -109,10 +124,10 @@
                             <div class="col-sm-7">
                                 <div class="form-group">
                                     <label for="description">Description <font color="red">(required)</font></label>
-                                    <textarea class="input-block-level" name="description" id="summernote" required></textarea>
                                     <div class="invalid-feedback">
                                         Please enter a description.
                                     </div>
+                                    <textarea class="input-block-level" name="description" id="summernote" required><?=($editMode)? $opportunity['description'] : ""?></textarea>
                                 </div>
                             </div>
 
@@ -132,10 +147,17 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <script>
             $(document).ready(function () {
-                //Settings for datetimepicker and summernote editor
-                $('#datetimepicker1').datetimepicker({
-                    defaultDate: moment().startOf('day').add(15, 'hours')
-                });
+                //Settings for page initialization
+                <?php if($editMode):?>
+                    var date = <?= json_encode($opportunity['final_filing_date'])?>;
+                    $('#datetimepicker1').datetimepicker({
+                        defaultDate: date
+                    });
+                <?php else: ?>
+                    $('#datetimepicker1').datetimepicker({
+                        defaultDate: moment().startOf('day').add(15, 'hours')
+                    });
+                <?php endif;?>
 
                 $('#summernote').summernote({
                     toolbar: [
@@ -152,6 +174,12 @@
                     height: 250
                 });
                 
+                var cleave = new Cleave('.id-number', {
+                    delimiter: '-',
+                    blocks: [4, 4],
+                    numericOnly: true
+                });
+                
                 //JavaScript for disabling form submissions if there are invalid fields
                 $("#toDocs").click(function(event) {
                     event.preventDefault();
@@ -164,7 +192,7 @@
                       event.stopPropagation();
                     }else{
                         var url = form.attr('action');
-                        var data = form.serialize();
+                        var data = form.serialize() + "&edit=" + <?=json_encode($editMode);?> + "<?php if($editMode): echo "&id=".$opportunity_id; else: echo "''"; endif;?>";
                         $.ajax({
                             type: "POST",
                             dataType: "JSON",
@@ -183,7 +211,6 @@
                 
                 $("#toPreview").click(function(event) {
                     event.preventDefault();
-
                     // Fetch form to apply custom Bootstrap validation
                     var form = $("#submitForm");
 
@@ -192,7 +219,7 @@
                       event.stopPropagation();
                     }else{
                         var url = form.attr('action');
-                        var data = form.serialize();
+                        var data = form.serialize() + "&edit=" + "<?=json_encode($editMode);?>" + "<?php if($editMode): echo "&id=".$opportunity_id; else: echo "''"; endif;?>";
                         $.ajax({
                             type: "POST",
                             dataType: "JSON",
@@ -211,7 +238,6 @@
                 
             });
            
-
         </script>
     </body>
 
