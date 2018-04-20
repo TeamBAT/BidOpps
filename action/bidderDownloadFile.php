@@ -1,6 +1,6 @@
 <?php
 require_once('connection.php');
-$opportunityId= mysqli_escape_string($_GET['id']);
+$opportunityId= $_SESSION['bidDocs'];
 $qry="SELECT * FROM opportunity_docs WHERE opportunity_id='$opportunityId'";
 	        $result=mysqli_query($bd, $qry);
             $file="../Uploads/";
