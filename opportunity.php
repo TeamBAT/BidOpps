@@ -94,8 +94,9 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>File Name</th>
-                                            <th>Posted Date</th>
+                                            <th style="width:50%">File Name</th>
+                                            <th style="width:25%">Posted Date</th>
+                                            <th style="width:25%">Upload</th>
                                         </tr>
                                     </thead>
                                     
@@ -108,7 +109,8 @@
 									<tr>
                                     <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
                                     <td><?php echo $SolicitationDocument['posted_date']; ?></td>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    <td><form> <input type="file" onchange="" /> </form></td>
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
                                     //End fetch rows
                                     ?>
 									</tr>
@@ -117,8 +119,9 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>File Name</th>
-                                            <th>Posted Date</th>
+                                            <th style="width:50%">File Name</th>
+                                            <th style="width:25%">Posted Date</th>
+                                            <th style="width:25%">Upload</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -131,8 +134,9 @@
 									<tr>
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
+                                    <td><form> <input type="file" onchange="" /> </form></td>
                                     </tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
                                     //End fetch rows
                                     ?>
 									</tr>
@@ -142,8 +146,9 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>File Name</th>
-                                            <th>Posted Date</th>
+                                            <th style="width:50%">File Name</th>
+                                            <th style="width:25%">Posted Date</th>
+                                            <th style="width:25%">Upload</th>
                                         </tr>
                                     </thead>
                                     
@@ -156,8 +161,10 @@
 									<tr>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
+                                    <td><form> <input type="file" onchange="" /> </form></td>
+                                    
 									</tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
                                     //End fetch rows
                                     ?>
 									
@@ -166,8 +173,9 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>File Name</th>
-                                            <th>Posted Date</th>
+                                            <th style="width:50%">File Name</th>
+                                            <th style="width:25%">Posted Date</th>
+                                            <th style="width:25%">Upload</th>
                                         </tr>
                                     </thead>
                                     
@@ -180,8 +188,9 @@
 									<tr>
                                     <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
                                     <td><?php echo $exhibit['posted_date']; ?></td>
+                                    <td><form> <input type="file" onchange="" /> </form></td>
 									</tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td>"; endif; 
+                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
                                     //End fetch rows
                                     ?>
                                 </table>
