@@ -91,7 +91,7 @@
 							<p>You can download and view documents individually by selecting each link, or you can download all of the files in a .zip format below</p>
                             <a href="action/bidderDownloadFile.php" >Download all files</a><span>(Zip)</span>
 				                <!--Document Display Module goes here-->  
-                                <form action="action/bidderDocsUpload.php" method='post' enctype="multipart/form-data" id="DocsUpload">
+                                <form action="action/AddendaDocsUpload.php" method='post' enctype="multipart/form-data" id="DocsUpload">
 								<h5 style="color:#5f6266" class="mt-3">Solicitation Documents</h5>
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
@@ -111,7 +111,10 @@
 									<tr>
                                     <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
                                     <td><?php echo $SolicitationDocument['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]" /></td>
+                                    <td><input type="file" name="file[]" />
+                                    <!--sending data like subheading, title --> 
+                                    <input type="hidden" name="subheading[]" value="Solicitation Documents"></td>
+
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
@@ -136,7 +139,7 @@
 									<tr>
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Addenda"></td>
                                     </tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
@@ -163,7 +166,7 @@
 									<tr>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Required"></td>
                                     
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
@@ -190,7 +193,7 @@
 									<tr>
                                     <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
                                     <td><?php echo $exhibit['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Exhibits"></td>
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
@@ -200,6 +203,7 @@
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <button type="button" class="btn btn-primary" id="submitDocs"><i class="fas fa-upload"></i> Upload Bidder</button>
 				<!-- Options to display based on user and status -->
                                 <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
@@ -325,6 +329,9 @@
                      location.reload();
                  });
              });
+             $("#submitDocs").click(function(){
+                document.getElementById("DocsUpload").submit();
+                });
          });
       </script>
             

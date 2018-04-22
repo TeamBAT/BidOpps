@@ -1,8 +1,9 @@
 <?php 
 require_once('connection.php');
 if($_FILES)
-  {
+    {
     $count = count($_FILES['file']['name']);
+    $subheading=$_POST['subheading'];
     $i= 0;
     while ($i<$count)
      {
@@ -10,7 +11,7 @@ if($_FILES)
         $size= $_FILES['file']['size'][$i];
         $type= $_FILES['file']['type'][$i];
         $tmp_name= $_FILES['file']['tmp_name'][$i];
-        
+        $opportunity_id = $_SESSION['bidDocs'];
         $position= strpos($name, ".");  
         
         $fileextension= substr($name, $position + 1);
@@ -23,16 +24,16 @@ if($_FILES)
         $filesPath= "Uploads/$name";
         if (!empty($name)){
         if (move_uploaded_file($tmp_name, $path.$name)) {
-        $i++;
-        $query = "INSERT INTO `submission_docs` (`filename`,`directory`, `filetype`, `filesize`, `opportunity_id`)
-			VALUES('".$name."', '".$filesPath."'  ,'".$type."', '".$size."', '".$opportunity_id."')";
+            $i++;
+        $query = "INSERT INTO `submission_docs` (`filename`,`directory`,`subheading`, `filetype`, `filesize`, `submission_id`)
+			VALUES('".$name."', '".$filesPath."'  ,'".$subheading[$i]."','".$type."', '".$size."', '".$opportunity_id."')";
 	
 	        $result = mysqli_query($bd, $query);
 	        if(!$result){
 	        	echo mysqli_error($bd);
             }
         echo 'Uploaded!';
-        
+       
         }
         }
         }
@@ -41,5 +42,4 @@ if($_FILES)
 else{
     echo "ridi";
 }
-?>
 ?>
