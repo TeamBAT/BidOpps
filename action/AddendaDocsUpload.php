@@ -1,7 +1,14 @@
 <?php 
 require_once('connection.php');
-if($_FILES)
-    {
+if($_FILES){
+    $query = "INSERT INTO `submissions` ()";
+    $result = mysqli_query($bd, $query);
+    if($result){
+        $submission_id = mysqli_insert_id($bd);
+    }
+    else{
+        echo "Submission insert failed";
+    }
     $count = count($_FILES['file']['name']);
     $subheading=$_POST['subheading'];
     $i= 0;
@@ -26,7 +33,7 @@ if($_FILES)
         if (move_uploaded_file($tmp_name, $path.$name)) {
             $i++;
         $query = "INSERT INTO `submission_docs` (`filename`,`directory`,`subheading`, `filetype`, `filesize`, `submission_id`)
-			VALUES('".$name."', '".$filesPath."'  ,'".$subheading[$i]."','".$type."', '".$size."', '".$opportunity_id."')";
+			VALUES('".$name."', '".$filesPath."'  ,'".$subheading[$i]."','".$type."', '".$size."', '".$submission_id."')";
 	
 	        $result = mysqli_query($bd, $query);
 	        if(!$result){
