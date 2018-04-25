@@ -1,6 +1,18 @@
 <?php
     include_once 'action/connection.php';
     
+    include_once 'action/checkLogin.php';
+    
+    $opportunity = false;
+    
+    $permissions = check_login($bd);
+    if(!($permissions['administrate'] || $permissions['author'])){
+        header("Location: home.php");
+    }
+    else if($permissions['bid']){
+        header("Location: showAvailablebids.php");
+    }
+    
     if(isset($_GET['id'])){
         $editMode = true;
         $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
@@ -171,6 +183,7 @@
                     placeholder: 'Description',
                     tabsize: 2,
                     disableResizeEditor: true,
+                    disableDragAndDrop: true,
                     height: 250
                 });
                 

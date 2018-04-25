@@ -1,5 +1,10 @@
 <!doctype html>
 <html lang="en">
+    <?php
+    include_once 'action/checkLogin.php';
+    
+    $permissions = check_login($bd);
+    ?>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +23,6 @@
     </head>
 
     <body style="background: #8a8a5c">
-        <?php session_start(); ?>
         <nav class="navbar navbar-dark bg-primary fixed-top">
             <h3 class="navbar-brand">Bid Opportunities Admin</h3>
             <div class="dropdown pr-5">

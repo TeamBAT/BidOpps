@@ -23,9 +23,10 @@
   <body style="background: #8a8a5c">
   
 <?php
-	include_once('action/connection.php');
+    include_once('action/connection.php');
     include_once('action/checkLogin.php');
 	
+    $permissions = check_login($bd);
 	if(isset($_GET['id'])){
             
             //Fetch Opportunity
@@ -45,21 +46,10 @@
             $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id."";
             
             $documents = mysqli_query($bd, $query);
-            if(!$documents) echo "Documents couldn not be fetched.";
-            
-            //Check Permissions
-            $query = "SELECT * FROM permissions WHERE user_id = ".$_SESSION['SESS_MEMBER_ID']."";
-  
-            $result = mysqli_query($bd, $query);
-            if(!$result) echo "Permissions could not be checked.";
-            else{
-                $permissions = mysqli_fetch_assoc($result);
-                mysqli_free_result($result);
-            }
-            
+            if(!$documents) echo "Documents could not be fetched.";
         }
         else{
-            header("Location: home.php");
+            ($permissions)? header("Location: home.php") : header("Location: index.php");
         }
 	
 ?>
@@ -78,6 +68,7 @@
 	
 	<div class="container-fluid">
 		<div class="card">
+                    <form action="action/AddendaDocsUpload.php" method='post' enctype="multipart/form-data" id="DocsUpload">
                     <div class="card-header">Bid Opportunity Review</div>
 			<div class="card-body">
                             <?php if(isset($noResult)): echo "Opportunity 'id = ".$opportunity_id."' does not exist."; else: ?>
@@ -91,8 +82,7 @@
 							<p>You can download and view documents individually by selecting each link, or you can download all of the files in a .zip format below</p>
                             <a href="action/bidderDownloadFile.php" >Download all files</a><span>(Zip)</span>
 				                <!--Document Display Module goes here-->  
-                                <form action="action/AddendaDocsUpload.php" method='post' enctype="multipart/form-data" id="DocsUpload">
-								<h5 style="color:#5f6266" class="mt-3">Solicitation Documents</h5>
+                            <h5 style="color:#5f6266" class="mt-3">Solicitation Documents</h5>
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
@@ -131,8 +121,8 @@
                                     </thead>
                                     <tbody>
                                     <?php
-									// Fetches rows from the $documents mysqli result to populate table
-									$query2 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Addenda'";
+                                    // Fetches rows from the $documents mysqli result to populate table
+                                    $query2 = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id." AND subheading='Addenda'";
                                     $Addenda = mysqli_query($bd, $query2);
                                     if(mysqli_num_rows($Addenda) > 0 ):
                                     while($Addendas = mysqli_fetch_assoc($Addenda)): ?>
@@ -140,12 +130,11 @@
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
                                     <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Addenda"></td>
-                                    </tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
-									</tr>
-									</tbody>
+                                    </tr>
+                                    </tbody>
                                 </table>
 								<h5 style="color:#5f6266" class="mt-3">Required Attachments</h5>
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
@@ -198,8 +187,7 @@
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
-                                </table>
-				
+                                </table>	
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
@@ -222,7 +210,7 @@
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
-                                </form>
+                    </form>
 		</div>
             
                 <!-- Send to Approver Modal -->
