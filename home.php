@@ -4,6 +4,9 @@
     include_once 'action/checkLogin.php';
     
     $permissions = check_login($bd);
+    if($permissions['bid']){
+        header("Location: showAvailablebids.php");
+    }
     ?>
     <head>
         <meta charset="utf-8">

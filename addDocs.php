@@ -23,7 +23,16 @@
 
   <body style="background: #8a8a5c">
        <?php
-          include_once("action/connection.php");
+       if(!isset($_GET['id'])) header("Location: home.php");
+        include_once("action/connection.php");
+        include_once 'action/checkLogin.php';
+        $permissions = check_login($bd);
+        if(!($permissions['administrate'] || $permissions['author'])){
+            header("Location: home.php");
+        }
+        else if($permissions['bid']){
+            header("Location: showAvailablebids.php");
+        }
           $opportunity_id = mysqli_escape_string($bd, $_GET['id']);
           $_SESSION['opportunity_id'] = $opportunity_id;
           $query = "SELECT status FROM opportunities WHERE id = ".$opportunity_id;
@@ -100,7 +109,7 @@
             </tr>
         </thead>
     </table>
-    <a class="btn btn-primary mb-2 float-right" href="submitBidToReview.php" role="button">Next  <i class="fa fa-angle-double-right"></i></a>
+          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button">Next  <i class="fa fa-angle-double-right"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -113,7 +122,6 @@
               </tr>
             </thead>
           </table>
-          </iframe>
 
      </div>
     </div>
