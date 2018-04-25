@@ -1,16 +1,5 @@
 <?php
     include_once 'action/connection.php';
-    include_once 'action/checkLogin.php';
-    
-    $opportunity = false;
-    
-    $permissions = check_login($bd);
-    if(!($permissions['administrate'] || $permissions['author'])){
-        header("Location: home.php");
-    }
-    else if($permissions['bid']){
-        header("Location: showAvailablebids.php");
-    }
     
     if(isset($_GET['id'])){
         $editMode = true;
@@ -80,6 +69,7 @@
                 <div class="card-header">Create Opportunity</div>
                 <div class="card-body">
                     <form class="container" novalidate action="action/submitOpportunity.php" method="POST" id="submitForm">
+
                         <div class="form-row">
                             <div class="form-group col-sm-5">
                                 <label for="id-number">Number <font color="red">(required)</font></label>
@@ -134,8 +124,10 @@
                             <div class="col-sm-7">
                                 <div class="form-group">
                                     <label for="description">Description <font color="red">(required)</font></label>
+                                    <div class="invalid-feedback">
+                                        Please enter a description.
+                                    </div>
                                     <textarea class="input-block-level" name="description" id="summernote" required><?=($editMode)? $opportunity['description'] : ""?></textarea>
-                                    <div class="invalid-feedback">Please enter a description.</div>
                                 </div>
                             </div>
 
@@ -179,11 +171,8 @@
                     placeholder: 'Description',
                     tabsize: 2,
                     disableResizeEditor: true,
-                    disableDragAndDrop: true,
                     height: 250
                 });
-                
-                $("<div class='invalid-feedback'>Please enter a description.</div>").insertAfter("#summernote");
                 
                 var cleave = new Cleave('.id-number', {
                     delimiter: '-',
