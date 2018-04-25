@@ -24,12 +24,13 @@
   
 <?php
 	include_once('action/connection.php');
-	include_once('action/checkLogin.php');
+    include_once('action/checkLogin.php');
 	
 	if(isset($_GET['id'])){
             
             //Fetch Opportunity
             $opportunity_id = mysqli_real_escape_string($bd, $_GET['id']);
+            $_SESSION['bidDocs']=$opportunity_id;
             $query = "SELECT * FROM opportunities WHERE id = '".$opportunity_id."'";
             
             $result = mysqli_query($bd, $query);
@@ -88,8 +89,9 @@
                             <hr>
                             <h5 style="color:#5f6266">Download The Documents</h5>
 							<p>You can download and view documents individually by selecting each link, or you can download all of the files in a .zip format below</p>
-                            <a href="action/bidderDownloadFile.php?id=<?=$opportunity_id?>" >Download all files</a><span>(Zip)</span>
+                            <a href="action/bidderDownloadFile.php" >Download all files</a><span>(Zip)</span>
 				                <!--Document Display Module goes here-->  
+                                <form action="action/AddendaDocsUpload.php" method='post' enctype="multipart/form-data" id="DocsUpload">
 								<h5 style="color:#5f6266" class="mt-3">Solicitation Documents</h5>
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
@@ -109,8 +111,11 @@
 									<tr>
                                     <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
                                     <td><?php echo $SolicitationDocument['posted_date']; ?></td>
-                                    <td><form> <input type="file" onchange="" /> </form></td>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
+                                    <td><input type="file" name="file[]" />
+                                    <!--sending data like subheading, title --> 
+                                    <input type="hidden" name="subheading[]" value="Solicitation Documents"></td>
+
+                                    <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
 									</tr>
@@ -134,9 +139,9 @@
 									<tr>
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
-                                    <td><form> <input type="file" onchange="" /> </form></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Addenda"></td>
                                     </tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
+                                    <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
 									</tr>
@@ -161,10 +166,10 @@
 									<tr>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
-                                    <td><form> <input type="file" onchange="" /> </form></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Required"></td>
                                     
 									</tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
+                                    <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
 									
@@ -188,9 +193,9 @@
 									<tr>
                                     <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
                                     <td><?php echo $exhibit['posted_date']; ?></td>
-                                    <td><form> <input type="file" onchange="" /> </form></td>
+                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Exhibits"></td>
 									</tr>
-                                    <?php endwhile; else: echo "<td>No files found.</td><td></td><td></td>"; endif; 
+                                    <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
                                 </table>
@@ -198,6 +203,9 @@
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['bid'])): ?>
+                            <button type="button" class="btn btn-primary" id="submitDocs"><i class="fas fa-upload"></i> Upload Bidder</button>
+                            <?php endif;?>
 				<!-- Options to display based on user and status -->
                                 <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
@@ -214,6 +222,7 @@
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
+                                </form>
 		</div>
             
                 <!-- Send to Approver Modal -->
@@ -322,6 +331,9 @@
                      location.reload();
                  });
              });
+             $("#submitDocs").click(function(){
+                document.getElementById("DocsUpload").submit();
+                });
          });
       </script>
             
