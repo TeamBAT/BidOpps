@@ -1,4 +1,10 @@
 <!doctype html>
+<?php
+include_once 'action/checkLogin.php';
+
+$permissions = check_login($bd);
+
+?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -18,7 +24,6 @@
     </head>
 
     <body style="background: #8a8a5c">
-        <?php session_start(); ?>
         <nav class="navbar navbar-dark bg-primary fixed-top">
             <h3 class="navbar-brand">Bid Opportunities Admin</h3>
             <div class="dropdown pr-5">
