@@ -24,7 +24,7 @@
   
 <?php
 	include_once('action/connection.php');
-	include_once('action/checkLogin.php');
+    include_once('action/checkLogin.php');
 	
 	if(isset($_GET['id'])){
             
@@ -203,7 +203,9 @@
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['bid'])): ?>
                             <button type="button" class="btn btn-primary" id="submitDocs"><i class="fas fa-upload"></i> Upload Bidder</button>
+                            <?php endif;?>
 				<!-- Options to display based on user and status -->
                                 <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>

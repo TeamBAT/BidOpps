@@ -29,9 +29,9 @@ $sql_details = array(
 
  
 require( 'ssp.class.php' );
-
+$where = "`status`<>".'"drafted"'.'AND'."`status`<>".'"canceled"';
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns,$where)
 );
 
 ?>
