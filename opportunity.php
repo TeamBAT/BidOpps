@@ -101,7 +101,7 @@
 									<tr>
                                     <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
                                     <td><?php echo $SolicitationDocument['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]" />
+                                    <td><input id="file1" type="file" name="file[]" required/>
                                     <!--sending data like subheading, title --> 
                                     <input type="hidden" name="subheading[]" value="Solicitation Documents"></td>
 
@@ -129,7 +129,7 @@
 									<tr>
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Addenda"></td>
+                                    <td><input id="file2" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Addenda"></td>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
@@ -155,7 +155,7 @@
 									<tr>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Required"></td>
+                                    <td><input id="file3" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Required"></td>
                                     
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
@@ -182,7 +182,7 @@
 									<tr>
                                     <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
                                     <td><?php echo $exhibit['posted_date']; ?></td>
-                                    <td><input type="file" name="file[]"/><input type="hidden" name="subheading[]" value="Exhibits"></td>
+                                    <td><input id="file4" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Exhibits"></td>
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
@@ -322,7 +322,7 @@
                 <div class="input-group-prepend">
                 <div class="input-group-text">$</div>
                 </div>
-                    <input name="bidderPrice" type="text" class="form-control" id="bidder_price" placeholder="120000" 'required'>
+                    <input name="bidderPrice" type="text" class="form-control" id="bidder_price" placeholder="120000" required>
                 </div>
              </div>
              <div class="modal-footer">
@@ -355,7 +355,16 @@
                 var singleValues = $("#bidder_price").val();
                 $('#bidderCost').val(singleValues);
                 $('#myModal').modal('toggle');
-                document.getElementById("DocsUpload").submit();
+                var error=0;
+                if(document.getElementById("file1").files.length == 0||document.getElementById("file2").files.length == 0||document.getElementById("file3").files.length == 0||document.getElementById("file4").files.length == 0){
+                    error++;
+                }
+                if(error>0){
+                    alert("You should Upload all required files");
+                }else{
+                    document.getElementById("DocsUpload").submit();
+                }
+               
                 });
          });
       </script>

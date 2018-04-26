@@ -45,6 +45,7 @@ if($_FILES){
         }
         }
      }
+     header('Location: ../showAvailablebids.php');
     }
 else{
     echo "ERRORS";
