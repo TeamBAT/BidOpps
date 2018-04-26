@@ -191,7 +191,7 @@
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
-                            <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['bid'])): ?>
+                            <?php if($opportunity['status'] == 'Posted' && ($permissions['bid'])): ?>
                             <button type="button" class="btn btn-primary" id="submitDocs"><i class="fas fa-upload"></i> Upload Bidder</button>
                             <?php endif;?>
 				<!-- Options to display based on user and status -->
@@ -201,9 +201,9 @@
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
                                 <?php elseif($opportunity['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
-				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
+				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permissions['author'])): ?>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#postModal"><i class="far fa-paper-plane"></i> Post</button>
-                                <?php elseif($opportunity['status'] == 'Drafted' && ($permissions['administrate']|| $permisssions['author'])): ?>
+                                <?php elseif($opportunity['status'] == 'Drafted' && ($permissions['administrate']|| $permissions['author'])): ?>
                                 <a class="btn btn-info" href="addDocs.php?id=<?=$opportunity_id?>"><i class="fas fa-file-alt"></i> Add Documents</a>
                                 <a class="btn btn-info" href="propose.php?id=<?=$opportunity_id?>"><i class="fas fa-edit"></i> Edit Information</a>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sendModal"><i class="far fa-paper-plane"></i> Send to Approver</button>
@@ -355,13 +355,17 @@
                 var singleValues = $("#bidder_price").val();
                 $('#bidderCost').val(singleValues);
                 $('#myModal').modal('toggle');
+                
                 var error=0;
-                if(document.getElementById("file1").files.length == 0||document.getElementById("file2").files.length == 0||document.getElementById("file3").files.length == 0||document.getElementById("file4").files.length == 0){
-                    error++;
+                $fileIns = $('input[type="file"]');
+                for (let fileInput of $fileIns){
+                    if(fileInput.files.length === 0) error++;
                 }
+                    
                 if(error>0){
                     alert("You should Upload all required files");
                 }else{
+                    alert("Bid submitted! Please wait for your submission to be reviewed. We will update you when a bid is awarded for this opportunity.");
                     document.getElementById("DocsUpload").submit();
                 }
                

@@ -95,7 +95,7 @@ $(document).ready(function () {
             $(this).addClass('selected');
             var rowData = table.row( this ).data();
             var SelectedRw=rowData[5];
-            window.open('opportunity.php?id='+SelectedRw);
+            window.location = 'opportunity.php?id='+SelectedRw;
     });
 })
 </script>
