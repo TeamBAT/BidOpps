@@ -2,7 +2,8 @@
 require_once('connection.php');
 if($_FILES){
     $opportunity_id = $_SESSION['bidDocs'];
-    $query = "INSERT INTO `submissions` (bidder_id, opportunity_id) VALUES (".$_SESSION['SESS_MEMBER_ID'].", ".$opportunity_id.")";
+    $price=$_POST['bidder_cost'];
+    $query = "INSERT INTO `submissions` (bidder_id, opportunity_id, cost) VALUES (".$_SESSION['SESS_MEMBER_ID'].", ".$opportunity_id.", ".$price.")";
     $result = mysqli_query($bd, $query);
     if($result){
         $submission_id = mysqli_insert_id($bd);
@@ -46,6 +47,6 @@ if($_FILES){
      }
     }
 else{
-    echo "ridi";
+    echo "ERRORS";
 }
 ?>

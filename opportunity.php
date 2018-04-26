@@ -210,6 +210,7 @@
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
+                    <input id="bidderCost" type="hidden" class="bidder" value="" name="bidder_cost">
                     </form>
 		</div>
             
@@ -303,7 +304,35 @@
 			</div>
 		</div>
 		</div>
-		
+		<!-- Bidder Cost Input Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel"> <i class="fas fa-hand-holding-usd"></i> Bid Price</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+             <form>
+            <div class="form-group">
+                <label for="bidderCost">Bid Price</label>
+                <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+                </div>
+                    <input name="bidderPrice" type="text" class="form-control" id="bidder_price" placeholder="120000" 'required'>
+                </div>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button id="submitBidderdocs" type="button" class="btn btn-primary">Send</button>
+               </form>
+             </div>
+           </div>
+          </div>
+      </div>
 	</div>
       
       <script>
@@ -319,7 +348,13 @@
                      location.reload();
                  });
              });
-             $("#submitDocs").click(function(){
+                $("#submitDocs").click(function(){
+                $('#myModal').modal('show');
+                });
+                $("#submitBidderdocs").click(function(){
+                var singleValues = $("#bidder_price").val();
+                $('#bidderCost').val(singleValues);
+                $('#myModal').modal('toggle');
                 document.getElementById("DocsUpload").submit();
                 });
          });
