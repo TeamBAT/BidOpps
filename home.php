@@ -20,6 +20,7 @@
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
         <style>table.table.table-striped tbody tr:hover{background-color: gainsboro; cursor: pointer; }</style>
@@ -46,8 +47,11 @@
                 <div class="col pt-1">
                     <span class="form-inline"><img src="public/billete.png"><h2>Solicitation</h2></span>
                 </div>
-                <div class="col pt-3" > 
-                    <a href="propose.php" class="btn btn-success float-right" >Add Solicitation</a>
+                <div class="col pt-3" >
+                    <div class="btn-group" role="group">
+                    <a href="bidderIdInput.php" class="btn btn-info px-auto float-auto"><i class="fas fa-eye"></i> Review Submissions</a>
+                    <a href="propose.php" class="btn btn-success px-auto float-auto" ><i class="fas fa-plus"></i> Add Solicitation</a>
+                    </div>
                 </div>
             </div>
         </div>
