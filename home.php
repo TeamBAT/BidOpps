@@ -44,12 +44,12 @@
         <div>
 
             <div class="row" style="background:#ffff">
-                <div class="col pt-1">
+                <div class="col pt-6">
                     <span class="form-inline"><img src="public/billete.png"><h2>Solicitation</h2></span>
                 </div>
                 <div class="col pt-3" >
-                    <div class="btn-group" role="group">
-                    <a href="bidderIdInput.php" class="btn btn-info px-auto float-auto"><i class="fas fa-eye"></i> Review Submissions</a>
+                    <div class="btn-group float-right" role="group">
+                    <a href="bidderIdInput.php" class="btn btn-info px-auto float-auto mr-1"><i class="fas fa-eye"></i> Review Submissions</a>
                     <a href="propose.php" class="btn btn-success px-auto float-auto" ><i class="fas fa-plus"></i> Add Solicitation</a>
                     </div>
                 </div>
