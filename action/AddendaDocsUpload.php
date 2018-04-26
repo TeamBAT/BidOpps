@@ -39,7 +39,7 @@ if($_FILES){
 	        	echo mysqli_error($bd);
             }
         echo 'Uploaded!';
-       
+            
         }
         }
         }
