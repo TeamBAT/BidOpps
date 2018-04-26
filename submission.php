@@ -108,13 +108,13 @@
                             <?php if(isset($noResult)): echo "Submission 'id = ".$submission_id."' does not exist."; else: ?>
                             <h5>Opportunity Number</h5> <?=$opportunity['number']; ?><br><hr>
                             <h5>Title</h5> <?=$opportunity['title']; ?><br><hr>
-                            <h5>Type</h5> <?=$opportunity['type']; ?><br><hr>
+                            <h5>Category</h5> <?=$opportunity['category']; ?><br><hr>
                             <h5>Bidder Information</h5> 
                             <h6>Name:</h6><?=$bidder['firstname']." ".$bidder['lastname']; ?><br>
                             <br><h6>Business:</h6><?=$bidder['business'];?><hr>
                             <h5>Status</h5> <?=$submission['status']; ?><br>
                             <hr>
-                            <h5>Documents</h5>
+                            <h5>Bidder Uploads</h5>
 				<!--Document Display Module goes here-->
 				
 			</div>
@@ -123,11 +123,11 @@
 				<!-- Options to display based on user and status -->
                                 <?php if($submission['status'] != 'Finalized' && ($permissions['administrate'] || $permissions['screen']) || $permissions['evaluate'] || $permissions['finalize']): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
-                                <?php endif; if($opportunity['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
+                                <?php endif; if($submission['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
-                                <?php elseif($opportunity['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
+                                <?php elseif($submission['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
-				<?php elseif($opportunity['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
+				<?php elseif($submission['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="far fa-paper-plane"></i> Post</button>
                                 <?php endif; ?>
 			</div>
