@@ -11,13 +11,15 @@
     <!-- Bootstrap core CSS -->
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="CSS/home.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="CSS/home.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
   </head>
 
   <body style="background: #8a8a5c">
@@ -120,15 +122,16 @@
 			</div>
 			<div class="card-footer">
                             <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#commentModal"><i class="fas fa-comment"></i> View Comment</button>
 				<!-- Options to display based on user and status -->
-                                <?php if($submission['status'] != 'Finalized' && ($permissions['administrate'] || $permissions['screen']) || $permissions['evaluate'] || $permissions['finalize']): ?>
-				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
-                                <?php endif; if($submission['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
-                                <?php elseif($submission['status'] == 'Reviewed' && ($permissions['administrate'] || $permissions['approve'])): ?>
-				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approveModal"><i class="far fa-paper-plane"></i> Approve</button>
-				<?php elseif($submission['status'] == 'Validated' && ($permissions['administrate']|| $permisssions['author'])): ?>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="far fa-paper-plane"></i> Post</button>
+                                <?php if($submission['status'] != 'Awarded' && $submission['status'] != 'Denied' && ($permissions['administrate'] || $permissions['screen'] || $permissions['evaluate'] || $permissions['finalize'])): ?>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Reject</button>
+                                <?php endif; if($submission['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['screen'])): ?>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#screenModal"><i class="far fa-paper-plane"></i> Screen</button>
+                                <?php elseif($submission['status'] == 'Screened' && ($permissions['administrate'] || $permissions['evaluate'])): ?>
+				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#evaluateModal"><i class="fas fa-clipboard-check"></i> Evaluate</button>
+				<?php elseif($submission['status'] == 'Evaluated' && ($permissions['administrate']|| $permisssions['finalize'])): ?>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="fas fa-trophy"></i> Award this Bid</button>
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
@@ -139,21 +142,22 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title text-center">Are you sure you want to deny this submission?</h4>
+					<h4 class="modal-title text-center">Are you sure you want to reject this submission?</h4>
 				</div>
 				<div class="modal-body">
-					This submission will be removed from the submission process and archived.
+                                    <h6>This submission will be removed from the submission process and archived.</h6>
+                                        <textarea class="input-block-level" name="remove-comment" id="remove-comment"></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Remove</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Reject</button>
 				</div>
 			</div>
 		</div>
 		</div>
 		
 		<!--Screener Modal-->
-		<div id="reviewModal" class="modal fade" role="dialog">
+		<div id="screenModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -161,47 +165,63 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body To Be Made
-					<div class="textbox"></div>
+					<textarea class="input-block-level" name="screen-comment" id="screen-comment" required></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
-					<button type="submit" class="btn btn-success" name="review" value="review"><i class="far fa-paper-plane"></i> Submit for Approval</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+					<button type="submit" class="btn btn-success" name="screen" value="screen"><i class="far fa-paper-plane"></i> Submit for Approval</button>
 				</div>
 			</div>
 		</div>
 		</div>
 		
 		<!-- Evaluator Modal -->
-		<div id="approveModal" class="modal fade" role="dialog">
+		<div id="evaluateModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Approve Submission</h4>
+					<h4 class="modal-title">Evaluate Submission</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body To Be Made
-					<div class="textbox"></div>
+                                    <label for="score">Score</label>
+                                    <input class="form-control" type="number" name="score" id="score">
+                                    <textarea class="input-block-level" name="evaluate-comment" id="evaluate-comment"></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
-                                        <button type="submit" class="btn btn-success" name="approve" value="approve"><i class="far fa-paper-plane"></i> Approve for Publish</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" name="evaluate" value="evaluate"><i class="far fa-paper-plane"></i> Submit Score</button>
 				</div>
 			</div>
 		</div>
 		</div>
 		
-		<!-- Finalizer Modal -->
+		<!-- Comment Modal -->
+		<div id="commentModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Comment</h4>
+				</div>
+                            <div class="modal-body"><?=htmlspecialchars_decode($submission['message'])?></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Close</button>
+				</div>
+			</div>
+		</div>
+		</div>
+                
+                <!-- Finalizer Modal -->
 		<div id="awardModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Are you sure you want to post this bid?</h4>
+					<h4 class="modal-title">Are you sure you want to award this bid?</h4>
 				</div>
+                            <div class="modal-body">After this bid is awarded, all other bids will be rejected for this opportunity.</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
-					<button type="submit" class="btn btn-success" name="post" value="post"><i class="far fa-paper-plane"></i> Post</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+					<button type="submit" class="btn btn-success" name="award" value="award"><i class="far fa-money-bill-alt"></i> Award Bid</button>
 				</div>
 			</div>
 		</div>
@@ -211,14 +231,77 @@
       
       <script>
         $(document).ready(function(){
+            
+            //Script to fix Summernote toolbar scroll bug
+            $('.btn').click(function(){
+                $('.note-toolbar-wrapper').css('height', 'auto');
+            });
+            
+            //Summernote rich text initialization
+            $('#evaluate-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (optional)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          $('#screen-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (optional)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          
+          $('#remove-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (required)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          
+          //Submission script, selects button and posts button value
              $(':submit').click(function(){
                  var clickBtnValue = $(this).val();
+                 var $summernote = $('#'+clickBtnValue+'-comment');
+                 var summernoteValue = $($summernote).val();
+                 var score = $('#score').val();
                  var ajaxurl = 'action/submission_process.php',
                  data =  {'action': clickBtnValue,
-                          'id': "<?=$submission_id?>"
+                          'id': "<?=$submission_id?>",
+                          'comment': summernoteValue,
+                          'score': score
                 };
-                 $.post(ajaxurl, data, function (response) {
-                     location.reload();
+                 $.post(ajaxurl, data, function (response){
+                     if(response.includes('Success!')) location.reload();
                      alert(response);
                  });
              });

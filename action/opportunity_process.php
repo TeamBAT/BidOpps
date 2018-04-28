@@ -3,9 +3,21 @@ require_once 'connection.php';
 
 if (isset($_POST['action'])) {
     $id = $_POST['id'];
+    
+    if(!isset($_POST['comment']) || $_POST['comment'] == ''){
+        $comment = 'NULL';
+    } else{
+        $raw_comment = $_POST['comment'];
+        $comment = "'".mysqli_escape_string($bd, htmlspecialchars($raw_comment))."'";
+    }
+    
+    $needsMore = false;
     switch ($_POST['action']) {
         case 'remove':
             $status = 'Archived';
+            if($comment == 'NULL'){
+                $needsMore = true;
+            }
             $timestamp = '';
             break;
         case 'review':
@@ -25,17 +37,23 @@ if (isset($_POST['action'])) {
             $timestamp = '';
             break;
     }
-    //Update databse to reflect new status
-    $query = "UPDATE `opportunities` SET ".$timestamp."`last_updated` = CURRENT_TIMESTAMP, `status` = '".$status."' WHERE `opportunities`.`id` = ".$id."";
-  
-    $result = mysqli_query($bd, $query);
-    if($result){
-        echo "Success! Opportunity is now ".$status.".";
+    
+    if($needsMore){
+        echo "You must fill out all fields before continuing.";
+    }else{
+        //Update databse to reflect new status
+        $query = "UPDATE `opportunities` SET ".$timestamp."`last_updated` = CURRENT_TIMESTAMP, `status` = '".$status."', `message` = ".$comment." WHERE `opportunities`.`id` = ".$id."";
+
+        $result = mysqli_query($bd, $query);
+        if($result){
+            echo "Success! Opportunity is now ".$status.".";
+        }
+        else{
+            echo "Query failed.";
+        }
     }
-    else{
-        echo "Query failed.";
-    }
-} else{
+} 
+else{
     echo "Post not set.";
 }
 ?>
