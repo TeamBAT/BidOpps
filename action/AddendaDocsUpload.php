@@ -29,7 +29,7 @@ if($_FILES){
         if (isset($name)) {
         
         $path= '../BidderUploads/';
-        $filesPath= "Uploads/$name";
+        $filesPath= "BidderUploads/$name";
         if (!empty($name)){
         if (move_uploaded_file($tmp_name, $path.$name)) {
         $query = "INSERT INTO `submission_docs` (`filename`,`directory`,`subheading`, `filetype`, `filesize`, `submission_id`)
