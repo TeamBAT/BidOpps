@@ -120,6 +120,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `bidder_id` INT NOT NULL,
   `opportunity_id` INT NOT NULL,
   `cost` INT NULL,
+  `score` INT NULL,
   `status` ENUM('Submitted', 'Screened', 'Evaluated', 'Awarded', 'Denied') NOT NULL DEFAULT 'Submitted',
   `time_submitted` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `time_screened` DATETIME NULL,

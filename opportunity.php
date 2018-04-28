@@ -12,12 +12,14 @@
     <link href="CSS/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="CSS/home.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="CSS/home.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
   </head>
 
   <body style="background: #8a8a5c">
@@ -195,7 +197,9 @@
                             <button type="button" class="btn btn-primary" id="submitDocs"><i class="fas fa-upload"></i> Upload Bidder</button>
                             <?php endif;?>
 				<!-- Options to display based on user and status -->
-                                <?php if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
+                                <?php if($permissions['administrate'] || $permissions['author'] || $permissions['review'] || $permissions['approve']): ?>
+                                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#commentModal"><i class="fas fa-comment"></i> View Comment</button>
+                                <?php endif; if($opportunity['status'] != 'Posted' && $opportunity['status'] != 'Archived' && ($permissions['administrate'] || $permissions['author'])): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Archive</button>
                                 <?php endif; if($opportunity['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['review'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#reviewModal"><i class="far fa-paper-plane"></i> Review</button>
@@ -225,7 +229,7 @@
 					You cannot make any changes after you submit this opportunity for approval
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
                                         <button type="submit" class="btn btn-success" name="send" value="send"><i class="far fa-paper-plane"></i> Submit</button>
 				</div>
 			</div>
@@ -240,10 +244,10 @@
 					<h4 class="modal-title text-center">Are you sure you want to cancel this opportunity?</h4>
 				</div>
 				<div class="modal-body">
-					This opportunity will be removed from the submission process and archived.
+                                    <textarea class="input-block-level" name="remove-comment" id="remove-comment"></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
                                         <button type="submit" class="btn btn-danger" name="remove" value="remove"><i class="fas fa-ban"></i> Remove</button>
 				</div>
 			</div>
@@ -259,11 +263,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body To Be Made
-					<div class="textbox"></div>
+                                    <textarea class="input-block-level" name="review-comment" id="review-comment"></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="review" value="review"><i class="far fa-paper-plane"></i> Submit for Approval</button>
 				</div>
 			</div>
@@ -279,11 +282,10 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					Modal Body To Be Made
-					<div class="textbox"></div>
+                                    <textarea class="input-block-level" name="approve-comment" id="approve-comment"></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
                                         <button type="submit" class="btn btn-success" name="approve" value="approve"><i class="far fa-paper-plane"></i> Approve for Publish</button>
 				</div>
 			</div>
@@ -295,15 +297,31 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Are you sure you want to post this bid?</h4>
+					<h4 class="modal-title">Are you sure you are ready to post this bid?</h4>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="fas fa-arrow-alt-circle-left"></i> Cancel</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="post" value="post"><i class="far fa-paper-plane"></i> Post</button>
 				</div>
 			</div>
 		</div>
 		</div>
+                
+                <!-- Comment Modal -->
+		<div id="commentModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Comment</h4>
+				</div>
+                            <div class="modal-body"><?=htmlspecialchars_decode($opportunity['message'])?></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Close</button>
+				</div>
+			</div>
+		</div>
+		</div>
+                
 		<!-- Bidder Cost Input Modal -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -337,15 +355,76 @@
       
       <script>
         $(document).ready(function(){
+            
+            //Script to fix Summernote scroll bug
+            $('.btn').click(function(){
+                $('.note-toolbar-wrapper').css('height', 'auto');
+            });
+            
+            //Summernote rich text initialization
+            $('#review-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (optional)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          $('#approve-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (optional)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          
+          $('#remove-comment').summernote({
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']]
+              ],
+              placeholder: 'Enter a comment (required)',
+              dialogsInBody: true,
+              tabsize: 2,
+              disableResizeEditor: true,
+              disableDragAndDrop: true,
+              height: 250
+          });
+          
+          //Form submission script
              $(':submit').click(function(){
                  var clickBtnValue = $(this).val();
+                 var $summernote = $('#'+clickBtnValue+'-comment');
+                 var summernoteValue = $($summernote).val();
                  var ajaxurl = 'action/opportunity_process.php',
                  data =  {'action': clickBtnValue,
-                          'id': "<?=$opportunity_id?>"
+                          'id': "<?=$opportunity_id?>",
+                          'comment': summernoteValue
                 };
                  $.post(ajaxurl, data, function (response) {
+                     if(response.includes('Success!')) location.reload();
                      alert(response);
-                     location.reload();
                  });
              });
                 $("#submitDocs").click(function(){
