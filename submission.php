@@ -115,6 +115,29 @@
                             <h5>Status</h5> <?=$submission['status']; ?><br>
                             <hr>
                             <h5>Bidder Uploads</h5>
+                            <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:50%">File Name</th>
+                                            <th style="width:50%">Posted Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    // Fetches rows from the $documents mysqli result to populate table
+                                    $query2 = "SELECT * FROM submission_docs WHERE submission_id = ".$submission_id."";
+                                    $submision = mysqli_query($bd, $query2);
+                                    if(mysqli_num_rows($submision) > 0 ):
+                                    while($submisions = mysqli_fetch_assoc($submision)): ?>
+									<tr>
+                                    <td><a href="<?php echo $submisions['directory']; ?>"><?php echo $submisions['filename']; ?></a></td>
+                                    <td><?php echo $submisions['posted_date']; ?></td>
+                                    <?php endwhile; else: echo '<td colspan="2">No files found.</td>'; endif; 
+                                    //End fetch rows
+                                    ?>
+                                    </tr>
+                                    </tbody>
+                                </table>
 				<!--Document Display Module goes here-->
 				
 			</div>
