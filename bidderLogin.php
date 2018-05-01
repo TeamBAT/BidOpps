@@ -3,7 +3,7 @@
 session_start();
 
 //Connect to a Database
-$db = mysqli_connect("localhost","root","","bidopps_db");
+$db = mysqli_connect("localhost","root","root","bidopps_db");
 
 if(!$db) {
     
@@ -24,7 +24,7 @@ if(isset($_POST["bidderLoginBtn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOps/bidderLogin.html";
+        window.location.href="/bidOpps/bidderLogin.html";
         </script>
         ';
     
@@ -83,7 +83,7 @@ if(isset($_POST["bidderLoginBtn"])) {
                  echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidderLogin.html';
+                window.location.href='/bidOpps/bidderLogin.html';
                 </script>
                 ";
                 
@@ -93,7 +93,7 @@ if(isset($_POST["bidderLoginBtn"])) {
              echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidderLogin.html';
+                window.location.href='/bidOpps/bidderLogin.html';
                 </script>
                 ";
             
@@ -104,7 +104,7 @@ if(isset($_POST["bidderLoginBtn"])) {
         echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidderLogin.html';
+                window.location.href='/bidOpps/bidderLogin.html';
                 </script>
                 ";
         

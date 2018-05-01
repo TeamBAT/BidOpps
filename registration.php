@@ -48,7 +48,7 @@ if(isset($_POST["register_btn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOps/registration.html";
+        window.location.href="/bidOpps/registration.html";
         </script>
         ';
 
@@ -71,7 +71,7 @@ if(isset($_POST["register_btn"])) {
         echo '
         <script langauge="javascript">
         alert("User already exists");
-        window.location.href="/bidOps/registration.html";
+        window.location.href="/bidOpps/registration.html";
         </script>
         ';
 
@@ -127,7 +127,7 @@ if(isset($_POST["register_btn"])) {
        
        <script> 
        alert('Passwords do not match');
-       window.location.href='/bidOps/registration.html';
+       window.location.href='/bidOpps/registration.html';
        </script>
        
        ";
@@ -140,7 +140,7 @@ if(isset($_POST["register_btn"])) {
        
        <script> 
        alert('Username and Email Id must be the same');
-       window.location.href='/bidOps/registration.html';
+       window.location.href='/bidOpps/registration.html';
        </script>
        
        ";
@@ -159,7 +159,7 @@ if(isset($_POST["register_btn"])) {
        
        <script> 
        alert('Application Issue. Unable to process further!!');
-       window.location.href='/bidOps/registration.html';
+       window.location.href='/bidOpps/registration.html';
        </script>
        
        ";

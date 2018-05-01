@@ -14,13 +14,23 @@
         
         </script>
    
-    <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap-grid.min.css">
-        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    <!-- Bootstrap CSS and JS -->
+       
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
         <link rel="stylesheet" href="register.css">
 
-    <!-- JavaScript File -->
+       <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Popper JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+      
 
       
       <script type="text/javascript" src="completeRegistration.js"></script>
@@ -31,18 +41,21 @@
     <title>Registration Page</title>
   </head>
 
-    <body style="background: #8a8a5c">
-        <nav class="navbar navbar-expand-lg navbar-fixed-top navbar-light bg-primary">
-        <a class="navbar-brand" href="#"><font color="white">Bidder Registration</font></a>
-        </nav>
+    <body>
+    
+    
+    <nav class="navbar fixed-top navbar-light" style="background-color:#20a8f7;">
+    <a class="navbar-brand text-white" href="#" style="font-size:30px;font-family: 'Nunito';">Registration Page</a>
+    </nav> 
+    <br/><br/><br/><br/>
 
     <div class="container-fluid">
+        
         <div class="card">
             <div class="card-header">
 
      <h4>
-         Choose the categories you're interested in here. We'll email you when new information is available for your selected categories. </h4> <br> <p>Category (select one or more) <label class="required">(Required)</label>
-         </p>
+         Choose the categories you're interested in here. We will email you when new information is available. </h4>
             </div>
         
      
@@ -57,6 +70,9 @@
 
     <form action="registration.php" method="post">
 
+      <br/>
+      <p>Category (select one or more) <label class="required">(Required)</label>
+         </p>
       <p class="col-12"> <input type="checkbox" onclick="selectAll(this);"> All </p>
          
          
@@ -97,7 +113,7 @@
 
          <p class="contactField"><input type="text" placeholder="Contact (###-###-####)" class="contact" name="contact">  <input type="text" placeholder="Email Id (Example:test@gmail.com)" class="email" name="email"> </p>
 
-         <p class="submitButtonField"> <button type="submit" name="register_btn" class="submitDetails">  Complete Registration  </button> <button type="reset" class="resetDetails"> Reset Information</button>  </p>
+         <p class="submitButtonField"> <button type="submit" name="register_btn" class="btn btn-primary btn-lg" style="hover:pointer;">  Complete Registration  </button> <button type="reset" class="btn btn-danger btn-lg" style="hover:pointer;"> Reset Information</button>  </p>
 
 
          </div>

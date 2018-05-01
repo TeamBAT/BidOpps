@@ -14,21 +14,38 @@
       
     <!-- JavaScript File -->
       
-      <script type="text/javascript" src="adminCreateUser.js"></script>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Popper JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+      
 
     <title>Admin Login</title>
   </head>
   
     <body class="bdy">
+        
+    <div class="container-fluid" style="background-color:#20a8f7;">
+        <br/>
+        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">Create Admin User</h2><br/>
+        
+    </div>
+        <br/><br/><br/>
     
     <div class="container-fluid contain">
+        
+    <div class="row">
         
     <div class="col-12">
         
         <form action="adminCreateUser.php" method="post">
-        
-        <p class="createUserLine">_____________________ <label class="createuserLabel"> Admin Create User  </label> ______________________________________________________________________________________________________________________</p>
-        
         
         <p class="nameRow"> <label class="firstNameLabel"> First Name: </label> <input type="text" placeholder="First Name" class="firstName" name="firstname"/>  <label class="lastNameLabel"> Last Name: </label> <input type="text" placeholder="Last Name" class="lastName" name="lastname"/></p>
         
@@ -51,9 +68,9 @@
 
         <div class="optionsLevelFour"> <p class="levelFour"> 
         
-            <button type="submit" class="submitDetails" name="createBtn">  Complete Registration  </button>
+            <button type="submit" class="submitDetails btn-info" name="createBtn">  Complete Registration  </button>
             
-            <button type="reset" class="resetDetails">  Reset Information  </button>
+            <button type="reset" class="resetDetails btn-danger">  Reset Information  </button>
             
         </p> 
         </div>
@@ -64,6 +81,8 @@
             </form>
             
     </div>  
+        
+    </div>
         
     </div>
          

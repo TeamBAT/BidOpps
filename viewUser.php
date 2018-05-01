@@ -27,38 +27,52 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
     
         <title> View Users </title>
         
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Latest compiled and minified CSS and JS -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Optional theme -->
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+
         <link rel="stylesheet" href="https//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"> 
-        
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"> </script>
-        
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
         <script src="jquery.tabledit.js"></script>    
         
         
+        
+        
     </head>
     
     <body>
+   
+    
         
-        <nav class="navbar navbar-dark bg-primary">
-            <!-- Navbar content -->
-            
-            
-        </nav>
+    <div class="container-fluid" style="background-color:#20a8f7;">
     
+        <p></p>
+        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">Create, View and Edit Users</h2><br/>
+        
+    </div>    
+        <br/>
+        
+    <div class="container-fluid text-right">
+    
+        <p></p>
+        <a href="adminCreateUser.html"><button class="btn btn-success" style="font-size:20px;font-family:'Nunito';">Create New User</button></a><br/>
+        <p></p>
+    </div>  
+    
+    <div class="container-fluid" style="background-color:#20a8f7;">
+        <p></p>
+        <p style="font-size:25px;font-family:'Nunito';color:white;">Edit Basic Info</p>
+    </div><br/>
+        
     <div class="container-fluid">
-    
-        <br/> <br/>
         
         <!-- Image and text -->
         
@@ -110,8 +124,18 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
                 
         </tbody>
     
-        </table>  <br>
-
+        </table>
+        </div></div>
+        
+        <br/><br/>
+        <div class="container-fluid" style="background-color:#20a8f7;">
+        <p></p>
+        <p style="font-size:25px;font-family:'Nunito';color:white;">Edit Permissions</p>
+        </div>
+        <br/>
+        
+        <div class="container-fluid">
+        <div class="table-responsive">
         <table id="editable_tablePermissions" class="table table-bordered table-striped">
     
             <thead>
@@ -163,11 +187,8 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
         </tbody>
     
         </table>
-
-            
-        </div>
         
-    </div>
+            </div></div>
     
     </body>
     
