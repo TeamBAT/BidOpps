@@ -1,0 +1,329 @@
+.createUserLine {
+    
+    padding-top: 40px;
+    
+}
+
+.createuserLabel {
+    
+    padding: 20px;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    color: #2f62af;
+    
+}
+
+.nameRow {
+    
+    padding: 10px;
+    
+}
+
+.firstNameLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 20px;
+    
+}
+
+.firstName {
+    
+    width: 300px;
+    height: 45px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 100px;
+    border: 2px solid grey;
+    
+}
+
+.lastNameLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 20px;
+    
+}
+
+.lastName {
+    
+    width: 300px;
+    height: 45px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 100px;
+    border: 2px solid grey;
+    
+}
+
+.usernamePasswordRow {
+    
+    padding: 10px;
+    margin-top: 50px;
+    
+}
+
+.usernameLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 40px;
+    
+}
+
+.uname {
+    
+    width: 300px;
+    height: 45px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 100px;
+    border: 2px solid grey;
+    
+}
+
+.passwordLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 25px;
+    
+}
+
+.pwd {
+    
+    width: 300px;
+    height: 45px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 100px;
+    border: 2px solid grey;
+    
+}
+
+.rePasswordRow {
+    
+     padding: 10px;
+    margin-top: 50px;
+    
+}
+
+.rePasswordLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-left: 525px;
+}
+
+.rePwd {
+    
+    width: 300px;
+    height: 45px;
+    border-radius: 4px;
+    text-align: center;
+    margin-right: 100px;
+    border: 2px solid grey;
+    
+}
+
+.assignRoles {
+    
+    padding: 10px;
+    margin-top: 30px;
+    
+}
+
+.selectOptions {
+    
+    display: block;
+    height: auto;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    border: 2px solid grey;
+    
+}
+
+.selectRoles {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 25px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #2f62af;
+       
+}
+
+.optionsLevelOne {
+    
+    margin-top: 50px;
+    padding-left: 20px;
+    
+}
+
+.adminlabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 280px;
+    
+}
+
+.authorLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 260px;
+       
+}
+
+.reviewLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    
+}
+
+.optionsLevelTwo {
+    
+    margin-top: 50px;
+    padding-left: 20px;
+    
+}
+
+.approvelabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 320px;
+    
+}
+
+.screenerLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 320px;
+    
+}
+
+.evaluateLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    
+}
+
+.optionsLevelThree {
+    
+    margin-top: 50px;
+    padding-left: 20px;
+    
+}
+
+.finalizeLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 335px;
+    
+}
+
+.bidLabel {
+    
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #50bbce;
+    margin-right: 335px;
+    
+}
+
+.optionsLevelFour {
+    
+    margin-top: 50px;
+    padding-left: 20px;
+    
+}
+
+.submitDetails {
+    
+    border: 2px solid #1379d8;
+    width: 250px;
+    height: 50px;
+    background-color: #d8a314;
+    color: white;
+    text-align: center;
+    text-decoration:none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #8888; 
+    margin-right: 155px;
+    
+}
+
+.resetDetails {
+    
+    border: 2px solid #1379d8;
+    width: 250px;
+    height: 50px;
+    background-color: #d8a314;
+    color: white;
+    text-align: center;
+    text-decoration:none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #8888; 
+    
+}

@@ -22,13 +22,14 @@
         <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
         <!-- Custom styles for this template -->
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
         <link href="CSS/home.css" rel="stylesheet">
         <style>table.table.table-striped tbody tr:hover{background-color: gainsboro; cursor: pointer; }</style>
     </head>
 
-    <body style="background: #8a8a5c">
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-            <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+    <body class="bg-light">
+        <nav class="navbar navbar-dark fixed-top" style="background-color:#549ddd;">
+            <h3 class="navbar-brand" style="font-family:'Nunito';font-size:25px;color:white;font-weight:900; ">Bid Opportunities Admin</h3>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>

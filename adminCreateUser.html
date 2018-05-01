@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+
+        <link rel="stylesheet" href="adminCreateUser.css">
+      
+    <!-- JavaScript File -->
+      
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Popper JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+      
+
+    <title>Admin Login</title>
+  </head>
+  
+    <body class="bdy">
+        
+    <div class="container-fluid" style="background-color:#20a8f7;">
+        <br/>
+        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">Create Admin User</h2><br/>
+        
+    </div>
+        <br/><br/><br/>
+    
+    <div class="container-fluid contain">
+        
+    <div class="row">
+        
+    <div class="col-12">
+        
+        <form action="adminCreateUser.php" method="post">
+        
+        <p class="nameRow"> <label class="firstNameLabel"> First Name: </label> <input type="text" placeholder="First Name" class="firstName" name="firstname"/>  <label class="lastNameLabel"> Last Name: </label> <input type="text" placeholder="Last Name" class="lastName" name="lastname"/></p>
+        
+        <p class="usernamePasswordRow"> <label class="usernameLabel"> Email_Id: </label> <input type="text" placeholder="EMAIL_ID" class="uname" name="email"/> <label class="passwordLabel"> Password: </label> <input type="password" placeholder="PASSWORD" class="pwd" name="password"/> </p>
+        
+        <p class="rePasswordRow"> <label class="rePasswordLabel"> Re-Password: </label> <input type="password" placeholder="RE-PASSWORD" class="rePwd" name="repassword"/> </p>
+        
+        <div class="assignRoles">
+        
+        <p class="selectOptions"> <label class="selectRoles"> Assign Roles: </label> </p>    
+            
+        <div class="optionsLevelOne"> <p class="levelOne"><input type="checkbox" class="administrative" name="rolesAssigned[]" value="administrative"> <label class="adminlabel">Administrator</label> <input type="checkbox" class="author" name="rolesAssigned[]" value="author"> <label class="authorLabel">Author</label>  <input type="checkbox" class="review" name="rolesAssigned[]" value="review"> <label class="reviewLabel">Reviewer</label></p> 
+        </div>
+            
+        <div class="optionsLevelTwo"> <p class="levelTwo"><input type="checkbox" class="approve" name="rolesAssigned[]" value="approve"> <label class="screenerLabel">Approver</label> <input type="checkbox" class="screen"name="rolesAssigned[]" value="screen"> <label class="authorLabel">Screen</label>  <input type="checkbox" class="evaluate" name="rolesAssigned[]" value="evaluate"> <label class="evaluateLabel">Evaluate</label></p> 
+        </div>
+            
+        <div class="optionsLevelThree"> <p class="levelThree"><input type="checkbox" class="finalize" name="rolesAssigned[]" value="finalize"> <label class="finalizeLabel">Finalize</label> <input type="checkbox" class="bid" name="rolesAssigned[]" value="bid"> <label class="bidLabel">Award Bids</label> </p> 
+        </div>
+
+        <div class="optionsLevelFour"> <p class="levelFour"> 
+        
+            <button type="submit" class="submitDetails btn-info" name="createBtn">  Complete Registration  </button>
+            
+            <button type="reset" class="resetDetails btn-danger">  Reset Information  </button>
+            
+        </p> 
+        </div>
+
+        
+    </div>
+            
+            </form>
+            
+    </div>  
+        
+    </div>
+        
+    </div>
+         
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

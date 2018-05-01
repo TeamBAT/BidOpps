@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+
+        <link rel="stylesheet" href="bidderLogin.css">
+      
+    <!-- JavaScript File -->
+         <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <!-- Popper JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+      
+      <script type="text/javascript" src="adminLogin.js"></script>
+
+    <title>Admin Login</title>
+  </head>
+  
+    <body class="bdy">
+        
+    <div class="container-fluid" style="background-color:#20a8f7;">
+        <br/>
+        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">Bidders Login</h2>
+        <br/>
+    </div>      
+    <br/>
+
+    
+    <div class="container-fluid contain">
+        
+    <div class="col-12">
+        
+        <div class="row"> <div class="col-4 bidderLoginColumn"> 
+          
+         <form action="bidderLogin.php" method="post">
+            
+         <div class="bidderLoginTab">
+            
+            <p><label class="bidderUsername"> Email_Id: </label></p>
+            <p class="centerAlign"><input type="text" class="email" placeholder="Username|Email_ID" name="email"/></p>
+            <p><label class="bidderPassword"> Password: </label></p>
+            <p class="centerAlign"><input type="password" class="bidderPwd" placeholder="Password" name="password"/></p>
+            <p class="bidderAlign"><button type="submit"  class="btn btn-lg btn-primary" name="bidderLoginBtn"> Sign In</button> </p>
+         </div>
+            
+         </form>
+            
+         <p class="resetPassword"> <button type="button" onclick="reset()" class="btn btn-lg btn-danger"> Reset Password</button> </p>
+            
+        </div> </div>
+        
+    </div>
+            
+    </div>  
+         
+  </body>
+</html>

@@ -1,0 +1,118 @@
+
+
+
+.adminPageTitleLabel {
+    
+    font-size: 30px;
+    padding: 10px;
+    font-family: 'Nunito', serif, sans-serif;
+    font-weight: bold;
+    color: #50bbce;
+    
+}
+
+.loginColumn {
+    
+    margin-left: 33.32%;
+    margin-right: 33.32%;
+    
+}
+
+.loginTab {
+    
+    display: block;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    
+}
+
+.adminUsername {
+    
+    padding: 5px;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    text-align: left;
+}
+
+.email {
+    
+    font-size: 20px;
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    border: 2px solid #3cbae8;
+    font-family: 'Nunito', serif, sans-serif;
+    border-radius: 5px;
+    font-weight: bolder;
+    
+}
+
+.centerAlign {
+    
+    text-align: center;
+    
+}
+
+.adminPassword {
+    
+    padding: 5px;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    text-align: left;
+    
+}
+
+.password {
+    
+    font-size: 20px;
+    width: 300px;
+    height: 50px;
+    text-align: center;
+    border: 2px solid #3cbae8;
+    font-family: 'Nunito', serif, sans-serif;
+    border-radius: 5px;
+    font-weight: bolder;
+    
+}
+
+.adminAlign {
+    
+    padding-top: 40px;
+    text-align: center;
+    
+}
+
+.adminLoginButton {
+    
+    width: 250px;
+    height: 50px;
+    border-radius: 4px;
+    border: 4px solid #3cbae8;
+    font-family: 'Nunito', serif, sans-serif;
+    font-size: 20px;
+    background-color: #3cbae8;
+    font-weight: bolder;
+    cursor: pointer;
+    
+}
+
+.resetPassword {
+    
+    margin: 20px;
+    text-align: center;
+    
+}
+
+.resetPasswordButton {
+    
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 4px solid #3cbae8;
+    background-color: #3cbae8;
+    font-family: 'Nunito', serif, sans-serif;
+    cursor: pointer;
+    
+}
