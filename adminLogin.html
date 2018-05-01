@@ -10,42 +10,41 @@
         <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
 
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="adminLogin.css">
       
     <!-- JavaScript File -->
       
+      <script type="text/javascript" src="adminLogin.js"></script>
 
-    <title>Login Page</title>
+    <title>Admin Login</title>
   </head>
   
     <body class="bdy">
     
     <div class="container-fluid contain">
         
-    <div class="row heading">
+    <div class="col-12">
         
-        <div class="col-6 imgLogo"> <img src="CalpersLogo.png" class="img">  </div>
+        <div class="row"> <div class="col-12 adminPageTitle"> <p>___________________ <label class="adminPageTitleLabel"> CalPers Admin Login </label>       __________________________________________________  </p> </div> </div>    
         
-        <div class="col-6 bidOps"> <label class="bidOpsTitle"> Bid Management System  </label>    </div>
-        
-    </div>
-        
-    <div class="row base">
-        
-        <div class="col-7 login"> 
+        <div class="row"> <div class="col-4 loginColumn"> 
+          
+         <form action="adminLogin.php" method="post">
             
-        <form action="adminLoginRedirect.php" method="post">
-        <div class="btn"><p><button type="submit" class="sbmit"> Admin Login </button> </p> </div></form>
-
-        <form action="bidderLoginRedirect.php" method="post">   
-        <div class="btn"> <p> <button type="submit" class="sbmit"> Bidder Login </button> </p> </div></form>
+         <div class="loginTab">
             
-        
-        </div>
-        
-        <form action="registerRedirect.php" method="post">   
-        <div class="col-5 register"><button type="submit" class="regist">  Register to Bid  </button>  </div></form>
-        
+            <p><label class="adminUsername"> Email: </label></p>
+            <p class="centerAlign"><input type="text" class="email" placeholder="Email_Id|Username" name="email"/></p>
+            <p><label class="adminPassword"> Password: </label></p>
+            <p class="centerAlign"><input type="password" class="password" placeholder="Password" name="password"/></p>
+            <p class="adminAlign"><button type="submit" class="adminLoginButton" name="adminLoginBtn"> Sign In</button></p>
+         </div>
+            
+         </form>
+            
+         <p class="resetPassword"> <button type="reset" class="resetPasswordButton" value="restBtn"> Reset Password</button> </p>
+            
+        </div> </div>
         
     </div>
             

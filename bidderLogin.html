@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css"> 
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+
+        <link rel="stylesheet" href="bidderLogin.css">
+      
+    <!-- JavaScript File -->
+      
+      <script type="text/javascript" src="adminLogin.js"></script>
+
+    <title>Admin Login</title>
+  </head>
+  
+    <body class="bdy">
+    
+    <div class="container-fluid contain">
+        
+    <div class="col-12">
+        
+        <div class="row"> <div class="col-12 bidderPageTitle"> <p>___________________ <label class="bidderPageTitleLabel"> CalPers Bidder Login </label>       __________________________________________________  </p> </div> </div>    
+        
+        <div class="row"> <div class="col-4 bidderLoginColumn"> 
+          
+         <form action="bidderLogin.php" method="post">
+            
+         <div class="bidderLoginTab">
+            
+            <p><label class="bidderUsername"> Email_Id: </label></p>
+            <p class="centerAlign"><input type="text" class="email" placeholder="Username|Email_ID" name="email"/></p>
+            <p><label class="bidderPassword"> Password: </label></p>
+            <p class="centerAlign"><input type="password" class="bidderPwd" placeholder="Password" name="password"/></p>
+            <p class="bidderAlign"><button type="submit"  class="bidderLoginButton" name="bidderLoginBtn"> Sign In</button> </p>
+         </div>
+            
+         </form>
+            
+         <p class="resetPassword"> <button type="button" onclick="reset()" class="resetPasswordButton"> Reset Password</button> </p>
+            
+        </div> </div>
+        
+    </div>
+            
+    </div>  
+         
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

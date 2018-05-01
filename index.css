@@ -1,0 +1,177 @@
+.bdy {
+    
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #8a8a5c;
+     
+}
+
+.contain {
+    
+    border-radius: 5px;
+    width: 100%;
+    
+}
+
+.heading {
+    
+    background-color:white;
+    margin-bottom: 80px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.imgLogo {
+    
+    text-align: center;
+        
+}
+
+
+.bidOps {
+   
+    
+    text-align: center;
+    padding-top: 50px;
+    font-family: 'Nunito', serif, sans-serif;
+    font-weight:bolder;
+    color: darkcyan;
+}
+
+.bidOpsTitle {
+    
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 40px;  
+}
+
+.base {
+    
+    background-color:lightgray;
+    border: 5px solid lightgray;
+    margin-left: 60px;
+    margin-right: 60px;
+    border-radius: 5px;
+
+}
+
+.login {
+    
+    margin-top: 20px;
+    padding-top: 10px;
+    border-right: 5px solid #008CBA;
+    border-color:#008CBA;
+    
+}
+
+.btn {
+    
+    display: block;
+    padding: 50px;
+
+}
+
+.sbmit {
+    
+    width: 250px;
+    height: 60px;  
+    background-color: #4295f4;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    font-weight: bolder;
+    font-family:sans-serif;
+    border-radius: 5px;
+    box-shadow: 1.5px 1.5px 1.5px 1.5px #8888;  
+    font-size: 22px;
+    font-family: 'Nunito', serif, sans-serif;
+}
+
+.sbmit:hover {
+    
+    width: 300px;
+    font-size: 25px;
+    
+}
+
+
+.username {
+    
+    width: 400px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 5px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: sans-serif;
+    border-color: #008CBA;
+    font-weight: bolder;
+    color:black;
+    font-size: 18px;
+    
+}
+
+.password {
+    
+    width: 400px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 5px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-align: center;
+    border-color: #008CBA;
+    font-weight: bolder;
+    font-family: sans-serif;
+    color:black;
+    font-size: 20px;
+
+    
+}
+
+.register {
+    
+    padding-top: 140px;
+    padding-left: 100px;
+    
+    
+}
+
+.regist {
+
+    
+    width: 250px;
+    height: 60px;
+    background-color: #4295f4;
+    color: white;
+    margin: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-family: sans-serif;
+    border-radius: 5px;  
+    font-size: 22px;
+    font-family: 'Nunito', serif, sans-serif;
+
+}
+
+.regist:hover {
+    
+    width: 300px;
+    font-size: 25px;
+    
+}
+
+.regitrationPage {
+    
+    text-decoration: none;
+    color: white;
+    
+}
+
