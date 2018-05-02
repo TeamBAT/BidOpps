@@ -3,7 +3,7 @@
 session_start();
 
 //Connect to a Database
-$db = mysqli_connect("localhost","root","root","bidopps_db");
+$db = mysqli_connect("localhost","root","","bidopps_db");
 
 if(!$db) {
     

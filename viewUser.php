@@ -1,6 +1,6 @@
 <?php
 
-$connect = mysqli_connect("localhost","root","root","bidopps_db");
+$connect = mysqli_connect("localhost","root","","bidopps_db");
 
 if(!$connect) {
     
@@ -33,7 +33,8 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+		<!-- Optional theme -->
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
 
         <link rel="stylesheet" href="https//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -63,7 +64,7 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
     <div class="container-fluid text-right">
     
         <p></p>
-        <a href="adminCreateUser.html"><button class="btn btn-success" style="font-size:20px;font-family:'Nunito';">Create New User</button></a><br/>
+        <a href="adminCreateUser.html"><button class="btn btn-success" style="font-size:20px;font-family:'Nunito';"><i class="fas fa-plus"></i> Create New User</button></a><br/>
         <p></p>
     </div>  
     
@@ -107,12 +108,12 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
                 
                 <tr>
                 
-                    <td> '.$row["id"].' </td>
-                    <td> '.$row["email"].'  </td> 
-                    <td> '.$row["password"].'  </td> 
-                    <td> '.$row["join_date"].'  </td>
-                    <td> '.$row["firstname"].'  </td> 
-                    <td> '.$row["lastname"].'  </td> 
+                    <td>'.$row["id"].'</td>
+                    <td>'.$row["email"].'</td> 
+                    <td>'.$row["password"].'</td> 
+                    <td>'.$row["join_date"].'</td>
+                    <td>'.$row["firstname"].'</td> 
+                    <td>'.$row["lastname"].'</td> 
                 
                 </tr>
                 
@@ -166,15 +167,15 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
                 
                 <tr>
                 
-                    <td> '.$rowp["user_id"].' </td>
-                    <td> '.$rowp["administrate"].'  </td> 
-                    <td> '.$rowp["author"].'  </td> 
-                    <td> '.$rowp["review"].'  </td>
-                    <td> '.$rowp["approve"].'  </td> 
-                    <td> '.$rowp["screen"].'  </td> 
-                    <td> '.$rowp["evaluate"].'  </td> 
-                    <td> '.$rowp["finalize"].'  </td> 
-                    <td> '.$rowp["bid"].'  </td> 
+                    <td>'.$rowp["user_id"].'</td>
+                    <td>'.$rowp["administrate"].'</td> 
+                    <td>'.$rowp["author"].'</td> 
+                    <td>'.$rowp["review"].'</td>
+                    <td>'.$rowp["approve"].'</td> 
+                    <td>'.$rowp["screen"].'</td> 
+                    <td>'.$rowp["evaluate"].'</td> 
+                    <td>'.$rowp["finalize"].'</td> 
+                    <td>'.$rowp["bid"].'</td> 
                 
                 </tr>
                 

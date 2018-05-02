@@ -436,7 +436,7 @@
                 $('#myModal').modal('toggle');
                 
                 var error=0;
-                $fileIns = $('input[type="file"]');
+                $fileIns = $('input[type="file"][name="subheading[]"]');
                 for (let fileInput of $fileIns){
                     if(fileInput.files.length === 0) error++;
                 }

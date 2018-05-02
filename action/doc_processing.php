@@ -12,7 +12,7 @@ $primaryKey = 'document_id';
 // indexes
 $columns = array(
     array( 'db' => 'subheading', 'dt' => 0 ),
-    array( 'db' => 'filetype',  'dt' => 1 ),
+    array( 'db' => 'title',  'dt' => 1 ),
     array( 'db' => 'posted_date', 'dt' => 2 ),
     array( 'db' => 'document_id', 'dt' => 3 ),
     array( 'db' => 'filename', 'dt' => 4 )

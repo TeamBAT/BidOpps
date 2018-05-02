@@ -1,6 +1,6 @@
 <?php
 
-$connect = mysqli_connect('localhost','root','root','bidopps_db');
+$connect = mysqli_connect('localhost','root','','bidopps_db');
 
 if(!$connect) {
     

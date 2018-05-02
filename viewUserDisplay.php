@@ -1,6 +1,6 @@
 <?php
 
-$connect = mysqli_connect('localhost','root','root','bidopps_db');
+$connect = mysqli_connect('localhost','root','','bidopps_db');
 
 $input = $_POST;
 
@@ -23,7 +23,7 @@ if($input["action"] === 'edit') {
     password = '".$password."',
     firstname = '".$firstname."',
     lastname = '".$lastname."'
-    where id = '" .$input[id]. "' ";
+    where id = '".$input[id]."'";
     
     mysqli_query($connect,$queryAdminInfo);
         

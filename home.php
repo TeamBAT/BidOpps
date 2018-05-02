@@ -50,6 +50,7 @@
                 </div>
                 <div class="col pt-3" >
                     <div class="btn-group float-right" role="group">
+					<a href="viewUser.php" class="btn btn-info px-auto float-auto mr-1"><i class="fas fa-users"></i> Manage Users</a>
                     <a href="bidderIdInput.php" class="btn btn-info px-auto float-auto mr-1"><i class="fas fa-eye"></i> Review Submissions</a>
                     <a href="propose.php" class="btn btn-success px-auto float-auto" ><i class="fas fa-plus"></i> Add Solicitation</a>
                     </div>
@@ -62,12 +63,22 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Current</a>
                 </li>
+				<li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Drafted</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Awarded</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Canceled</a>
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Reviewed</a>
                 </li>
+				<li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Approved</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Validated</a>
+                </li>
+				
                 <li class="nav-item">
                     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Archived</a>
                 </li>
