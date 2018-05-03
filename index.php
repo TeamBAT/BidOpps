@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
 
-        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="CSS/index.css">
       
     <!-- JavaScript File -->
       
