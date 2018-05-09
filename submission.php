@@ -20,6 +20,19 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+      <style type="text/css">
+          .list-selectable {
+              cursor: pointer;
+          }
+          ul{list-style: none;}
+          li:before{
+              color: red;
+              content: "×";
+              font-size: 1.2em;
+              font-weight: bold;
+              margin: 1%;
+          }
+      </style>
   </head>
 
   <body style="background: #8a8a5c">
@@ -55,7 +68,7 @@
             mysqli_free_result($result);
             
             //Fetch Documents
-            $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id."";
+            $query = "SELECT * FROM opportunity_docs WHERE opportunity_id = ".$opportunity_id;
             
             $result = mysqli_query($bd, $query);
             if(!$result) echo "Documents could not be fetched.";
@@ -75,7 +88,7 @@
             mysqli_free_result($result);
             
             //Check Permissions
-            $query = "SELECT * FROM permissions WHERE user_id = ".$_SESSION['SESS_MEMBER_ID']."";
+            $query = "SELECT * FROM permissions WHERE user_id = ".$_SESSION['SESS_MEMBER_ID'];
   
             $result = mysqli_query($bd, $query);
             if(!$result) echo "Permissions could not be checked.";
@@ -83,6 +96,7 @@
                 $permissions = mysqli_fetch_assoc($result);
             }
             mysqli_free_result($result);
+
             
         }
         else{
@@ -127,7 +141,7 @@
                                     <tbody>
                                     <?php
                                     // Fetches rows from the $documents mysqli result to populate table
-                                    $query2 = "SELECT * FROM submission_docs WHERE submission_id = ".$submission_id."";
+                                    $query2 = "SELECT * FROM submission_docs WHERE submission_id = ".$submission_id;
                                     $submision = mysqli_query($bd, $query2);
                                     if(mysqli_num_rows($submision) > 0 ):
                                     while($submisions = mysqli_fetch_assoc($submision)): ?>
@@ -140,6 +154,7 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                <hr>
 				<!--Document Display Module goes here-->
 				
 			</div>
@@ -149,13 +164,20 @@
 				<!-- Options to display based on user and status -->
                                 <?php if($submission['status'] != 'Awarded' && $submission['status'] != 'Denied' && ($permissions['administrate'] || $permissions['screen'] || $permissions['evaluate'] || $permissions['finalize'])): ?>
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelModal"><i class="fas fa-ban"></i> Reject</button>
-                                <?php endif; if($submission['status'] == 'Submitted' && ($permissions['administrate'] || $permissions['screen'])): ?>
+                                <?php if(!$submission['needs_clarification'] && !$permissions['bid']): ?>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#clarificationModal"><i class="fas fa-question"></i> Ask for Clarifications</button>
+                                <?php elseif($submission['needs_clarification'] && !$permissions['bid']):?>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#clarifyModal"><i class="fas fa-clipboard-check"></i> Review Clarification</button>
+                                <?php endif; endif; if($submission['status'] == 'Submitted' && !$submission['needs_clarification'] && ($permissions['administrate'] || $permissions['screen'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#screenModal"><i class="far fa-paper-plane"></i> Screen</button>
-                                <?php elseif($submission['status'] == 'Screened' && ($permissions['administrate'] || $permissions['evaluate'])): ?>
+                                <?php elseif($submission['status'] == 'Screened' && !$submission['needs_clarification'] && ($permissions['administrate'] || $permissions['evaluate'])): ?>
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#evaluateModal"><i class="fas fa-clipboard-check"></i> Evaluate</button>
-				<?php elseif($submission['status'] == 'Evaluated' && ($permissions['administrate']|| $permisssions['finalize'])): ?>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="fas fa-trophy"></i> Award this Bid</button>
+				                <?php elseif($submission['status'] == 'Evaluated' && !$submission['needs_clarification'] && ($permissions['administrate']|| $permissions['finalize'])): ?>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#awardModal"><i class="fas fa-trophy"></i> Award this Bid</button>
                                 <?php endif; ?>
+                                <?php if($submission['needs_clarification'] && $permissions['bid']):?>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#submitClarificationModal"><i class="far fa-file-alt"></i> Submit Clarification</button>
+                                <?php endif;?>
 			</div>
                     <?php endif; ?>
 		</div>
@@ -168,8 +190,8 @@
 					<h4 class="modal-title text-center">Are you sure you want to reject this submission?</h4>
 				</div>
 				<div class="modal-body">
-                                    <h6>This submission will be removed from the submission process and archived.</h6>
-                                        <textarea class="input-block-level" name="remove-comment" id="remove-comment"></textarea>
+                                    <h6 class="text-center">This submission will be removed from the submission process and archived.</h6>
+                    <label for="remove-comment">Comment <span class="text-danger">(required)</span></label><textarea class="input-block-level" name="remove-comment" id="remove-comment"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
@@ -184,11 +206,11 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Review Submission</h4>
+					<h4 class="modal-title text-center">Review Submission</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
-					<textarea class="input-block-level" name="screen-comment" id="screen-comment" required></textarea>
+                    <label for="screen-comment">Comment</label><textarea class="input-block-level" name="screen-comment" id="screen-comment" required></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
@@ -203,12 +225,13 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Evaluate Submission</h4>
+					<h4 class="modal-title text-center">Evaluate Submission</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
                                     <label for="score">Score</label>
                                     <input class="form-control" type="number" name="score" id="score">
+                                    <label for="evaluate-comment">Comment</label>
                                     <textarea class="input-block-level" name="evaluate-comment" id="evaluate-comment"></textarea>
 				</div>
 				<div class="modal-footer">
@@ -224,24 +247,89 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Comment</h4>
+					<h4 class="modal-title text-center">Comment</h4>
 				</div>
-                            <div class="modal-body"><?=htmlspecialchars_decode($submission['message'])?></div>
+                <div class="modal-body"><?php if($submission['message'] == ''):?> <strong>This submission has not been commented on.</strong> <?php else:?><?=htmlspecialchars_decode($submission['message'])?><?php endif;?></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Close</button>
 				</div>
 			</div>
 		</div>
 		</div>
+
+        <!-- Clarifications Modal -->
+        <div id="clarificationModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center">Clarification Request</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="clarification-comment">Note to Bidder <span class="text-danger">(required)</span></label><textarea class="input-block-level" name="clarification-comment" id="clarification-comment" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+                        <button type="submit" class="btn btn-success" name="clarification" value="clarification"><i class="far fa-paper-plane"></i> Ask for Clarification</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Review Clarification Modal -->
+        <div id="clarifyModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Clarification Resolution</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body text-center">
+                        Verify that the clarification request has been fulfilled.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+                        <button type="submit" class="btn btn-success" name="clarify" value="clarify"><i class="fas fa-clipboard-check"></i> Accept Clarification</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bidder Clarification Modal -->
+        <div id="submitClarificationModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Clarification Submission</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="submitClarification-comment">Clarification Note <span class="text-danger">(required)</span></label><textarea class="input-block-level" name="submitClarification-comment" id="submitClarification-comment" required></textarea>
+                        <form method="post" action="action/bidderClarificationUpload.php" enctype="multipart/form-data" >
+                            <div class="custom-file">
+                            <input type="file" class="custom-file-input" accept="text/plain, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="files" id="files" onchange="makeFileList(); updateListFunctionality();" multiple />
+                            <label class="custom-file-label" for="files">Select Files to Upload</label>
+                            </div>
+                        </form>
+                        <p><strong>Upload Queue</strong><small id="passwordHelpBlock" class="form-text text-muted">(Click on a file to remove it from the queue)</small> </p>
+                        <ul id="fileList" class="list-selectable">
+                            <li>No Files Selected</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
+                        <button type="button" class="btn btn-success" id="submitClarification" name="submitClarification" value="submitClarification"><i class="fas fa-clipboard-check"></i> Submit Clarification</button>
+                    </div>
+                </div>
+            </div>
+        </div>
                 
                 <!-- Finalizer Modal -->
 		<div id="awardModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Are you sure you want to award this bid?</h4>
+					<h4 class="modal-title text-center">Are you sure you want to award this bid?</h4>
 				</div>
-                            <div class="modal-body">After this bid is awarded, all other bids will be rejected for this opportunity.</div>
+                            <div class="modal-body text-center">After this bid is awarded, all other bids will be rejected for this opportunity.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="award" value="award"><i class="far fa-money-bill-alt"></i> Award Bid</button>
@@ -253,8 +341,41 @@
 	</div>
       
       <script>
+          //List file uploads
+          let ajaxFiles = new Map();
+          function makeFileList() {
+              const input = document.getElementById("files");
+              const ul = document.getElementById("fileList");
+              while ($('li:contains("No Files Selected")').length !== 0) {
+                  ul.removeChild(ul.firstChild);
+              }
+              for (let i = 0; i < input.files.length; i++) {
+                  let thisFile = input.files[i];
+                  if (!ajaxFiles.has(thisFile.name)) {
+                      //Update List
+                      let li = document.createElement("li");
+                      li.innerHTML = thisFile.name;
+                      ul.appendChild(li);
+
+                      //Update FormData
+                      ajaxFiles.set(thisFile.name, thisFile);
+                  }
+              }
+              if(!ul.hasChildNodes()) {
+                  let li = document.createElement("li");
+                  li.innerHTML = 'No Files Selected';
+                  ul.appendChild(li);
+              }
+              //for(let file of ajaxFiles.entries()) alert(file[0]);
+          }
+
+          function removeFile(fileList, fileToRemove){
+              if(fileList.has(fileToRemove))
+                  fileList.delete(fileToRemove);
+          }
+
         $(document).ready(function(){
-            
+
             //Script to fix Summernote toolbar scroll bug
             $('.btn').click(function(){
                 $('.note-toolbar-wrapper').css('height', 'auto');
@@ -310,6 +431,40 @@
               disableDragAndDrop: true,
               height: 250
           });
+
+            $('#clarification-comment').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ],
+                placeholder: 'Enter a comment (required)',
+                dialogsInBody: true,
+                tabsize: 2,
+                disableResizeEditor: true,
+                disableDragAndDrop: true,
+                height: 250
+            });
+
+            $('#submitClarification-comment').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ],
+                placeholder: 'Enter a comment (required)',
+                dialogsInBody: true,
+                tabsize: 2,
+                disableResizeEditor: true,
+                disableDragAndDrop: true,
+                height: 250
+            });
           
           //Submission script, selects button and posts button value
              $(':submit').click(function(){
@@ -328,7 +483,78 @@
                      alert(response);
                  });
              });
+
+             //Clarification Upload with deferrals
+
+            $('#submitClarification').click(function() {
+                let formData = new FormData();
+                let properExtensions = [ "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf" ];
+                let fileExtension = '';
+                try {
+                    for (let file of ajaxFiles.values()) {
+                        fileExtension = (file.name).split('.').pop();
+                        if ($.inArray(fileExtension, properExtensions) === -1) throw "Incorrect File Extension: " + fileExtension;
+                        formData.append('file[]', file);
+                    }
+
+                    const clickBtnValue = $(this).val();
+                    const $summernote = $('#submitClarification-comment');
+                    const summernoteValue = $($summernote).val();
+                    formData.append('action', clickBtnValue);
+                    formData.append('id', '<?=$submission_id?>');
+                    formData.append('comment', summernoteValue);
+                    $.ajax({
+                        url: 'action/bidderClarificationUpload.php',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(response){
+                            alert(response);
+                        }
+                    });
+                }catch (e) {
+                    alert(e);
+                }
+            });
+
          });
+
+          function redrawFileList(){
+              const ul = document.getElementById("fileList");
+
+              while (ul.hasChildNodes()) {
+                  ul.removeChild(ul.firstChild);
+              }
+              //If there are no files to get:
+              if(ajaxFiles.length === 0){
+                  let li = document.createElement("li");
+                  li.innerHTML = 'No Files Selected';
+                  ul.appendChild(li);
+                  return;
+              }
+              //Else
+              for(let file of ajaxFiles.values()){
+                  let li = document.createElement("li");
+                  li.innerHTML = file.name;
+                  ul.appendChild(li);
+              }
+              if(!ul.hasChildNodes()) {
+                  let li = document.createElement("li");
+                  li.innerHTML = 'No Files Selected';
+                  ul.appendChild(li);
+              }
+
+          }
+
+          function updateListFunctionality(){
+              $('#fileList > li').click(function () {
+                  const clickValue = this.innerText;
+                  removeFile(ajaxFiles, clickValue);
+                  redrawFileList();
+                  updateListFunctionality();
+              });
+          }
       </script>
 
   </body>

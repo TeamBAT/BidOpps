@@ -128,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `bidopps_db`.`submissions` (
   `time_finalized` DATETIME NULL,
   `message` TEXT NULL,
   `last_updated` DATETIME ON UPDATE CURRENT_TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `needs_clarification` BIT(1) DEFAULT 0,
   PRIMARY KEY (`id`),
   INDEX `bidder_id_idx` (`bidder_id` ASC),
   CONSTRAINT `bidder_submission`
