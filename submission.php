@@ -26,7 +26,7 @@
           }
           ul{list-style: none;}
           li:before{
-              color: red;
+              color: #9b0000;
               content: "×";
               font-size: 1.2em;
               font-weight: bold;
@@ -316,7 +316,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
-                        <button type="button" class="btn btn-success" id="submitClarification" name="submitClarification" value="submitClarification"><i class="fas fa-clipboard-check"></i> Submit Clarification</button>
+                        <button type="button" class="btn btn-success" id="submitClarification" name="submitClarification" value="submitClarification"><i class="fas fa-upload"></i> Submit Clarification</button>
                     </div>
                 </div>
             </div>
