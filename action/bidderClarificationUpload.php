@@ -1,4 +1,5 @@
 <?php
+//todo: Change query to update "last_updated" row
 require_once "connection.php";
 if($_POST['comment'] && $_POST['id']) {
     $comment = mysqli_real_escape_string($bd, $_POST['comment']);

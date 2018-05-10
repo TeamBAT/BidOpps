@@ -56,6 +56,7 @@ if (isset($_POST['action'])) {
     if($needsMore){
         echo "You must fill out all fields before continuing.";
     }elseif($clarification){
+        //todo: Change query to update "last_updated" column
         $query = "UPDATE `submissions` SET `needs_clarification` = $needs_clarification, `message` = CONCAT('<h6>Clarification Request:</h6> <br/>',$comment) WHERE `submissions`.id = $id";
 
         $result = mysqli_query($bd, $query);
