@@ -29,7 +29,7 @@ $sql_details = array(
 
 
 require( 'ssp.class.php' );
-$where = "`status`=".'"Archived"';
+$where = "`status`=".'"Reviewed"';
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
 );

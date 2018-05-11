@@ -63,30 +63,38 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Current</a>
                 </li>
+                <?php if($permissions['administrate'] || $permissions['author']): ?>
 				<li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Drafted</a>
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#drafts" role="tab" aria-controls="drafts" aria-selected="false">Drafts</a>
+                </li>
+                <?php endif;?>
+                <?php if($permissions['administrate'] || $permissions['review']): ?>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#submits" role="tab" aria-controls="submits" aria-selected="false">Ready to Review</a>
+                </li>
+                <?php endif;?>
+                <?php if($permissions['administrate'] || $permissions['approve']): ?>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Ready to Approve</a>
+                </li>
+                <?php endif;?>
+                <?php if($permissions['administrate'] || $permissions['author']): ?>
+				<li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#valids" role="tab" aria-controls="valids" aria-selected="false">Ready to Post</a>
+                </li>
+                <?php endif;?>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#awards" role="tab" aria-controls="awards" aria-selected="false">Awarded</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Awarded</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Reviewed</a>
-                </li>
-				<li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Approved</a>
-                </li>
-				<li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Validated</a>
-                </li>
-				
-                <li class="nav-item">
-                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Archived</a>
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#archives" role="tab" aria-controls="archives" aria-selected="false">Archived</a>
                 </li>
             </ul>
         </div>
 
         <div class="row pt-4" style="background:#ffff">
             <div class="tab-content" id="myTabContent" style="width: 100%">
+
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <table id="example" class="table text-center table-striped table-bordered" style="width: 100%">
                         <thead>
@@ -110,14 +118,81 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    Nulla est ullamco ut irure incididunt nulla Lorem Lorem minim irure officia enim reprehenderit. Magna duis labore cillum sint adipisicing exercitation ipsum. Nostrud ut anim non exercitation velit laboris fugiat cupidatat. Commodo esse dolore fugiat sint velit ullamco magna consequat voluptate minim amet aliquip ipsum aute laboris nisi. Labore labore veniam irure irure ipsum pariatur mollit magna in cupidatat dolore magna irure esse tempor ad mollit. Dolore commodo nulla minim amet ipsum officia consectetur amet ullamco voluptate nisi commodo ea sit eu.
+
+                <div class="tab-pane fade" id="submits" role="tabpanel" aria-labelledby="submit-tab">
+                    <table id="submit" class="table text-center table-striped table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    Nulla est ullamco ut irure incididunt nulla Lorem Lorem minim irure officia enim reprehenderit. Magna duis labore cillum sint adipisicing exercitation ipsum. Nostrud ut anim non exercitation velit laboris fugiat cupidatat. Commodo esse dolore fugiat sint velit ullamco magna consequat voluptate minim amet aliquip ipsum aute laboris nisi. Labore labore veniam irure irure ipsum pariatur mollit magna in cupidatat dolore magna irure esse tempor ad mollit. Dolore commodo nulla minim amet ipsum officia consectetur amet ullamco voluptate nisi commodo ea sit eu.
+
+                <div class="tab-pane fade" id="drafts" role="tabpanel" aria-labelledby="draft-tab">
+                    <table id="draft" class="table text-center table-striped table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
-                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                    <table id="canceled" class="table justify-content-center table-striped table-bordered table-hover" style="width:100%">
+
+                <div class="tab-pane fade" id="awards" role="tabpanel" aria-labelledby="awards-tab">
+                    <table id="award" class="table text-center table-striped table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                    <table id="review" class="table justify-content-center table-striped table-bordered table-hover" style="width:100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -139,8 +214,33 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="tab-pane fade" id="archive" role="tabpanel" aria-labelledby="archive-tab">
-                    <table id="archived" class="table justify-content-center table-striped table-bordered" style="width:100%">
+
+                <div class="tab-pane fade" id="valids" role="tabpanel" aria-labelledby="valids-tab">
+                    <table id="valid" class="table text-center table-striped table-bordered" style="width: 100%">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </thead>
+
+                        <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitation Title</th>
+                            <th>Status</th>
+                            <th>Final Filing Date</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="tab-pane fade" id="archives" role="tabpanel" aria-labelledby="archives-tab">
+                    <table id="archive" class="table justify-content-center table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -178,9 +278,13 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="/JS/moment.js"></script>
+<script src="http://cdn.datatables.net/plug-ins/1.10.16/dataRender/datetime.js"></script>
+
 <script>
-$(document).ready(function () {
-    var table = $('#example').DataTable({
+    $(document).ready(function () {
+
+        $('#example').DataTable({
         "processing": true,
         "serverSide": true,
         "ajax": "action/server_processing.php",
@@ -189,33 +293,127 @@ $(document).ready(function () {
                 "targets": [5],
                 "visible": false,
                 "searchable": false
+            },
+            {
+                "targets": [3, 4],
+                "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
             }
         ]
+        });
 
-    });
+        $('#draft').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showDraft.php",
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3, 4],
+                    "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
 
-    $('#example tbody').on('click', 'tr', function () {
+        $('#submit').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showSubmitted.php",
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3, 4],
+                    "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
 
+        $('#award').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showAward.php",
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3, 4],
+                    "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
+
+            $('#review').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "action/showReviewed.php",
+                "columnDefs": [
+                    {
+                        "targets": [5],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": [3, 4],
+                        "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                    }
+                ]
+            });
+
+        $('#valid').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showValidated.php",
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3, 4],
+                    "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
+
+        $('#archive').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showArchived.php",
+            "columnDefs": [
+                {
+                    "targets": [5],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3, 4],
+                    "render": $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
+
+    $('table tbody').on('click', 'tr', function () {
+        let tbl = $(this).closest('table').DataTable();
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         } else {
-            table.$('tr.selected').removeClass('selected');
+            tbl.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            var rowData = table.row(this).data();
+            var rowData = tbl.row(this).data();
             window.location = "opportunity.php?id=" + rowData[5];
         }
 
-    });
-
-    $('#canceled').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "action/showcanceled.php"
-    });
-    $('#archived').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "action/showArchived.php"
     });
 });
 </script>
