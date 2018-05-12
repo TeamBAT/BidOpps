@@ -314,7 +314,7 @@
 				<div class="modal-header">
 					<h4 class="modal-title">Comment</h4>
 				</div>
-                            <div class="modal-body"><?=htmlspecialchars_decode($opportunity['message'])?></div>
+                    <div class="modal-body"><?php if($opportunity['message'] == ''):?> <strong>This opportunity has not been commented on.</strong> <?php else:?><?=htmlspecialchars_decode($opportunity['message'])?><?php endif;?></div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Close</button>
 				</div>

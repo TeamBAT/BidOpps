@@ -125,7 +125,9 @@
                             <h5>Opportunity Number</h5> <?=$opportunity['number']; ?><br><hr>
                             <h5>Title</h5> <?=$opportunity['title']; ?><br><hr>
                             <h5>Category</h5> <?=$opportunity['category']; ?><br><hr>
-                            <h5>Bidder Information</h5> 
+                            <h5>Bidder Information</h5>
+                <?php if(($permissions['administrate'] || $permissions['finalize']) && $submission['status'] == 'Evaluated'):?>
+                            <br><h6 class="text-info">Cost: </h6><button class="btn btn-outline-info" id="show-cost">Show Cost</button><p class="text-info" id="cost" style="display: none"><i class="fas fa-dollar-sign"></i><?=$submission['cost']?></p><?php endif;?>
                             <h6>Name:</h6><?=$bidder['firstname']." ".$bidder['lastname']; ?><br>
                             <br><h6>Business:</h6><?=$bidder['business'];?><hr>
                             <h5>Status</h5> <?=$submission['status']; ?><br>
@@ -484,9 +486,17 @@
                  });
              });
 
-             //Clarification Upload with deferrals
+            var costButton = $('#show-cost').unbind('click');
 
-            $('#submitClarification').click(function() {
+            //Cost Button
+            costButton.click(function () {
+                $(this).css('display', 'none');
+                $('#cost').css('display', 'inline');
+            });
+
+             //Clarification Upload with deferrals
+            var clarificationButton = $('#submitClarification').unbind('click');
+            clarificationButton.click(function() {
                 let formData = new FormData();
                 let properExtensions = [ "doc", "docx", "xls", "xlsx", "ppt", "pptx", "pdf" ];
                 let fileExtension = '';
