@@ -14,13 +14,15 @@
         <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+
         <style>table.table.table-striped tbody tr:hover{background-color: gainsboro; cursor: pointer; }</style>
     </head>
 
-    <body style="background: #8a8a5c">
-        <?php session_start(); ?>
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-            <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+    <body>
+        <?php session_start(); ?> 
+        <nav class="navbar fixed-top" style="background-color:#20a8f7;"> 
+            <a href="home.php" style="text-decoration:none;"><p></p><h2 style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2><p></p></a>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>
@@ -30,7 +32,7 @@
                     <li><a href="action/adminLogout.php">Logout</a></li>
                 </ul>
             </div>  
-        </nav>
+        </nav> <br/>
     <main role="main" class="container">
 
         <div class="row pt-4" style="background:#ffff">

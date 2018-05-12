@@ -1,24 +1,24 @@
 <?php
 
-$connect = mysqli_connect("localhost","root","","bidopps_db");
+include_once('action/connection.php');
 
-if(!$connect) {
+if(!$bd) {
     
     die('Could not connect: ' . mysql_error());
     
 }
 
-$db_selected = mysqli_select_db($connect,"bidopps_db");
+$db_selected = mysqli_select_db($bd,"bidopps_db");
 
 $query = "select * from (users JOIN administrators ON users.id = administrators.user_id) order by id asc";
 
 $permissionsQuery = "select * from permissions JOIN administrators ON administrators.user_id = permissions.user_id order by administrators.user_id asc";
 
-$result = mysqli_query($connect,$query);
-if(!$result) echo "User query failed: " . mysqli_error($connect);
+$result = mysqli_query($bd,$query);
+if(!$result) echo "User query failed: " . mysqli_error($bd);
 
-$resultPermission = mysqli_query($connect,$permissionsQuery);
-if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect);
+$resultPermission = mysqli_query($bd,$permissionsQuery);
+if(!$resultPermission) echo "Permission query failed: " . mysqli_error($bd);
 ?>
 
 <html>
@@ -56,7 +56,7 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($connect)
     <div class="container-fluid" style="background-color:#20a8f7;">
     
         <p></p>
-        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">Create, View and Edit Users</h2><br/>
+        <a href="home.php" style="text-decoration:none;"><h2 style="font-size:30px;font-family:'Nunito';color:white;">Create, View and Edit Users</h2></a><br/>
         
     </div>    
         <br/>

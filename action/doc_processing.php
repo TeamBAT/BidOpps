@@ -21,7 +21,7 @@ $columns = array(
 // SQL server connection information
 $sql_details = array(
     'user' => 'root',
-    'pass' => '',
+    'pass' => 'root',
     'db'   => 'bidopps_db',
     'host' => 'localhost'
 );

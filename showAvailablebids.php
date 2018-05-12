@@ -12,18 +12,19 @@
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
         <style>tbody tr:hover{cursor: pointer; }</style>
     </head>
 
-    <body style="background: #8a8a5c">
+    <body>
         
         <?php 
         require_once('action/connection.php');
         ?>
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-            <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+        <nav class="navbar fixed-top" style="background-color:#20a8f7;">
+            <h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>

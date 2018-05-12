@@ -28,8 +28,8 @@
     </head>
 
     <body class="bg-light">
-        <nav class="navbar navbar-dark fixed-top" style="background-color:#549ddd;">
-            <h3 class="navbar-brand" style="font-family:'Nunito';font-size:25px;color:white;font-weight:900; ">Bid Opportunities Admin</h3>
+        <nav class="navbar fixed-top" style="background-color:#20a8f7;">
+            <h2 class="navbar-brand" style="font-family:'Nunito';font-size:30px;color:white;">Bid Opportunities Admin</h2>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>
@@ -39,7 +39,7 @@
                     <li><a href="action/adminLogout.php">Logout</a></li>
                 </ul>
             </div>  
-        </nav>
+        </nav> <br/>
     <main role="main" class="container">
 
         <div>

@@ -57,14 +57,15 @@
         <link href="CSS/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
 
     </head>
 
-    <body style="background: #8a8a5c">
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-            <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+    <body>
+        <nav class="navbar fixed-top" style="background-color:#20a8f7;">
+            <a href="home.php" style="text-decoration:none;"><h2 class="navbar-brand" style="color:white;font-size:30px;font-family:'Nunito';">Bid Opportunities Admin</h2></a>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>
@@ -74,7 +75,7 @@
                     <li><a href="action/adminLogout.php">Logout</a></li>
                 </ul>
             </div>  
-        </nav>
+        </nav> <br/>
 
         <main role="main" class="container">
             <div class="card">
@@ -214,7 +215,7 @@
                             success: function(response){
                                 alert(response[0].message);
                                 if(!response[0].error){
-                                    window.location = "/addDocs.php?id="+response[0].id;
+                                    window.location = "addDocs.php?id="+response[0].id;
                                 }
                             }
                         });
@@ -241,7 +242,7 @@
                             success: function(response){
                                 alert(response[0].message);
                                 if(!response[0].error){
-                                    window.location = "/opportunity.php?id="+response[0].id;
+                                    window.location = "opportunity.php?id="+response[0].id;
                                 }
                             }
                         });
