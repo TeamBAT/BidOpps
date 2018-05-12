@@ -3,24 +3,24 @@
 session_start();
 
 //Connect to a Database
-$db = mysqli_connect("localhost","root","","bidopps_db");
+include_once('action/connection.php');
 
-if(!$db) {
+if(!$bd) {
     
     die('Could not connect: ' . mysql_error());
     
 }
 
-$db_selected = mysqli_select_db($db,"bidopps_db");
+$db_selected = mysqli_select_db($bd,"bidopps_db");
 
 if(isset($_POST["createBtn"])) {
     
     
-    $firstname = mysqli_real_escape_string($db,$_POST["firstname"]);
-    $lastname = mysqli_real_escape_string($db,$_POST["lastname"]);
-    $email = mysqli_real_escape_string($db,$_POST["email"]);
-    $password = mysqli_real_escape_string($db,$_POST["password"]);
-    $repassword = mysqli_real_escape_string($db,$_POST["repassword"]);
+    $firstname = mysqli_real_escape_string($bd,$_POST["firstname"]);
+    $lastname = mysqli_real_escape_string($bd,$_POST["lastname"]);
+    $email = mysqli_real_escape_string($bd,$_POST["email"]);
+    $password = mysqli_real_escape_string($bd,$_POST["password"]);
+    $repassword = mysqli_real_escape_string($bd,$_POST["repassword"]);
     $currentdate = date('Y/m/d');
     $completeSelectedList = "";
     $administrator = NULL;
@@ -62,7 +62,7 @@ if(isset($_POST["createBtn"])) {
                 default: echo '
                         <script langauge="javascript">
                         alert("Assigning roles!!");
-                        window.location.href="/bidOps/adminCreateUser.html";
+                        window.location.href="/bidOpps/adminCreateUser.html";
                         </script>
                         ';
                         break;
@@ -79,7 +79,7 @@ if(isset($_POST["createBtn"])) {
          echo '
         <script langauge="javascript">
         alert("Please assign roles.");
-        window.location.href="/bidOps/adminCreateUser.html";
+        window.location.href="/bidOpps/adminCreateUser.html";
         exit(0);
         </script>
         ';
@@ -94,7 +94,7 @@ if(isset($_POST["createBtn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOps/adminCreateUser.html";
+        window.location.href="/bidOpps/adminCreateUser.html";
         </script>
         ';
 
@@ -106,7 +106,7 @@ if(isset($_POST["createBtn"])) {
     
     $selectEmail = "SELECT email FROM users WHERE email='$email'";
     
-    $result = mysqli_query($db,$selectEmail);
+    $result = mysqli_query($bd,$selectEmail);
     
     $row = mysqli_fetch_row($result);
     
@@ -117,7 +117,7 @@ if(isset($_POST["createBtn"])) {
         echo '
         <script langauge="javascript">
         alert("User already exists");
-        window.location.href="/bidOps/adminCreateUser.html";
+        window.location.href="/bidOpps/adminCreateUser.html";
         </script>
         ';
 
@@ -130,27 +130,27 @@ if(isset($_POST["createBtn"])) {
         $sql = "INSERT INTO users (email,password,join_date,firstname,lastname)
         VALUES ('$email','$password','$currentdate','$firstname','$lastname')";
 
-        if ($db->query($sql) === TRUE) {
-        echo "New record created successfully";
+        if ($bd->query($sql) === TRUE) {
+        
         $selectUserId = "SELECT id FROM users WHERE email='$email'";
-        $resultId = mysqli_query($db,$selectUserId);
+        $resultId = mysqli_query($bd,$selectUserId);
         $uid = mysqli_fetch_row($resultId);
         $value = $uid[0];
         
         $insertIntoBidders = "INSERT INTO administrators (user_id)
         VALUES ('$value')";
         
-        if ($db->query($insertIntoBidders) === TRUE)    {
+        if ($bd->query($insertIntoBidders) === TRUE)    {
             
             $insertIntoPermissions = "INSERT INTO permissions (user_id,administrate,author,review,approve,screen,evaluate,finalize,bid)
             VALUES ('$value','$administrator','$author','$reviewer','$approver','$screen','$evaluate','$finalize','$bid')";
             
-            if ($db->query($insertIntoPermissions) === TRUE) {
+            if ($bd->query($insertIntoPermissions) === TRUE) {
                 
                  echo "
                 <script> 
                 alert('User Creation Successful!!');
-                window.location.href='/bidOps/adminCreateUser.html';
+                window.location.href='/bidOpps/adminCreateUser.html';
                 </script>
                 ";
                 
@@ -160,7 +160,7 @@ if(isset($_POST["createBtn"])) {
                  echo "       
                 <script> 
                 alert('Failed to insert data');
-                window.location.href='/bidOps/adminCreateUser.html';
+                window.location.href='/bidOpps/adminCreateUser.html';
                 </script>
                 ";
                 
@@ -168,17 +168,17 @@ if(isset($_POST["createBtn"])) {
             
         } else {
             
-            echo "Error: " . $sql . "<br>" . $db->error;
+            echo "Error: " . $sql . "<br>" . $bd->error;
             
         }
         
         } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+        echo "Error: " . $sql . "<br>" . $bd->error;
         }
 
         
              
-        $db->close();
+        $bd->close();
         
         
         
@@ -188,7 +188,7 @@ if(isset($_POST["createBtn"])) {
        
        <script> 
        alert('Passwords do not match');
-       window.location.href='/bidOps/adminCreateUser.html';
+       window.location.href='/bidOpps/adminCreateUser.html';
        </script>
        
        ";
@@ -207,7 +207,7 @@ if(isset($_POST["createBtn"])) {
        
        <script> 
        alert('Application Issue. Unable to process further!!');
-       window.location.href='/bidOps/adminCreateUser.html';
+       window.location.href='/bidOpps/adminCreateUser.html';
        </script>   
        ";
     

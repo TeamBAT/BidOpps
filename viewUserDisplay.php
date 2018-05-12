@@ -1,18 +1,24 @@
 <?php
 
-$connect = mysqli_connect('localhost','root','','bidopps_db');
+include_once('action/connection.php');
+
+if(!$bd) {
+    
+    die('Could not connect: ' . mysql_error());
+    
+}
 
 $input = $_POST;
 
-$id = mysqli_real_escape_string($connect,$input["id"]);
+$id = mysqli_real_escape_string($bd,$input["id"]);
 
-$firstname = mysqli_real_escape_string($connect,$input["firstname"]);
+$firstname = mysqli_real_escape_string($bd,$input["firstname"]);
 
-$lastname = mysqli_real_escape_string($connect,$input["lastname"]);
+$lastname = mysqli_real_escape_string($bd,$input["lastname"]);
 
-$email = mysqli_real_escape_string($connect,$input["email"]);
+$email = mysqli_real_escape_string($bd,$input["email"]);
 
-$password = mysqli_real_escape_string($connect,$input["password"]);
+$password = mysqli_real_escape_string($bd,$input["password"]);
 
 
 if($input["action"] === 'edit') {
@@ -25,7 +31,7 @@ if($input["action"] === 'edit') {
     lastname = '".$lastname."'
     where id = '".$input[id]."'";
     
-    mysqli_query($connect,$queryAdminInfo);
+    mysqli_query($bd,$queryAdminInfo);
         
     
 }
@@ -47,11 +53,11 @@ if($input["action"] === 'delete') {
     where user_id = '".$input[id]."'
     ";
     
-    mysqli_query($connect,$queryAdminDeleteFrom_Users);
+    mysqli_query($bd,$queryAdminDeleteFrom_Users);
     
-    mysqli_query($connect,$queryAdminDeleteFrom_Permissions);
+    mysqli_query($bd,$queryAdminDeleteFrom_Permissions);
     
-    mysqli_query($connect,$queryAdminDeleteFrom_administrators);
+    mysqli_query($bd,$queryAdminDeleteFrom_administrators);
        
 }
     

@@ -3,21 +3,21 @@
 session_start();
 
 //Connect to a Database
-$db = mysqli_connect("localhost","root","","bidopps_db");
+include_once('action/connection.php');
 
-if(!$db) {
+if(!$bd) {
     
     die('Could not connect: ' . mysql_error());
     
 }
 
-$db_selected = mysqli_select_db($db,"bidopps_db");
+$db_selected = mysqli_select_db($bd,"bidopps_db");
 
 if(isset($_POST["bidderLoginBtn"])) {
     
     
-    $email = mysqli_real_escape_string($db,$_POST["email"]);
-    $password = mysqli_real_escape_string($db,$_POST["password"]);
+    $email = mysqli_real_escape_string($bd,$_POST["email"]);
+    $password = mysqli_real_escape_string($bd,$_POST["password"]);
         
      if($email == NULL || $password==NULL) {
         
@@ -35,7 +35,7 @@ if(isset($_POST["bidderLoginBtn"])) {
     
     $checkUser = "SELECT email FROM users WHERE email='$email'";
     
-    $result = mysqli_query($db,$checkUser);
+    $result = mysqli_query($bd,$checkUser);
     
     $row = mysqli_fetch_row($result);
     
@@ -45,7 +45,7 @@ if(isset($_POST["bidderLoginBtn"])) {
         
     $checkPassword = "SELECT password FROM users WHERE password='$password'";
     
-    $passwdResult = mysqli_query($db,$checkPassword);
+    $passwdResult = mysqli_query($bd,$checkPassword);
     
     $pwsd = mysqli_fetch_row($passwdResult);
     
@@ -58,13 +58,13 @@ if(isset($_POST["bidderLoginBtn"])) {
             
             // For added security check if user id matches.
             
-            $idResultOne = mysqli_query($db,$uidEmail);
+            $idResultOne = mysqli_query($bd,$uidEmail);
     
             $idOne = mysqli_fetch_row($idResultOne);
     
             $idOneValue = $idOne[0];
             
-            $idResultTwo = mysqli_query($db,$uidPwd);
+            $idResultTwo = mysqli_query($bd,$uidPwd);
     
             $idTwo = mysqli_fetch_row($idResultTwo);
     

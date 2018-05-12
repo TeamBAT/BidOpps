@@ -17,11 +17,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
   </head>
 
-  <body style="background: #8a8a5c">
+  <body>
        <?php
        if(!isset($_GET['id'])) header("Location: home.php");
         include_once("action/connection.php");
@@ -49,8 +50,8 @@
             echo "Could not contact database.";
           }
        ?>
-        <nav class="navbar navbar-dark bg-primary fixed-top">
-         <h3 class="navbar-brand">Bid Opportunities Admin</h3>
+        <nav class="navbar fixed-top" style="background-color:#20a8f7;">
+            <a href="home.php" style="text-decoration:none;"><h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2></a>
          <div class="dropdown pr-5">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>
@@ -60,15 +61,15 @@
              <li><a href="action/adminLogout.php">Logout</a></li>
              </ul>
           </div>  
-        </nav>
+        </nav> <br/>
 
     <main role="main" class="container">
             
     
 
-      <div class="row border-bottom" style="background:#d6d6c2">
+      <div class="row border-bottom" style="background-color:#20a8f7;">
          <div class="col pt-1">
-           <h2>Documents</h2>
+           <h2 style="color:white;font-family:'Nunito';color:white;">Documents</h2>
            </div>
          
       </div>
@@ -109,7 +110,7 @@
             </tr>
         </thead>
     </table>
-          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button">Next  <i class="fa fa-angle-double-right"></i></a>
+          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button">Next  <i class="fa fa-angle-double-right" style="font-family:'Nunito';"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">

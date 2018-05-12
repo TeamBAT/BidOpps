@@ -1,33 +1,31 @@
 <?php
 
-$connect = mysqli_connect('localhost','root','','bidopps_db');
+include_once('action/connection.php');
 
-if(!$connect) {
+if(!$bd) {
     
     die('Could not connect: ' . mysql_error());
     
 }
 
-echo "test";
-
 
 $input = filter_input_array(INPUT_POST);
 
-$admin = mysqli_real_escape_string($connect,$input["administrate"]);
+$admin = mysqli_real_escape_string($bd,$input["administrate"]);
 
-$auth = mysqli_real_escape_string($connect,$input["author"]);
+$auth = mysqli_real_escape_string($bd,$input["author"]);
 
-$reviewer = mysqli_real_escape_string($connect,$input["review"]);
+$reviewer = mysqli_real_escape_string($bd,$input["review"]);
 
-$approver = mysqli_real_escape_string($connect,$input["approve"]);
+$approver = mysqli_real_escape_string($bd,$input["approve"]);
 
-$screener = mysqli_real_escape_string($connect,$input["screen"]);
+$screener = mysqli_real_escape_string($bd,$input["screen"]);
 
-$evaluator = mysqli_real_escape_string($connect,$input["evaluate"]);
+$evaluator = mysqli_real_escape_string($bd,$input["evaluate"]);
 
-$final = mysqli_real_escape_string($connect,$input["finalize"]);
+$final = mysqli_real_escape_string($bd,$input["finalize"]);
 
-$bidd = mysqli_real_escape_string($connect,$input["bid"]);
+$bidd = mysqli_real_escape_string($bd,$input["bid"]);
 
 
 if($input["action"] === 'edit') {
@@ -44,7 +42,7 @@ if($input["action"] === 'edit') {
     where user_id= '".$input["user_id"]."'
     ";
     
-    mysqli_query($connect,$query);
+    mysqli_query($bd,$query);
     
 }
 
@@ -65,11 +63,11 @@ if($input["action"] === 'delete') {
     where user_id = '".$input["user_id"]."'
     ";
     
-    mysqli_query($connect,$queryAdminDeleteFrom_Users);
+    mysqli_query($bd,$queryAdminDeleteFrom_Users);
     
-    mysqli_query($connect,$queryAdminDeleteFrom_Permissions);
+    mysqli_query($bd,$queryAdminDeleteFrom_Permissions);
     
-    mysqli_query($connect,$queryAdminDeleteFrom_administrators);
+    mysqli_query($bd,$queryAdminDeleteFrom_administrators);
        
 }
     

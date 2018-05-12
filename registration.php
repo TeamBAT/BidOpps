@@ -3,27 +3,28 @@
 session_start();
 
 //Connect to a Database
-$db = mysqli_connect("localhost","root","","bidopps_db");
+include_once('action/connection.php');
 
-if(!$db) {
+if(!$bd) {
     
     die('Could not connect: ' . mysql_error());
     
 }
 
-$db_selected = mysqli_select_db($db,"bidopps_db");
+
+$db_selected = mysqli_select_db($bd,"bidopps_db");
 
 if(isset($_POST["register_btn"])) {
     
     
-    $firstname = mysqli_real_escape_string($db,$_POST["firstName"]);
-    $lastname = mysqli_real_escape_string($db,$_POST["lastName"]);
-    $username = mysqli_real_escape_string($db,$_POST["username"]);
-    $password = mysqli_real_escape_string($db,$_POST["password"]);
-    $repassword = mysqli_real_escape_string($db,$_POST["repassword"]);
-    $companyname = mysqli_real_escape_string($db,$_POST["companyname"]);
-    $contact = mysqli_real_escape_string($db,$_POST["contact"]);
-    $email = mysqli_real_escape_string($db,$_POST["email"]);
+    $firstname = mysqli_real_escape_string($bd,$_POST["firstName"]);
+    $lastname = mysqli_real_escape_string($bd,$_POST["lastName"]);
+    $username = mysqli_real_escape_string($bd,$_POST["username"]);
+    $password = mysqli_real_escape_string($bd,$_POST["password"]);
+    $repassword = mysqli_real_escape_string($bd,$_POST["repassword"]);
+    $companyname = mysqli_real_escape_string($bd,$_POST["companyname"]);
+    $contact = mysqli_real_escape_string($bd,$_POST["contact"]);
+    $email = mysqli_real_escape_string($bd,$_POST["email"]);
     $currentdate = date('Y/m/d');
     $completeSelectedList = "";
     
@@ -60,7 +61,7 @@ if(isset($_POST["register_btn"])) {
     
     $selectEmail = "SELECT email FROM users WHERE email='$email'";
     
-    $result = mysqli_query($db,$selectEmail);
+    $result = mysqli_query($bd,$selectEmail);
     
     $row = mysqli_fetch_row($result);
     
@@ -86,38 +87,38 @@ if(isset($_POST["register_btn"])) {
         $sql = "INSERT INTO users (email,password,join_date,firstname,lastname)
         VALUES ('$email','$password','$currentdate','$firstname','$lastname')";
 
-        if ($db->query($sql) === TRUE) {
+        if ($bd->query($sql) === TRUE) {
         echo "New record created successfully";
         $selectUserId = "SELECT id FROM users WHERE email='$email'";
-        $resultId = mysqli_query($db,$selectUserId);
+        $resultId = mysqli_query($bd,$selectUserId);
         $uid = mysqli_fetch_row($resultId);
         $value = $uid[0];
         
         $insertIntoBidders = "INSERT INTO bidders (user_id,business,interests)
         VALUES ('$value','$companyname','$completeSelectedList')";
         
-        if ($db->query($insertIntoBidders) === TRUE)    {
+        if ($bd->query($insertIntoBidders) === TRUE)    {
             
             echo "
             <script> 
             alert('User Creation Successful. Please Login now.');
-            window.location.href='/bidOps/bidderLogin.html';
+            window.location.href='/bidOpps/bidderLogin.html';
             </script>
             ";
             
         } else {
             
-            echo "Error: " . $sql . "<br>" . $db->error;
+            echo "Error: " . $sql . "<br>" . $bd->error;
             
         }
         
         } else {
-        echo "Error: " . $sql . "<br>" . $db->error;
+        echo "Error: " . $sql . "<br>" . $bd->error;
         }
 
         
              
-        $db->close();
+        $bd->close();
         
         
         

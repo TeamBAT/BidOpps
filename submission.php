@@ -20,6 +20,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
       <style type="text/css">
           .list-selectable {
               cursor: pointer;
@@ -35,7 +36,7 @@
       </style>
   </head>
 
-  <body style="background: #8a8a5c">
+  <body>
   
 <?php
 	include_once('action/connection.php');
@@ -96,7 +97,6 @@
                 $permissions = mysqli_fetch_assoc($result);
             }
             mysqli_free_result($result);
-
             
         }
         else{
@@ -104,8 +104,8 @@
         }
 	
 ?>
-	<nav class="navbar navbar-dark bg-primary fixed-top">
-	 <h3 class="navbar-brand">Bid Opportunities</h3>
+	<nav class="navbar fixed-top" style="background-color:#20a8f7;">
+        <a href="home.php" style="text-decoration:none;"><h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities</h2></a>
 	 <div class="dropdown pr-5">
 		  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 		   <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>
@@ -115,7 +115,7 @@
 		 <li><a href="action/adminLogout.php">Logout</a></li>
 		 </ul>
 	  </div>
-	</nav>
+	</nav> <br/>
 	
 	<div class="container-fluid">
 		<div class="card">
@@ -323,7 +323,7 @@
                 </div>
             </div>
         </div>
-                
+
                 <!-- Finalizer Modal -->
 		<div id="awardModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
@@ -467,7 +467,7 @@
                 disableDragAndDrop: true,
                 height: 250
             });
-          
+
           //Submission script, selects button and posts button value
              $(':submit').click(function(){
                  var clickBtnValue = $(this).val();
