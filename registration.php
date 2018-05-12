@@ -7,7 +7,7 @@ include_once('action/connection.php');
 
 if(!$bd) {
     
-    die('Could not connect: ' . mysql_error());
+    die('Could not connect: ' . mysqli_error($bd));
     
 }
 
