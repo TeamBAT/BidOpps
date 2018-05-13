@@ -8,9 +8,8 @@ require_once("connection.php");
     $datetime1 = $_POST['dueDate'];
     $sequence= $datetime1;
     if (isset($_POST['id'])) {
-        $query = "UPDATE `opportunity_docs` SET `subheading` = '$subheading', `title`= '$docTitle', `posted_date`='$postedDate', `sequence`='$sequence'  WHERE `document_id` = '$id'"; //Insert Query
+        $query = "UPDATE `opportunity_docs` SET `subheading` = '$subheading', `title`= '$docTitle', `posted_date`='$postedDate'  WHERE `document_id` = '$id'"; //Insert Query
         mysqli_query($bd, $query);
-        echo $_POST['id'];
     }
 
 ?>

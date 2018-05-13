@@ -108,7 +108,7 @@
                 <th>Posted Date</th>
                 <th>Id</th>
                 <th>File Name</th>
-                
+                <th>Order</th>
             </tr>
         </thead>
     </table>
@@ -265,6 +265,7 @@
             "paging":   false,
             "select": true,
             "rowReorder": true,
+            "order": [[ 6, "asc" ]],
             "ajax": "action/doc_processing.php",
             "columnDefs": [
               {
@@ -273,7 +274,7 @@
                 "searchable": false
               },
               {
-                "targets": [6],
+                "targets": [6,0],
                 "visible": false,
                 "searchable": false
               }
@@ -396,6 +397,10 @@
               priority.push({id:key,priority:value,subheading:subheading}); 
             } );
             var jsonString = JSON.stringify(priority);
+            //alert(priority.length)
+            //for(i=0;i<priority.length;i++){
+              //alert("ID:- "  + priority[i].id + " Priority:- "  + priority[i].priority + " subheading:- "  + priority[i].subheading);
+            //};
             $.ajax({ 
                 type: "POST",
                 url: "action/updatePriority.php",
