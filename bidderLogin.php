@@ -22,7 +22,7 @@ if(isset($_POST["bidderLoginBtn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOpps/bidderLogin.html";
+        window.location.href="bidderLogin.html";
         </script>
         ';
     
@@ -81,7 +81,7 @@ if(isset($_POST["bidderLoginBtn"])) {
                  echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidOpps/bidderLogin.html';
+                window.location.href='bidderLogin.html';
                 </script>
                 ";
                 
@@ -91,7 +91,7 @@ if(isset($_POST["bidderLoginBtn"])) {
              echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidOpps/bidderLogin.html';
+                window.location.href='bidderLogin.html';
                 </script>
                 ";
             
@@ -102,7 +102,7 @@ if(isset($_POST["bidderLoginBtn"])) {
         echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/bidOpps/bidderLogin.html';
+                window.location.href='bidderLogin.html';
                 </script>
                 ";
         

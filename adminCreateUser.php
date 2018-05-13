@@ -62,7 +62,7 @@ if(isset($_POST["createBtn"])) {
                 default: echo '
                         <script langauge="javascript">
                         alert("Assigning roles!!");
-                        window.location.href="/bidOpps/adminCreateUser.html";
+                        window.location.href="adminCreateUser.html";
                         </script>
                         ';
                         break;
@@ -79,7 +79,7 @@ if(isset($_POST["createBtn"])) {
          echo '
         <script langauge="javascript">
         alert("Please assign roles.");
-        window.location.href="/bidOpps/adminCreateUser.html";
+        window.location.href="adminCreateUser.html";
         exit(0);
         </script>
         ';
@@ -94,7 +94,7 @@ if(isset($_POST["createBtn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOpps/adminCreateUser.html";
+        window.location.href="adminCreateUser.html";
         </script>
         ';
 
@@ -117,7 +117,7 @@ if(isset($_POST["createBtn"])) {
         echo '
         <script langauge="javascript">
         alert("User already exists");
-        window.location.href="/bidOpps/adminCreateUser.html";
+        window.location.href="adminCreateUser.html";
         </script>
         ';
 
@@ -150,7 +150,7 @@ if(isset($_POST["createBtn"])) {
                  echo "
                 <script> 
                 alert('User Creation Successful!!');
-                window.location.href='/bidOpps/adminCreateUser.html';
+                window.location.href='adminCreateUser.html';
                 </script>
                 ";
                 
@@ -160,7 +160,7 @@ if(isset($_POST["createBtn"])) {
                  echo "       
                 <script> 
                 alert('Failed to insert data');
-                window.location.href='/bidOpps/adminCreateUser.html';
+                window.location.href='adminCreateUser.html';
                 </script>
                 ";
                 
@@ -188,7 +188,7 @@ if(isset($_POST["createBtn"])) {
        
        <script> 
        alert('Passwords do not match');
-       window.location.href='/bidOpps/adminCreateUser.html';
+       window.location.href='adminCreateUser.html';
        </script>
        
        ";
@@ -207,7 +207,7 @@ if(isset($_POST["createBtn"])) {
        
        <script> 
        alert('Application Issue. Unable to process further!!');
-       window.location.href='/bidOpps/adminCreateUser.html';
+       window.location.href='adminCreateUser.html';
        </script>   
        ";
     
