@@ -1,15 +1,14 @@
 <?php
-//todo: Change query to update "last_updated" row
 require_once "connection.php";
 if($_POST['comment'] && $_POST['id']) {
-    $comment = mysqli_real_escape_string($bd, $_POST['comment']);
+    $comment = htmlspecialchars(mysqli_real_escape_string($bd, $_POST['comment']));
     $id = mysqli_real_escape_string($bd, $_POST['id']);
 
-    $query = "UPDATE `submissions` SET `message` = $comment WHERE `submissions`.id = $id";
+    $query = "UPDATE submissions SET message = '$comment', last_updated = CURRENT_TIMESTAMP WHERE submissions.id = $id";
 
     $result = mysqli_query($bd, $query);
     if($result){
-        echo "Success! Clarification sent for approval.\n";
+        echo "Success! Clarification sent for approval. ";
     }
     else{
         echo mysqli_error($bd);
@@ -43,7 +42,7 @@ if($_POST['comment'] && $_POST['id']) {
 
                         $result = mysqli_query($bd, $query);
                         if (!$result) {
-                            echo "Query Failed: " . mysqli_error($bd);
+                            echo "Upload Failed: " . mysqli_error($bd);
                         }else echo 'Files Uploaded!';
                     }
                 }
