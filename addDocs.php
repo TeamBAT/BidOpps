@@ -306,7 +306,6 @@
        } );
        table.on( 'row-reordered', function ( e, diff, edit ) {
         let result = "Reorder started on: " + edit.triggerRow.data()[0];
-        table.draw();
         //Allows for reordering tables
          table.reDraw();
             //alert(diff[0].newData);
