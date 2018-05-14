@@ -40,6 +40,6 @@ if($_FILES)
      }
     }
 else{
-    echo "ridi";
+    echo "No files selected.";
 }
 ?>

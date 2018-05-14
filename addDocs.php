@@ -18,6 +18,7 @@
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
@@ -113,7 +114,10 @@
             </tr>
         </thead>
     </table>
-          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button" id="next">Next  <i class="fa fa-angle-double-right" style="font-family:'Nunito';"></i></a>
+    <small id="tableHelp" class="form-text text-muted">
+        Drag and drop files by the Document Title to re-order. Click anywhere else on a file to edit information about it.
+    </small>
+          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button" id="next">Next  <i class="fas fa-angle-double-right"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -212,8 +216,12 @@
         $(document).ready(function (e) {
             var SelectedRw;
             var updateRw;
-            $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker2').datetimepicker();
+            $('#datetimepicker1').datetimepicker({
+                defaultDate: moment().startOf('day')
+            });
+            $('#datetimepicker2').datetimepicker({
+                defaultDate: moment().startOf('day')
+            });
         var events = $('#events');
         $("#uploadimage").on('submit',(function(e) {
         e.preventDefault();
@@ -266,7 +274,7 @@
             "serverSide": true,
             "paging":   false,
             "select": true,
-            "rowReorder":true,
+            "rowReorder": true,
             "order": [[ 6, "asc" ]],
             "ajax": "action/doc_processing.php",
             "columnDefs": [
@@ -274,7 +282,10 @@
                 "targets": [6,0,4,1],
                 "visible": false,
                 "searchable": false
-              }
+              },{
+                    "bSortable": false,
+                    "aTargets": ["group"]
+                }
               ],
               "drawCallback": function ( settings ) {
             var api = this.api();
@@ -295,6 +306,8 @@
        } );
        table.on( 'row-reordered', function ( e, diff, edit ) {
         let result = "Reorder started on: " + edit.triggerRow.data()[0];
+        table.draw();
+        //Allows for reordering tables
          table.reDraw();
             //alert(diff[0].newData);
             //var ien=diff.length;
@@ -324,10 +337,10 @@
         if ( $(this).hasClass('selected') ) {
 
             $(this).removeClass('selected');
-            alert(table.row( this ).index());
+            //alert(table.row( this ).index());
 
         }
-        else {
+        else if( !$(this).hasClass('group') ){
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
             var rowData = table.row( this ).data();
