@@ -31,7 +31,7 @@ $sql_details = array(
 
 require( 'ssp.class.php' );
 
-$where = "`status`=".'"Uploaded"';
+$where = "`status`=".'"Submitted"';
 
 echo json_encode(
     SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )

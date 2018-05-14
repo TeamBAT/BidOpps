@@ -3,6 +3,7 @@ require_once 'connection.php';
 
 if (isset($_POST['action'])) {
     $id = $_POST['id'];
+    $opportunity_id = $_POST['opportunity_id'];
     
     if(!isset($_POST['comment']) || $_POST['comment'] == ''){
         $comment = 'NULL';
@@ -13,6 +14,7 @@ if (isset($_POST['action'])) {
     
     $needsMore = false;
     $clarification = false;
+    $awarded = false;
     $score = '';
     switch ($_POST['action']) {
         case 'remove':
@@ -77,6 +79,12 @@ if (isset($_POST['action'])) {
         else{
             echo mysqli_error($bd);
         }
+    }
+    if($awarded){
+        $query = "UPDATE submissions SET last_updated = CURRENT_TIMESTAMP, status = 'Denied', message = 'Another Bid was awarded for the Opportunity.' WHERE id != $id AND opportunity_id = $opportunity_id";
+
+        $result = mysqli_query($bd, $query);
+        if(!$result) echo mysqli_error($bd);
     }
 } else{
     echo "Post not sent";

@@ -161,7 +161,7 @@
 				
 			</div>
 			<div class="card-footer">
-                            <a class="btn btn-info" href="home.php"><i class="fas fa-home"></i> Home</a>
+                            <a class="btn btn-info" href="bidderIdInput.php"><i class="fas fa-angle-double-left"></i> Back to Submissions</a>
                             <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#commentModal"><i class="fas fa-comment"></i> View Comment</button>
 				<!-- Options to display based on user and status -->
                                 <?php if($submission['status'] != 'Awarded' && $submission['status'] != 'Denied' && ($permissions['administrate'] || $permissions['screen'] || $permissions['evaluate'] || $permissions['finalize'])): ?>
@@ -331,7 +331,7 @@
 				<div class="modal-header">
 					<h4 class="modal-title text-center">Are you sure you want to award this bid?</h4>
 				</div>
-                            <div class="modal-body text-center">After this bid is awarded, all other bids will be rejected for this opportunity.</div>
+                            <div class="modal-body text-center">After this bid is awarded, all other bids will be denied for this opportunity.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" data-dismiss="modal"><i class="far fa-window-close"></i> Cancel</button>
 					<button type="submit" class="btn btn-success" name="award" value="award"><i class="far fa-money-bill-alt"></i> Award Bid</button>
@@ -477,6 +477,7 @@
                  var ajaxurl = 'action/submission_process.php',
                  data =  {'action': clickBtnValue,
                           'id': "<?=$submission_id?>",
+                          'opportunity_id': "<?=$submission['opportunity_id']?>",
                           'comment': summernoteValue,
                           'score': score
                 };
