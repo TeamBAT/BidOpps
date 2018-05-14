@@ -139,9 +139,10 @@
                                     </tbody>
                                 </table>
 								<h5 style="color:#5f6266" class="mt-3">Required Attachments</h5>
-                                <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
+                                <table id="myTable" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
+                                            <th>Priority</th>
                                             <th style="width:50%">File Name</th>
                                             <th style="width:25%">Posted Date</th>
                                             <th style="width:25%">Upload</th>
@@ -155,6 +156,7 @@
                                     if( mysqli_num_rows($requiredAttachments) > 0 ):
                                     while($requiredAttachment = mysqli_fetch_assoc($requiredAttachments)): ?>
 									<tr>
+                                    <td><?php echo $requiredAttachment['priority']; ?></td>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
                                     <td><input id="file3" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Required"></td>
@@ -354,8 +356,40 @@
 	</div>
       
       <script>
+       $('#myTable td:nth-child(1),#myTable th:nth-child(1)').hide();
+       var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      // Check if the two rows should switch place:
+      if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        // I so, mark as a switch and break the loop:
+        shouldSwitch= true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
         $(document).ready(function(){
-            
             //Script to fix Summernote scroll bug
             $('.btn').click(function(){
                 $('.note-toolbar-wrapper').css('height', 'auto');

@@ -264,7 +264,7 @@
             "serverSide": true,
             "paging":   false,
             "select": true,
-            "rowReorder": true,
+            "rowReorder":true,
             "order": [[ 6, "asc" ]],
             "ajax": "action/doc_processing.php",
             "columnDefs": [
@@ -297,7 +297,10 @@
        } );
        table.on( 'row-reordered', function ( e, diff, edit ) {
         let result = "Reorder started on: " + edit.triggerRow.data()[0];
-            table.reDraw();
+         table.reDraw();
+            //alert(diff[0].newData);
+            //var ien=diff.length;
+            //alert(diff[0].oldData);
         });
        var table1= $('#example1').DataTable({
         "processing": true,
