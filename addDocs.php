@@ -93,7 +93,7 @@
          <form class="needs-validation" id="uploadimage" action="" enctype="multipart/form-data">  
             <label for="fileUpload">Select one or more files</label>
 			        <div class="input-group date" id="fileUpload" data-target-input="nearest">
-                    <input type="file" name="file[]" id="file"  class="form-control" multiple required/>
+                    <input type="file" name="file[]" id="file"  class="form-control" multiple required accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
                     <div class="input-group-append">
                         <button type="submit" class="input-group-text"><i class="fa fa-upload"></i><span>&nbsp;</span>Upload documents</button>
                     </div>
@@ -282,6 +282,7 @@
             var last=null;
 
             api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+                if(group == null) group = "No Subheading";
                 if ( last !== group ) {
                     $(rows).eq( i ).before(
                         '<tr class="group"><td colspan="5">'+group+'</td></tr>'
