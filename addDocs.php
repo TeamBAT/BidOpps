@@ -269,12 +269,7 @@
             "ajax": "action/doc_processing.php",
             "columnDefs": [
               {
-                "targets": [4],
-                "visible": false,
-                "searchable": false
-              },
-              {
-                "targets": [6,0],
+                "targets": [6,0,4,1],
                 "visible": false,
                 "searchable": false
               }
@@ -410,7 +405,7 @@
                 data: {data : jsonString},
                 cache: false,
                 success: function(result){
-                alert(result);
+                 alert("All files uploaded");
                 }
               });
          });
