@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css">
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.3/css/rowReorder.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
@@ -102,15 +103,17 @@
           <table id="example" class="table table-striped table-bordered pt-3" style="width:100%">
         <thead>
             <tr>
+                <th>Seq.</th>
                 <th>Subheading</th>
                 <th>Document Title</th>
                 <th>Posted Date</th>
                 <th>Id</th>
                 <th>File Name</th>
+                <th>Order</th>
             </tr>
         </thead>
     </table>
-          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button">Next  <i class="fa fa-angle-double-right" style="font-family:'Nunito';"></i></a>
+          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button" id="next">Next  <i class="fa fa-angle-double-right" style="font-family:'Nunito';"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -171,15 +174,8 @@
                  
                                 </div>
                         <div class="form-group">
-                                <label for="datetimepicker2">Due Date</label>
-                                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
-                                     <input type="text" name="dueDate" id="dueDate" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
-                                     <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                     </div>
-                                 </div>
-                 
-                                </div>
+                          <input type="hidden" name="priority" id="priority"/>
+                        </div>
                        
                       
                         </div>
@@ -207,6 +203,7 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.3/js/dataTables.rowReorder.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.js"></script>
@@ -235,8 +232,8 @@
         fileExtension=(file.name).split('.').pop();
         if(jQuery.inArray( fileExtension, arr )!=-1)
          {
-             alert(file.size);
-             alert("correct file EX");
+            alert(file.size);
+            alert("correct file EX");
          }
         else{
             File_Ex_Error++;
@@ -266,19 +263,42 @@
         }));
         
        var table= $('#example').DataTable( {
-            "processing": true,
             "serverSide": true,
             "paging":   false,
-            "select": true, 
+            "select": true,
+            "rowReorder":true,
+            "order": [[ 6, "asc" ]],
             "ajax": "action/doc_processing.php",
             "columnDefs": [
               {
-                "targets": [ 3 ],
+                "targets": [6,0,4,1],
                 "visible": false,
                 "searchable": false
               }
-           ]
+              ],
+              "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+
+            api.column(1, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+
+                    last = group;
+                }
+            } );
+        }
        } );
+       table.on( 'row-reordered', function ( e, diff, edit ) {
+        let result = "Reorder started on: " + edit.triggerRow.data()[0];
+         table.reDraw();
+            //alert(diff[0].newData);
+            //var ien=diff.length;
+            //alert(diff[0].oldData);
+        });
        var table1= $('#example1').DataTable({
         "processing": true,
         "serverSide": true,
@@ -301,7 +321,10 @@
        $('#example tbody').on( 'click', 'tr', function () {
           
         if ( $(this).hasClass('selected') ) {
+
             $(this).removeClass('selected');
+            alert(table.row( this ).index());
+
         }
         else {
             table.$('tr.selected').removeClass('selected');
@@ -309,13 +332,13 @@
             var rowData = table.row( this ).data();
             $('#exampleModal').modal('toggle');
             var ta = document.getElementById('fileName');
-            $("#subheading select").val(rowData[0]);
-            $("#docTitle").val(rowData[1]);
+            $("#subheading select").val(rowData[1]);
+            $("#docTitle").val(rowData[2]);
             //$("#PostedDate").val(rowData[2]);
-            $("#dueDate").val("");
-            ta.value=rowData[4];
-            updateRw=rowData[3];
-            SelectedRw=rowData[4];
+            $("#priority").val(rowData[0]);
+            ta.value=rowData[5];
+            updateRw=rowData[4];
+            SelectedRw=rowData[5];
         }
         
         });
@@ -344,7 +367,7 @@
              var subheading = $( "#subheading option:selected" ).text();
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
-             var dueDate = $("#dueDate").val();
+             var dueDate = $("#priority").val();
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
           
@@ -364,7 +387,30 @@
             });
 
           });  
-         
+         $("#next").click(function(){
+          var priority = [];
+          table.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+              var key = this.data()[4];
+              var value = this.data()[0];
+              var subheading= this.data()[1];
+              // ... do something with data(), or this.node(), etc
+              priority.push({id:key,priority:value,subheading:subheading});
+            } );
+            var jsonString = JSON.stringify(priority);
+            //alert(priority.length)
+            //for(i=0;i<priority.length;i++){
+              //alert("ID:- "  + priority[i].id + " Priority:- "  + priority[i].priority + " subheading:- "  + priority[i].subheading);
+            //};
+            $.ajax({
+                type: "POST",
+                url: "action/updatePriority.php",
+                data: {data : jsonString},
+                cache: false,
+                success: function(result){
+                 alert("All files uploaded");
+                }
+              });
+         });
          });
        
     </script>
