@@ -89,9 +89,8 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th style="width:50%">File Name</th>
-                                            <th style="width:25%">Posted Date</th>
-                                            <th style="width:25%">Upload</th>
+                                            <th style="width:60%">File Name</th>
+                                            <th style="width:40%">Posted Date</th>
                                         </tr>
                                     </thead>
                                     
@@ -104,9 +103,6 @@
 									<tr>
                                     <td><a href="<?php echo $SolicitationDocument['directory']; ?>"><?php echo $SolicitationDocument['filename']; ?></a></td>
                                     <td><?php echo $SolicitationDocument['posted_date']; ?></td>
-                                    <td><input id="file1" type="file" name="file[]" required/>
-                                    <!--sending data like subheading, title --> 
-                                    <input type="hidden" name="subheading[]" value="Solicitation Documents"></td>
 
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
@@ -117,9 +113,8 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th style="width:50%">File Name</th>
-                                            <th style="width:25%">Posted Date</th>
-                                            <th style="width:25%">Upload</th>
+                                            <th style="width:60%">File Name</th>
+                                            <th style="width:40%">Posted Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -132,7 +127,7 @@
 									<tr>
                                     <td><a href="<?php echo $Addendas['directory']; ?>"><?php echo $Addendas['filename']; ?></a></td>
                                     <td><?php echo $Addendas['posted_date']; ?></td>
-                                    <td><input id="file2" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Addenda"></td>
+                                    
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
                                     ?>
@@ -146,7 +141,9 @@
                                             <th>Priority</th>
                                             <th style="width:50%">File Name</th>
                                             <th style="width:25%">Posted Date</th>
+                                            <?php if($permissions['bid'] && $opportunity['status'] == 'Posted'):?>
                                             <th style="width:25%">Upload</th>
+                                            <?php endif;?>
                                         </tr>
                                     </thead>
                                     
@@ -160,8 +157,9 @@
                                     <td><?php echo $requiredAttachment['priority']; ?></td>
                                     <td><a href="<?php echo urldecode($requiredAttachment['directory']); ?>"><?php echo $requiredAttachment['filename']; ?></a></td>
                                     <td><?php echo $requiredAttachment['posted_date']; ?></td>
+                                    <?php if($permissions['bid'] && $opportunity['status'] == 'Posted'):?>
                                     <td><input id="file3" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Required"></td>
-                                    
+                                    <?php endif;?>
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows
@@ -172,9 +170,9 @@
                                 <table id="documents" class="table table-striped table-bordered mt-2" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th style="width:50%">File Name</th>
-                                            <th style="width:25%">Posted Date</th>
-                                            <th style="width:25%">Upload</th>
+                                            <th style="width:60%">File Name</th>
+                                            <th style="width:40%">Posted Date</th>
+                                            
                                         </tr>
                                     </thead>
                                     
@@ -187,7 +185,7 @@
 									<tr>
                                     <td><a href="<?php echo $exhibit['directory']; ?>"><?php echo $exhibit['filename']; ?></a></td>
                                     <td><?php echo $exhibit['posted_date']; ?></td>
-                                    <td><input id="file4" type="file" name="file[]" required/><input type="hidden" name="subheading[]" value="Exhibits"></td>
+                                    
 									</tr>
                                     <?php endwhile; else: echo '<td colspan="3">No files found.</td>'; endif; 
                                     //End fetch rows

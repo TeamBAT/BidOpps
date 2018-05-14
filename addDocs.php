@@ -285,7 +285,7 @@
                 if(group == null) group = "No Subheading";
                 if ( last !== group ) {
                     $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                        '<tr class="group"><td colspan="5"><h5>'+group+'</h5></td></tr>'
                     );
 
                     last = group;
