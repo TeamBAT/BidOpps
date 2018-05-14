@@ -18,6 +18,7 @@
 	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Custom styles for this template -->
     <link href="CSS/home.css" rel="stylesheet">
   </head>
@@ -51,7 +52,7 @@
           }
        ?>
         <nav class="navbar fixed-top" style="background-color:#20a8f7;">
-            <a href="home.php" style="text-decoration:none;"><h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2></a>
+            <a href="home.php" style="text-decoration:none;"><h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;"><i class="fa fa-home"></i> Bid Opportunities Admin</h2></a>
          <div class="dropdown pr-5">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                <?php echo  $_SESSION['SESS_FIRST_NAME']   ?>

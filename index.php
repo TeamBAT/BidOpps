@@ -34,7 +34,7 @@
         
         <div class="container-fluid border border-0 text-center" style="background-color:#20a8f7;">
         <br/>
-        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">CalPERS - Bid Management System</h2>
+        <h2 class="" href="#" style="font-size:30px;font-family:'Nunito';color:white;">CalPERS | Bid Management System</h2>
         <br/>
         </div> <br/><br/><br/><br/>
         

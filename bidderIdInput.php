@@ -15,6 +15,7 @@
         <!-- Custom styles for this template -->
         <link href="CSS/home.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <style>table.table.table-striped tbody tr:hover{background-color: gainsboro; cursor: pointer; }</style>
     </head>
@@ -22,7 +23,7 @@
     <body>
         <?php session_start(); ?> 
         <nav class="navbar fixed-top" style="background-color:#20a8f7;"> 
-            <a href="home.php" style="text-decoration:none;"><p></p><h2 style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2><p></p></a>
+            <a href="home.php" style="text-decoration:none;"><p></p><h2 style="font-size:30px;font-family:'Nunito';color:white;"><i class="fa fa-home"></i> Bid Opportunities Admin</h2><p></p></a>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>
