@@ -24,7 +24,7 @@ if(isset($_POST["adminLoginBtn"])) {
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/BidOpps/adminLogin.html";
+        window.location.href="adminLogin.html";
         </script>
         ';
     
@@ -82,7 +82,7 @@ if(isset($_POST["adminLoginBtn"])) {
                  echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/BidOpps/adminLogin.html';
+                window.location.href='adminLogin.html';
                 </script>
                 ";
                 
@@ -92,7 +92,7 @@ if(isset($_POST["adminLoginBtn"])) {
              echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/BidOpps/adminLogin.html';
+                window.location.href='adminLogin.html';
                 </script>
                 ";
             
@@ -103,7 +103,7 @@ if(isset($_POST["adminLoginBtn"])) {
         echo "
                 <script> 
                 alert('Error Logging In!!');
-                window.location.href='/BidOpps/adminLogin.html';
+                window.location.href='adminLogin.html';
                 </script>
                 ";
         

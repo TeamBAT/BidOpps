@@ -24,7 +24,7 @@
         require_once('action/connection.php');
         ?>
         <nav class="navbar fixed-top" style="background-color:#20a8f7;">
-            <h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bid Opportunities Admin</h2>
+            <h2 class="navbar-brand" style="font-size:30px;font-family:'Nunito';color:white;">Bidder Admin Console</h2>
             <div class="dropdown pr-5">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <?php echo $_SESSION['SESS_FIRST_NAME'] ?>

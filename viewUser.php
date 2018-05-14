@@ -36,6 +36,7 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($bd);
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 		<!-- Optional theme -->
         <link href="https://fonts.googleapis.com/css?family=Baloo|Caudex|Happy+Monkey|Karma|Lilita+One|ABeeZee|Antic|Average|Khula|Montserrat+Alternates|Nanum+Gothic|Nobile|Nunito|Varela+Round|Zilla+Slab" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="https//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"> 
@@ -56,7 +57,7 @@ if(!$resultPermission) echo "Permission query failed: " . mysqli_error($bd);
     <div class="container-fluid" style="background-color:#20a8f7;">
     
         <p></p>
-        <a href="home.php" style="text-decoration:none;"><h2 style="font-size:30px;font-family:'Nunito';color:white;">Create, View and Edit Users</h2></a><br/>
+        <a href="home.php" style="text-decoration:none;"><h2 style="font-size:30px;font-family:'Nunito';color:white;"><i class="fa fa-home"></i> Create, View and Edit Users</h2></a><br/>
         
     </div>    
         <br/>

@@ -27,7 +27,8 @@ if(isset($_POST["register_btn"])) {
     $email = mysqli_real_escape_string($bd,$_POST["email"]);
     $currentdate = date('Y/m/d');
     $completeSelectedList = "";
-    
+    $bid=1;
+    $uid=NULL;
         
         
     
@@ -44,12 +45,12 @@ if(isset($_POST["register_btn"])) {
         
     }
     
-     if($firstname == NULL || $lastname==NULL || $username==NULL || $password==NULL || $repassword==NULL || $companyname==NULL || $contact==NULL || $email==NULL || $currentdate==NULL || $completeSelectedList==NULL) {
+     if($firstname == NULL || $lastname==NULL || $password==NULL || $repassword==NULL || $companyname==NULL || $contact==NULL || $email==NULL || $currentdate==NULL || $completeSelectedList==NULL) {
         
         echo '
         <script langauge="javascript">
         alert("One of the required fields is missing.");
-        window.location.href="/bidOpps/registration.html";
+        window.location.href="registration.html";
         </script>
         ';
 
@@ -72,51 +73,70 @@ if(isset($_POST["register_btn"])) {
         echo '
         <script langauge="javascript">
         alert("User already exists");
-        window.location.href="/bidOpps/registration.html";
+        window.location.href="registration.html";
         </script>
         ';
 
     } else {
-        
-        if($email == $username) {
-        
+           
          if($password == $repassword) {
         
              
         // Inserting into the Database table
         $sql = "INSERT INTO users (email,password,join_date,firstname,lastname)
         VALUES ('$email','$password','$currentdate','$firstname','$lastname')";
+             
+        $permissionSQL = "INSERT INTO permissions (user_id,administrate,author,review,approve,screen,evaluate,finalize,bid)
+        VALUES ('$value',0,0,0,0,0,0,0,1)";
 
+        // Insert into Users
         if ($bd->query($sql) === TRUE) {
-        echo "New record created successfully";
+        
         $selectUserId = "SELECT id FROM users WHERE email='$email'";
         $resultId = mysqli_query($bd,$selectUserId);
         $uid = mysqli_fetch_row($resultId);
         $value = $uid[0];
         
-        $insertIntoBidders = "INSERT INTO bidders (user_id,business,interests)
-        VALUES ('$value','$companyname','$completeSelectedList')";
-        
-        if ($bd->query($insertIntoBidders) === TRUE)    {
+        $permissionSQL = "INSERT INTO permissions (user_id,administrate,author,review,approve,screen,evaluate,finalize,bid)
+        VALUES ('$value',0,0,0,0,0,0,0,1)";
             
-            echo "
-            <script> 
-            alert('User Creation Successful. Please Login now.');
-            window.location.href='/bidOpps/bidderLogin.html';
-            </script>
-            ";
+        $insertIntoPermissions = "INSERT INTO permissions (bid)
+        VALUES ('$bid')";
+        
+        $insertIntoBidders = "INSERT INTO bidders (user_id,business,interests) VALUES ('$value','$companyname','$completeSelectedList')";
+        
+        // Insert into Bidders
+        if ( ($bd->query($insertIntoBidders) === TRUE)  )    {
+            
+           
+            
             
         } else {
             
-            echo "Error: " . $sql . "<br>" . $bd->error;
+            echo "Issue: " . $insertIntoBidders . "<br>" . $bd->error;
+            
+        }
+         
+        // Insert into Permissions
+        if ( ($bd->query($permissionSQL) === TRUE)  )    {
+            
+             echo "
+            <script> 
+            alert('User creation Successful');
+            window.location.href='bidderLogin.html';
+            </script>
+            ";
+            
+            
+        } else {
+            
+            echo "Check: " . $permissionSQL . "<br>" . $bd->error;
             
         }
         
         } else {
         echo "Error: " . $sql . "<br>" . $bd->error;
-        }
-
-        
+        }     
              
         $bd->close();
         
@@ -128,25 +148,14 @@ if(isset($_POST["register_btn"])) {
        
        <script> 
        alert('Passwords do not match');
-       window.location.href='/bidOpps/registration.html';
+       window.location.href='registration.html';
        </script>
        
        ";
         
     }
             
-        } else {
-            
-        echo "
        
-       <script> 
-       alert('Username and Email Id must be the same');
-       window.location.href='/bidOpps/registration.html';
-       </script>
-       
-       ";
-            
-        }
 
         
     }
@@ -160,7 +169,7 @@ if(isset($_POST["register_btn"])) {
        
        <script> 
        alert('Application Issue. Unable to process further!!');
-       window.location.href='/bidOpps/registration.html';
+       window.location.href='registration.html';
        </script>
        
        ";
