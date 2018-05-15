@@ -1,7 +1,6 @@
 <?php
 session_start();
 $user_id = $_SESSION['SESS_MEMBER_ID'];
-
 // DB table to use
 $table = 'submission_info';
 
@@ -30,10 +29,10 @@ $sql_details = array(
 
 require( 'ssp.class.php' );
 
-$where = "`bidder_id` = $user_id";
+$where = "`needs_clarification` = 1 AND `bidder_id` = $user_id";
 
 echo json_encode(
-    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where )
+    SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $where)
 );
 
 ?>

@@ -47,6 +47,10 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#submissions-tab" role="tab"
                    aria-controls="contact" aria-selected="false">My Submissions</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="work-tab" data-toggle="tab" href="#work" role="tab"
+                   aria-controls="work" aria-selected="false">Need Clarification <span class="badge badge-primary"></span></a>
+            </li>
         </ul>
     </div>
 
@@ -82,6 +86,31 @@
             <div class="tab-pane fade" id="submissions-tab" role="tabpanel"
                  aria-labelledby="submissions-tab">
                 <table id="bidderSubmissionTable" class="table text-center table-striped table-bordered"
+                       style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Solicitation Title</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Solicitation Title</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Bidder Needs Clarification Tab -->
+            <div class="tab-pane fade" id="work" role="tabpanel"
+                 aria-labelledby="needsWork-tab">
+                <table id="needsWorkTable" class="table text-center table-striped table-bordered"
                        style="width: 100%">
                     <thead>
                     <tr>
@@ -163,6 +192,27 @@
             ]
         });
 
+        var needsWorkTable = $('#needsWorkTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": "action/showNeedsClarification.php",
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3],
+                    "render":  $.fn.dataTable.render.moment( 'YYYY-MM-DD HH:mm:ss','MMM Do YYYY h:mm:ss A' )
+                }
+            ]
+        });
+
+        needsWorkTable.on('draw.dt', function(){
+            $('.badge').text($('#needsWorkTable tbody tr').length);
+        });
+
         //Clickable tables
         $('#example tbody').on('click', 'tr', function () {
             table.$('tr.selected').removeClass('selected');
@@ -179,7 +229,17 @@
             let selectedRow = rowData[0];
             window.location = 'submission.php?id=' + selectedRow;
         });
-    })
+
+        $('#needsWorkTable tbody').on('click', 'tr', function () {
+            needsWorkTable.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            let rowData = needsWorkTable.row(this).data();
+            let selectedRow = rowData[0];
+            window.location = 'submission.php?id=' + selectedRow;
+        });
+    });
+
+    $('.badge').text($('#needsWorkTable tbody tr').length);
 </script>
 </body>
 </html>
