@@ -238,14 +238,10 @@
         // localize file var in the loop
         var file = files[i];
         fileExtension=(file.name).split('.').pop();
-        if(jQuery.inArray( fileExtension, arr )!=-1)
+        if(jQuery.inArray( fileExtension, arr )==-1)
          {
-            alert(file.size);
-            alert("correct file EX");
+          File_Ex_Error++;
          }
-        else{
-            File_Ex_Error++;
-        }
         formData.append('file[]', file);
         i++;
         } 
@@ -364,7 +360,6 @@
               id: SelectedRw
               }),
              success: function(result) {
-             alert(result);
              $('#exampleModal').modal('hide');
              $('#example').DataTable().ajax.reload();
              $('#example1').DataTable().ajax.reload();
@@ -376,15 +371,20 @@
           });
           $("#saveDoc").click(function(e) {
              e.preventDefault();
+             var fault=0;
              var id = updateRw;
              var subheading = $( "#subheading option:selected" ).text();
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
              var dueDate = $("#priority").val();
+             if(docTitle.length>0){
+                fault++;
+             }
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
-          
+            
               // AJAX Code To Submit Form.
+              if(fault>0){
               $.ajax({ 
                 
               type: "POST",
@@ -392,12 +392,14 @@
               data: dataString,
               cache: false,
               success: function(result){
-              alert(result);
               $('#exampleModal').modal('hide');
               $('#example').DataTable().ajax.reload();
               $('#example1').DataTable().ajax.reload();
               }
-            });
+            });}
+            else{
+              alert("You can't leave required field empty")
+            }
 
           });  
          $("#next").click(function(){
