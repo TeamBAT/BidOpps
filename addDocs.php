@@ -411,6 +411,7 @@
             //for(i=0;i<priority.length;i++){
               //alert("ID:- "  + priority[i].id + " Priority:- "  + priority[i].priority + " subheading:- "  + priority[i].subheading);
             //};
+<<<<<<< HEAD
             if(title.length>0){
             $.ajax({
                 type: "POST",
@@ -427,6 +428,21 @@
             else{
               alert("failed")
             }
+=======
+             if(fault > 0){
+                 alert("Please fill out all file information.");
+             }else {
+                 $.ajax({
+                     type: "POST",
+                     url: "action/updatePriority.php",
+                     data: {data: jsonString},
+                     cache: false,
+                     success: function (result) {
+                         alert("All files uploaded");
+                     }
+                 });
+             }
+>>>>>>> 1368394ef8671d6cf43f97288f267ecf71b7eb03
          });
          });
        
