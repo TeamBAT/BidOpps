@@ -117,7 +117,7 @@
     <small id="tableHelp" class="form-text text-muted">
         Drag and drop files by the Document Title to re-order. Click anywhere else on a file to edit information about it.
     </small>
-          <a class="btn btn-primary mb-2 float-right" href="opportunity.php?id=<?=$opportunity_id?>" role="button" id="next">Next  <i class="fas fa-angle-double-right"></i></a>
+          <a class="btn btn-primary mb-2 float-right" role="button" id="next">Next  <i class="fas fa-angle-double-right"></i></a>
         </div>
      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <table id="example1" class="table table-striped table-bordered pt-3" style="width:100%">
@@ -214,7 +214,6 @@
     <script>
         
         $(document).ready(function (e) {
-          var fault=0;
             var SelectedRw;
             var updateRw;
             $('#datetimepicker1').datetimepicker({
@@ -378,14 +377,10 @@
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
              var dueDate = $("#priority").val();
-             if(docTitle.length>0){
-                fault++;
-             }
              // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
             
               // AJAX Code To Submit Form.
-              if(fault>0){
               $.ajax({ 
                 
               type: "POST",
@@ -397,10 +392,7 @@
               $('#example').DataTable().ajax.reload();
               $('#example1').DataTable().ajax.reload();
               }
-            });}
-            else{
-              alert("You can't leave required field empty")
-            }
+            });
 
           });  
          $("#next").click(function(){
@@ -409,7 +401,9 @@
               var key = this.data()[4];
               var value = this.data()[0];
               var subheading= this.data()[1];
+              var title= this.data()[2];
               // ... do something with data(), or this.node(), etc
+              
               priority.push({id:key,priority:value,subheading:subheading});
             } );
             var jsonString = JSON.stringify(priority);
@@ -417,6 +411,7 @@
             //for(i=0;i<priority.length;i++){
               //alert("ID:- "  + priority[i].id + " Priority:- "  + priority[i].priority + " subheading:- "  + priority[i].subheading);
             //};
+            if(title.length>0){
             $.ajax({
                 type: "POST",
                 url: "action/updatePriority.php",
@@ -426,6 +421,12 @@
                  alert("All files uploaded");
                 }
               });
+              window.location.replace("opportunity.php?id=<?=$opportunity_id?>");
+
+            }
+            else{
+              alert("failed")
+            }
          });
          });
        
