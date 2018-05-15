@@ -212,7 +212,7 @@
                                 <?php elseif($opportunity['status'] == 'Drafted' && ($permissions['administrate']|| $permissions['author'])): ?>
                                 <a class="btn btn-info" href="addDocs.php?id=<?=$opportunity_id?>"><i class="fas fa-file-alt"></i> Add Documents</a>
                                 <a class="btn btn-info" href="propose.php?id=<?=$opportunity_id?>"><i class="fas fa-edit"></i> Edit Information</a>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sendModal"><i class="far fa-paper-plane"></i> Send to Approver</button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sendModal"><i class="far fa-paper-plane"></i> Send for Review</button>
                                 <?php endif; ?>
 			</div>
                     <?php endif; ?>
