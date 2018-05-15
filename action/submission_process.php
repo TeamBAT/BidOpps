@@ -85,6 +85,11 @@ if (isset($_POST['action'])) {
 
         $result = mysqli_query($bd, $query);
         if(!$result) echo mysqli_error($bd);
+
+        $query = "UPDATE opportunities SET last_updated = CURRENT_TIMESTAMP, status = 'Awarded' WHERE id = $opportunity_id";
+
+        $result = mysqli_query($bd, $query);
+        if(!$result) echo mysqli_error($bd);
     }
 } else{
     echo "Post not sent";

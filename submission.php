@@ -162,7 +162,7 @@
 				
 			</div>
 			<div class="card-footer">
-                            <a class="btn btn-info" href="bidderIdInput.php"><i class="fas fa-angle-double-left"></i> Back to Submissions</a>
+                            <a class="btn btn-info" href="bidderIdInput.php"><i class="fas fa-angle-double-left"></i> Back</a>
                             <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#commentModal"><i class="fas fa-comment"></i> View Comment</button>
 				<!-- Options to display based on user and status -->
                                 <?php if($submission['status'] != 'Awarded' && $submission['status'] != 'Denied' && ($permissions['administrate'] || $permissions['screen'] || $permissions['evaluate'] || $permissions['finalize'])): ?>
