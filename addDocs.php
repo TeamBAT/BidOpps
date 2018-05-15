@@ -214,6 +214,7 @@
     <script>
         
         $(document).ready(function (e) {
+          var fault=0;
             var SelectedRw;
             var updateRw;
             $('#datetimepicker1').datetimepicker({
@@ -371,7 +372,7 @@
           });
           $("#saveDoc").click(function(e) {
              e.preventDefault();
-             var fault=0;
+           
              var id = updateRw;
              var subheading = $( "#subheading option:selected" ).text();
              var docTitle = $("#docTitle").val();
