@@ -381,9 +381,9 @@
              var subheading = $( "#subheading option:selected" ).text();
              var docTitle = $("#docTitle").val();
              var Pdate = $("#PostedDate").val();
-             var dueDate = $("#priority").val();
+
              // Returns successful data submission message when the entered information is stored in database.
-            var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate + '&dueDate='+ dueDate;
+            var dataString = 'id='+ id + '&subheading='+ subheading + '&docTitle='+ docTitle + '&Pdate='+ Pdate;
           
               // AJAX Code To Submit Form.
               $.ajax({ 

@@ -12,10 +12,10 @@ if(isset($_POST)){
                 mysqli_query($bd, $query);
             echo $data[$items]->id;
 
-            };
+            }
             $items++;
         }
         
-};
+}
 }
 ?>
